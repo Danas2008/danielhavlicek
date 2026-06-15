@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,7 +21,17 @@
   <!-- HEADER -->
   <header class="header" id="header">
     <div class="header-inner container">
-      <a href="/" class="logo" aria-label="Daniel Havlíček – úvodní stránka">Daniel Havlíček</a>
+      <a href="/" class="logo" aria-label="Daniel Havlíček – úvodní stránka">
+        <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+          <rect width="40" height="40" rx="9" fill="#1e4080"/>
+          <text x="50%" y="52%"
+            font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+            font-size="16.5" font-weight="700"
+            fill="#ffffff" text-anchor="middle"
+            dominant-baseline="central" letter-spacing="-0.4">DH</text>
+        </svg>
+        <span class="logo-name">Daniel Havlíček</span>
+      </a>
       <nav class="nav" id="nav" role="navigation" aria-label="Hlavní navigace">
         <a href="#o-mne" class="nav-link" data-i18n="nav.about">O mně</a>
         <a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Portfolio</a>

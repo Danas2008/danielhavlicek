@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
+  <rect width="40" height="40" rx="9" fill="#1e4080"/>
+  <text x="50%" y="52%"
+    font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+    font-size="16.5"
+    font-weight="700"
+    fill="#ffffff"
+    text-anchor="middle"
+    dominant-baseline="central"
+    letter-spacing="-0.4">DH</text>
+</svg>
