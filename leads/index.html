@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#14110d">
+<title>Klient — web dev tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14110d; --surface:#1d1a15; --surface2:#252119; --line:#332e25;
+  --line2:#46402f; --text:#f3ede0; --text2:#a89f8c; --text3:#6f6857;
+  --accent:#d98a3d; --accent-dim:#8a5a28;
+  --green:#7fb069; --green-bg:#1e2817; --green-text:#a9cf95;
+  --blue:#6b9bd1; --blue-bg:#172230; --blue-text:#9cc0e8;
+  --amber:#e0a64a; --amber-bg:#2a2011; --amber-text:#f0c878;
+  --teal:#5dbfa3; --teal-bg:#13241f; --teal-text:#8fd9c4;
+  --red:#cf6b6b; --red-bg:#2a1616; --red-text:#e89c9c;
+  --gray:#8a8270; --gray-bg:#23211b; --gray-text:#b0a892;
+  --r:12px; --r-sm:8px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'Inter',system-ui,sans-serif; font-size:15px; line-height:1.5;
+  padding-bottom:90px; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:560px; margin:0 auto; padding:0 16px}
+h1,h2,h3{font-family:'Fraunces',serif; font-weight:500; margin:0}
+
+header{
+  padding:20px 0 14px; position:sticky; top:0; background:var(--bg);
+  z-index:20; border-bottom:0.5px solid var(--line);
+}
+.brand{display:flex; align-items:center; justify-content:space-between}
+.brand h1{font-size:25px; letter-spacing:-0.5px}
+.brand h1 span{color:var(--accent)}
+.brand .sub{font-size:12px; color:var(--text3); margin-top:2px; font-family:'Inter'}
+.io-btn{
+  background:var(--surface); border:0.5px solid var(--line2); color:var(--text2);
+  border-radius:var(--r-sm); padding:7px 10px; font-size:13px; cursor:pointer;
+}
+.io-btn:active{transform:scale(0.96)}
+
+.goal-card{background:var(--surface); border:0.5px solid var(--line); border-radius:var(--r); padding:16px; margin:16px 0}
+.goal-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px}
+.goal-top .label{font-size:13px; color:var(--text2)}
+.goal-top .label b{color:var(--text); font-weight:500}
+.goal-pct{font-family:'Fraunces'; font-size:20px; font-weight:600; color:var(--accent)}
+.bar{background:var(--bg); border-radius:99px; height:13px; overflow:hidden; border:0.5px solid var(--line)}
+.bar-fill{height:100%; width:0; background:linear-gradient(90deg,var(--accent-dim),var(--accent)); border-radius:99px; transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.goal-note{font-size:12px; color:var(--text3); margin-top:8px}
+.goal-note b{color:var(--accent); font-weight:500}
+
+.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin-bottom:18px}
+.stat{background:var(--surface); border:0.5px solid var(--line); border-radius:var(--r-sm); padding:11px 12px}
+.stat .n{font-family:'Fraunces'; font-size:20px; font-weight:500; line-height:1.1}
+.stat .l{font-size:11px; color:var(--text3); margin-top:3px}
+
+.tabs{display:flex; gap:4px; background:var(--surface); border:0.5px solid var(--line); border-radius:var(--r-sm); padding:4px; margin-bottom:16px}
+.tab{flex:1; text-align:center; padding:9px 6px; font-size:14px; font-weight:500; color:var(--text2); background:transparent; border:none; border-radius:6px; cursor:pointer; font-family:'Inter'}
+.tab.on{background:var(--surface2); color:var(--text)}
+.tab.on .badge{color:var(--accent)}
+.badge{font-size:12px; color:var(--text3); margin-left:2px}
+
+.card{background:var(--surface); border:0.5px solid var(--line); border-radius:var(--r); padding:15px; margin-bottom:11px}
+.card-title{font-size:13px; font-weight:600; color:var(--text2); margin-bottom:11px; text-transform:uppercase; letter-spacing:0.4px; font-size:11px}
+
+input,select,textarea{
+  width:100%; background:var(--bg); border:0.5px solid var(--line2); color:var(--text);
+  border-radius:var(--r-sm); padding:10px 11px; font-size:15px; font-family:'Inter'; outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--accent); box-shadow:0 0 0 2px rgba(217,138,61,.15)}
+input::placeholder,textarea::placeholder{color:var(--text3)}
+select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a89f8c' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>"); background-repeat:no-repeat; background-position:right 11px center; padding-right:32px}
+.row{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px}
+.mb{margin-bottom:8px}
+.btn{
+  width:100%; background:var(--accent); color:#1a1206; border:none; border-radius:var(--r-sm);
+  padding:11px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Inter';
+}
+.btn:active{transform:scale(0.98)}
+.btn-ghost{background:var(--surface2); color:var(--text); border:0.5px solid var(--line2)}
+
+.lead{background:var(--surface); border:0.5px solid var(--line); border-radius:var(--r); padding:13px 14px; margin-bottom:9px}
+.lead-head{display:flex; justify-content:space-between; align-items:flex-start; gap:8px}
+.lead-name{font-weight:600; font-size:15px}
+.lead-price{color:var(--text2); font-weight:400; font-size:13px}
+.lead-meta{font-size:13px; color:var(--text2); margin-top:3px; display:flex; align-items:center; gap:5px}
+.lead-meta.note{color:var(--text3)}
+.lead-foot{display:flex; align-items:center; gap:7px; margin-top:11px; flex-wrap:wrap}
+.pill{font-size:12px; font-weight:500; padding:4px 11px; border-radius:99px; cursor:pointer; border:none; font-family:'Inter'; display:inline-flex; align-items:center; gap:4px}
+.icon-btn{background:transparent; border:none; color:var(--text3); cursor:pointer; padding:3px 5px; font-size:13px}
+.icon-btn:active{color:var(--text)}
+.icon-btn.call{color:var(--green)}
+.days{font-size:11px; color:var(--text3); margin-left:auto}
+.days.warn{color:var(--amber)}
+
+.st-New{background:var(--gray-bg); color:var(--gray-text)}
+.st-Contacted{background:var(--blue-bg); color:var(--blue-text)}
+.st-Interested{background:var(--amber-bg); color:var(--amber-text)}
+.st-Won{background:var(--teal-bg); color:var(--teal-text)}
+.st-Lost{background:var(--red-bg); color:var(--red-text)}
+
+.inc{display:flex; justify-content:space-between; align-items:center; gap:9px; background:var(--surface); border:0.5px solid var(--line); border-radius:var(--r-sm); padding:11px 13px; margin-bottom:8px}
+.inc-amt{font-weight:600; font-size:15px; white-space:nowrap; font-family:'Fraunces'}
+.inc-rec{color:var(--teal-text)}
+
+.empty{text-align:center; padding:32px 16px; color:var(--text3); font-size:14px}
+.empty i{font-size:30px; display:block; margin-bottom:10px; opacity:.5}
+
+.filter-row{display:flex; gap:6px; margin-bottom:12px; overflow-x:auto; padding-bottom:2px; -webkit-overflow-scrolling:touch}
+.chip{white-space:nowrap; font-size:12px; padding:6px 12px; border-radius:99px; background:var(--surface); border:0.5px solid var(--line2); color:var(--text2); cursor:pointer; font-family:'Inter'}
+.chip.on{background:var(--accent); color:#1a1206; border-color:var(--accent); font-weight:500}
+
+.month-nav{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; background:var(--surface); border:0.5px solid var(--line); border-radius:var(--r-sm); padding:6px}
+.month-nav button{background:transparent; border:none; color:var(--text2); font-size:18px; padding:4px 14px; cursor:pointer; border-radius:6px}
+.month-nav button:active{background:var(--surface2)}
+.month-nav .mlabel{font-size:14px; font-weight:500}
+
+.section-label{font-size:11px; text-transform:uppercase; letter-spacing:0.5px; color:var(--text3); margin:18px 0 9px; font-weight:600}
+
+.toast{position:fixed; bottom:96px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--accent); color:#1a1206; padding:10px 18px; border-radius:99px; font-size:14px; font-weight:500; opacity:0; transition:all .3s; z-index:50; pointer-events:none}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+.modal-bg{position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center; z-index:40; padding:20px}
+.modal-bg.show{display:flex}
+.modal{background:var(--surface); border:0.5px solid var(--line2); border-radius:var(--r); padding:20px; max-width:380px; width:100%}
+.modal h3{font-size:18px; margin-bottom:8px}
+.modal p{font-size:14px; color:var(--text2); margin:0 0 16px}
+
+.tip{background:var(--surface2); border:0.5px solid var(--line); border-left:2px solid var(--accent); border-radius:var(--r-sm); padding:11px 13px; font-size:13px; color:var(--text2); margin-bottom:16px}
+.tip b{color:var(--text)}
+
+.checklist label{display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:0.5px solid var(--line); font-size:14px; cursor:pointer}
+.checklist label:last-child{border-bottom:none}
+.checklist input{width:auto; margin-top:2px; accent-color:var(--accent)}
+.checklist .done{color:var(--text3); text-decoration:line-through}
+
+::-webkit-scrollbar{height:0; width:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div>
+        <h1>Klient<span>.</span></h1>
+        <div class="sub">web dev pipeline & income</div>
+      </div>
+      <div style="display:flex; gap:6px">
+        <button class="io-btn" onclick="exportData()" title="Backup">↓ Backup</button>
+        <button class="io-btn" onclick="document.getElementById('imp').click()">↑ Restore</button>
+        <input type="file" id="imp" accept=".json" style="display:none" onchange="importData(event)">
+      </div>
+    </div>
+  </header>
+
+  <div class="goal-card">
+    <div class="goal-top">
+      <div class="label">Goal <b id="goal-amt">10,000 Kč</b> / month</div>
+      <div class="goal-pct" id="g-pct">0%</div>
+    </div>
+    <div class="bar"><div class="bar-fill" id="g-bar"></div></div>
+    <div class="goal-note" id="g-note">Add income to start tracking.</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="s-month">0</div><div class="l">this month (Kč)</div></div>
+    <div class="stat"><div class="n" id="s-rec">0</div><div class="l">recurring/mo</div></div>
+    <div class="stat"><div class="n" id="s-leads">0</div><div class="l">active leads</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" id="t-leads" onclick="tab('leads')">Leads <span class="badge" id="b-leads"></span></button>
+    <button class="tab" id="t-income" onclick="tab('income')">Income</button>
+    <button class="tab" id="t-plan" onclick="tab('plan')">Plan</button>
+  </div>
+
+  <!-- LEADS -->
+  <div id="v-leads">
+    <div class="card">
+      <div class="card-title">Add lead</div>
+      <div class="row">
+        <input id="l-name" placeholder="Business name">
+        <input id="l-contact" placeholder="Phone / email">
+      </div>
+      <input id="l-problem" class="mb" placeholder="What's wrong? (no site, outdated…)">
+      <div class="row">
+        <input id="l-price" type="number" inputmode="numeric" placeholder="Quote Kč">
+        <select id="l-stage">
+          <option>New</option><option>Contacted</option><option>Interested</option><option>Won</option><option>Lost</option>
+        </select>
+      </div>
+      <input id="l-notes" class="mb" placeholder="Notes (optional)">
+      <button class="btn" onclick="addLead()">Add lead</button>
+    </div>
+
+    <div class="filter-row" id="lead-filters"></div>
+    <div id="leads-list"></div>
+  </div>
+
+  <!-- INCOME -->
+  <div id="v-income" style="display:none">
+    <div class="month-nav">
+      <button onclick="navMonth(-1)">‹</button>
+      <span class="mlabel" id="m-label"></span>
+      <button onclick="navMonth(1)">›</button>
+    </div>
+    <div class="card">
+      <div class="card-title">Add income</div>
+      <input id="i-client" class="mb" placeholder="Client / what for">
+      <div class="row">
+        <input id="i-amount" type="number" inputmode="numeric" placeholder="Amount Kč">
+        <select id="i-type">
+          <option value="project">One-time project</option>
+          <option value="recurring">Monthly recurring</option>
+        </select>
+      </div>
+      <button class="btn" onclick="addIncome()">Add income</button>
+    </div>
+    <div id="income-list"></div>
+  </div>
+
+  <!-- PLAN -->
+  <div id="v-plan" style="display:none">
+    <div class="tip" id="next-tip">Your next move shows up here.</div>
+    <div class="card">
+      <div class="card-title">This week's checklist</div>
+      <div class="checklist" id="checklist"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Settings</div>
+      <label style="font-size:13px; color:var(--text2); display:block; margin-bottom:6px">Monthly goal (Kč)</label>
+      <div style="display:flex; gap:8px">
+        <input id="goal-input" type="number" inputmode="numeric" placeholder="10000">
+        <button class="btn btn-ghost" style="width:auto; padding:10px 18px" onclick="saveGoal()">Save</button>
+      </div>
+      <button class="btn btn-ghost" style="margin-top:14px" onclick="confirmReset()">Reset all data</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h3 id="modal-title">Are you sure?</h3>
+    <p id="modal-text"></p>
+    <div style="display:flex; gap:8px">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn" id="modal-ok" style="background:var(--red); color:#fff">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const DEFAULT_CHECK = [
+  "Lock my 3 prices (basic / +extras / monthly)",
+  "Build hit-list of 15 local businesses",
+  "Reactivate the menu-TV client (+2k)",
+  "Do 3 walk-ins this week",
+  "Follow up every warm lead",
+  "Ask one happy client for a referral"
+];
+
+let data = {
+  goal: 10000,
+  leads: [],
+  income: [],
+  checklist: DEFAULT_CHECK.map(t => ({t, done:false})),
+  viewMonth: monthKey(new Date())
+};
+let curTab = 'leads';
+let leadFilter = 'active';
+
+function monthKey(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'); }
+function monthLabel(key){
+  const [y,m] = key.split('-').map(Number);
+  return new Date(y, m-1, 1).toLocaleDateString('en-GB',{month:'long', year:'numeric'});
+}
+function fmt(n){ return Math.round(n).toLocaleString('cs-CZ'); }
+function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+function daysSince(ts){ return Math.floor((Date.now()-ts)/86400000); }
+
+function save(){ try{ localStorage.setItem('klient_data', JSON.stringify(data)); }catch(e){} }
+function load(){
+  try{
+    const raw = localStorage.getItem('klient_data');
+    if(raw){ const p = JSON.parse(raw); data = Object.assign(data, p);
+      if(!data.checklist || !data.checklist.length) data.checklist = DEFAULT_CHECK.map(t=>({t,done:false}));
+      if(!data.viewMonth) data.viewMonth = monthKey(new Date());
+    }
+  }catch(e){}
+}
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._tm); t._tm = setTimeout(()=>t.classList.remove('show'), 1800);
+}
+
+function tab(name){
+  curTab = name;
+  ['leads','income','plan'].forEach(n=>{
+    document.getElementById('v-'+n).style.display = n===name?'block':'none';
+    document.getElementById('t-'+n).classList.toggle('on', n===name);
+  });
+  render();
+}
+
+function addLead(){
+  const name = document.getElementById('l-name').value.trim();
+  if(!name){ toast('Add a business name'); return; }
+  data.leads.unshift({
+    id:Date.now(), name,
+    contact:document.getElementById('l-contact').value.trim(),
+    problem:document.getElementById('l-problem').value.trim(),
+    price:parseInt(document.getElementById('l-price').value)||0,
+    stage:document.getElementById('l-stage').value,
+    notes:document.getElementById('l-notes').value.trim(),
+    touched:Date.now()
+  });
+  ['l-name','l-contact','l-problem','l-price','l-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('l-stage').value='New';
+  save(); render(); toast('Lead added');
+}
+
+const STAGES = ['New','Contacted','Interested','Won','Lost'];
+function cycleStage(id){
+  const l = data.leads.find(x=>x.id===id); if(!l) return;
+  l.stage = STAGES[(STAGES.indexOf(l.stage)+1)%STAGES.length];
+  l.touched = Date.now();
+  if(l.stage==='Won' && l.price){
+    data.income.unshift({id:Date.now(), client:l.name, amount:l.price, type:'project', month:monthKey(new Date())});
+    toast('Won! Logged '+fmt(l.price)+' Kč');
+  }
+  save(); render();
+}
+function delLead(id){ data.leads = data.leads.filter(x=>x.id!==id); save(); render(); }
+
+function addIncome(){
+  const client = document.getElementById('i-client').value.trim();
+  const amount = parseInt(document.getElementById('i-amount').value)||0;
+  if(!client || !amount){ toast('Add client and amount'); return; }
+  data.income.unshift({id:Date.now(), client, amount, type:document.getElementById('i-type').value, month:monthKey(new Date())});
+  document.getElementById('i-client').value=''; document.getElementById('i-amount').value='';
+  save(); render(); toast('Income added');
+}
+function delIncome(id){ data.income = data.income.filter(x=>x.id!==id); save(); render(); }
+
+function navMonth(dir){
+  const [y,m] = data.viewMonth.split('-').map(Number);
+  const d = new Date(y, m-1+dir, 1);
+  data.viewMonth = monthKey(d); save(); render();
+}
+
+function saveGoal(){
+  const v = parseInt(document.getElementById('goal-input').value)||10000;
+  data.goal = v; save(); render(); toast('Goal updated');
+}
+
+function toggleCheck(i){ data.checklist[i].done = !data.checklist[i].done; save(); render(); }
+
+function setFilter(f){ leadFilter = f; render(); }
+
+function nextMove(){
+  const active = data.leads.filter(l=>l.stage!=='Won'&&l.stage!=='Lost');
+  const interested = active.filter(l=>l.stage==='Interested');
+  const stale = active.filter(l=>daysSince(l.touched)>=3 && l.stage==='Contacted');
+  const cur = monthKey(new Date());
+  const earned = data.income.filter(i=>i.type==='recurring' || i.month===cur).reduce((s,i)=>s+i.amount,0);
+  if(interested.length) return '<b>Close '+esc(interested[0].name)+'.</b> They\'re interested — send the quote or push for a yes.';
+  if(stale.length) return '<b>Follow up '+esc(stale[0].name)+'.</b> Contacted '+daysSince(stale[0].touched)+' days ago with no movement.';
+  if(earned>=data.goal) return '<b>Goal hit this month.</b> Lock in one recurring client to make next month easier.';
+  if(active.length<3) return '<b>Do walk-ins.</b> You have '+active.length+' active lead'+(active.length===1?'':'s')+'. Aim for 3–5 this week.';
+  return '<b>Keep the pipeline moving.</b> Advance each lead one stage — every "maybe" needs a follow-up.';
+}
+
+function render(){
+  const cur = monthKey(new Date());
+  const recurring = data.income.filter(i=>i.type==='recurring').reduce((s,i)=>s+i.amount,0);
+  const monthProj = data.income.filter(i=>i.type==='project'&&i.month===cur).reduce((s,i)=>s+i.amount,0);
+  const monthTotal = monthProj + recurring;
+  const active = data.leads.filter(l=>l.stage!=='Won'&&l.stage!=='Lost').length;
+
+  document.getElementById('s-month').textContent = fmt(monthTotal);
+  document.getElementById('s-rec').textContent = fmt(recurring);
+  document.getElementById('s-leads').textContent = active;
+  document.getElementById('b-leads').textContent = data.leads.length?'('+data.leads.length+')':'';
+  document.getElementById('goal-amt').textContent = fmt(data.goal)+' Kč';
+
+  const pct = data.goal>0 ? Math.min(100, Math.round(monthTotal/data.goal*100)) : 0;
+  document.getElementById('g-pct').textContent = pct+'%';
+  document.getElementById('g-bar').style.width = pct+'%';
+  const rem = Math.max(0, data.goal-monthTotal);
+  document.getElementById('g-note').innerHTML = rem>0
+    ? '<b>'+fmt(rem)+' Kč</b> to go — that\'s about '+Math.max(1,Math.ceil(rem/5000))+' small project'+(Math.ceil(rem/5000)>1?'s':'')+' or '+Math.ceil(rem/900)+' recurring client'+(Math.ceil(rem/900)>1?'s':'')+'.'
+    : 'Goal reached this month. Flowers, dates, shoes — covered.';
+
+  // Lead filters
+  const counts = {active:0, Interested:0, Contacted:0, Won:0};
+  data.leads.forEach(l=>{ if(l.stage!=='Won'&&l.stage!=='Lost') counts.active++; if(counts[l.stage]!==undefined) counts[l.stage]++; });
+  const filters = [['active','Active'],['Interested','Interested'],['Contacted','Contacted'],['Won','Won'],['all','All']];
+  document.getElementById('lead-filters').innerHTML = filters.map(([k,lbl])=>
+    '<button class="chip '+(leadFilter===k?'on':'')+'" onclick="setFilter(\''+k+'\')">'+lbl+(counts[k]?' '+counts[k]:'')+'</button>'
+  ).join('');
+
+  // Leads list
+  let shown = data.leads;
+  if(leadFilter==='active') shown = data.leads.filter(l=>l.stage!=='Won'&&l.stage!=='Lost');
+  else if(leadFilter!=='all') shown = data.leads.filter(l=>l.stage===leadFilter);
+  const ll = document.getElementById('leads-list');
+  if(!shown.length){
+    ll.innerHTML = '<div class="empty">No leads here yet.<br>Walk in, show your work, add them.</div>';
+  } else {
+    ll.innerHTML = shown.map(l=>{
+      const stale = (l.stage==='Contacted'||l.stage==='Interested') && daysSince(l.touched)>=3;
+      const tel = l.contact.replace(/[^0-9+]/g,'');
+      return '<div class="lead">'+
+        '<div class="lead-head">'+
+          '<div style="flex:1;min-width:0">'+
+            '<div class="lead-name">'+esc(l.name)+(l.price?' <span class="lead-price">· '+fmt(l.price)+' Kč</span>':'')+'</div>'+
+            (l.contact?'<div class="lead-meta">'+esc(l.contact)+'</div>':'')+
+            (l.problem?'<div class="lead-meta">'+esc(l.problem)+'</div>':'')+
+            (l.notes?'<div class="lead-meta note">'+esc(l.notes)+'</div>':'')+
+          '</div>'+
+          '<button class="icon-btn" onclick="delLead('+l.id+')" aria-label="Delete">✕</button>'+
+        '</div>'+
+        '<div class="lead-foot">'+
+          '<button class="pill st-'+l.stage+'" onclick="cycleStage('+l.id+')">'+l.stage+' →</button>'+
+          (tel.length>=6?'<a class="icon-btn call" href="tel:'+tel+'" aria-label="Call">☏ call</a>':'')+
+          '<span class="days'+(stale?' warn':'')+'">'+(daysSince(l.touched)===0?'today':daysSince(l.touched)+'d ago')+'</span>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+
+  // Income (by viewed month)
+  document.getElementById('m-label').textContent = monthLabel(data.viewMonth);
+  const vm = data.viewMonth;
+  const projInc = data.income.filter(i=>i.type==='project'&&i.month===vm);
+  const recInc = data.income.filter(i=>i.type==='recurring');
+  const il = document.getElementById('income-list');
+  let html = '';
+  if(recInc.length){
+    html += '<div class="section-label">Recurring (every month)</div>';
+    html += recInc.map(i=>incRow(i,true)).join('');
+  }
+  html += '<div class="section-label">Projects · '+monthLabel(vm)+'</div>';
+  if(projInc.length){ html += projInc.map(i=>incRow(i,false)).join(''); }
+  else { html += '<div class="empty" style="padding:20px">No projects logged this month.</div>'; }
+  il.innerHTML = html;
+
+  // Plan
+  document.getElementById('next-tip').innerHTML = nextMove();
+  document.getElementById('checklist').innerHTML = data.checklist.map((c,i)=>
+    '<label><input type="checkbox" '+(c.done?'checked':'')+' onchange="toggleCheck('+i+')"><span class="'+(c.done?'done':'')+'">'+esc(c.t)+'</span></label>'
+  ).join('');
+  document.getElementById('goal-input').value = data.goal;
+}
+
+function incRow(i, rec){
+  return '<div class="inc">'+
+    '<div style="flex:1;min-width:0"><div style="font-weight:500">'+esc(i.client)+'</div>'+
+    '<div style="font-size:12px;color:var(--text3)">'+(rec?'monthly recurring':'one-time project')+'</div></div>'+
+    '<span class="inc-amt'+(rec?' inc-rec':'')+'">'+fmt(i.amount)+(rec?'/mo':'')+' Kč</span>'+
+    '<button class="icon-btn" onclick="delIncome('+i.id+')" aria-label="Delete">✕</button>'+
+  '</div>';
+}
+
+// Modal
+let modalAction = null;
+function confirmReset(){
+  document.getElementById('modal-title').textContent = 'Reset all data?';
+  document.getElementById('modal-text').textContent = 'This deletes every lead and income entry permanently. Export a backup first if you want to keep it.';
+  modalAction = ()=>{ data={goal:10000,leads:[],income:[],checklist:DEFAULT_CHECK.map(t=>({t,done:false})),viewMonth:monthKey(new Date())}; save(); render(); toast('Reset done'); };
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('show'); modalAction=null; }
+document.getElementById('modal-ok').onclick = ()=>{ if(modalAction) modalAction(); closeModal(); };
+
+// Import / export
+function exportData(){
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'klient-backup-'+monthKey(new Date())+'.json';
+  a.click(); URL.revokeObjectURL(url); toast('Backup downloaded');
+}
+function importData(e){
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{ try{ data = Object.assign(data, JSON.parse(r.result)); save(); render(); toast('Restored'); }catch(err){ toast('Bad file'); } };
+  r.readAsText(f); e.target.value='';
+}
+
+load(); render();
+</script>
+</body>
+</html>
