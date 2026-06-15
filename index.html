@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Daniel Havlíček – freelance webový vývojář z Prahy. Weby na míru pro malé firmy a živnostníky. Od 3 000 Kč.">
+  <meta name="theme-color" content="#1e4080">
+  <meta property="og:title" content="Daniel Havlíček – Webový vývojář">
+  <meta property="og:description" content="Weby na míru pro malé firmy a živnostníky. Přes čtyři roky zkušeností, přímá spolupráce, férové ceny.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://danielhavlicek.cz">
+  <title>Daniel Havlíček – Webový vývojář</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-inner container">
+      <a href="/" class="logo" aria-label="Daniel Havlíček – úvodní stránka">Daniel Havlíček</a>
+      <button class="hamburger" id="hamburger" aria-label="Otevřít navigaci" aria-expanded="false" aria-controls="nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav" id="nav" role="navigation" aria-label="Hlavní navigace">
+        <a href="#o-mne" class="nav-link" data-i18n="nav.about">O mně</a>
+        <a href="#portfolio" class="nav-link" data-i18n="nav.portfolio">Portfolio</a>
+        <a href="#cenik" class="nav-link" data-i18n="nav.pricing">Ceník</a>
+        <a href="#kontakt" class="nav-link" data-i18n="nav.contact">Kontakt</a>
+        <button class="lang-btn" id="lang-btn" aria-label="Přepnout jazyk na angličtinu">EN</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="uvod" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-accent" aria-hidden="true"></div>
+        <p class="eyebrow reveal" data-i18n="hero.eyebrow">Freelance webový vývojář · Praha</p>
+        <h1 class="hero-title reveal" id="hero-heading" data-i18n="hero.title">Pomáhám firmám mít web,<br>na který jsou hrdé.</h1>
+        <p class="hero-lead reveal" data-i18n="hero.lead">Jmenuji se Daniel. Mám přes čtyři roky zkušeností a spolupracuji hlavně s malými firmami a živnostníky, kterým záleží na kvalitě.</p>
+        <div class="hero-actions reveal">
+          <a href="#kontakt" class="btn btn-primary" data-i18n="hero.cta">Promluvíme si</a>
+          <a href="#portfolio" class="btn btn-ghost" data-i18n="hero.see-work">Ukázky práce</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about section section-alt" id="o-mne" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label reveal" data-i18n="about.label">O mně</span>
+          <h2 class="reveal" id="about-heading" data-i18n="about.title">Kdo za tím stojí</h2>
+        </div>
+        <div class="about-content">
+          <div class="about-text">
+            <p class="reveal" data-i18n="about.p1">Webem se aktivně zabývám přes čtyři roky. Začal jsem z vlastního zájmu a postupně jsem získal zkušenosti na skutečných klientských projektech. Studuji na IT gymnáziu v Praze a každý web beru jako příležitost udělat něco, co skutečně funguje.</p>
+            <p class="reveal" data-i18n="about.p2">Pracuji přímo s klientem – bez prostředníků, bez čekání na „tým". Věnuji čas pochopení toho, co potřebujete, a pak to prostě uděláme dobře. Bez zbytečné omáčky.</p>
+          </div>
+          <div class="about-stats reveal">
+            <div class="stat">
+              <span class="stat-num">4+</span>
+              <span class="stat-label" data-i18n="about.stat1">roky zkušeností</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num">10+</span>
+              <span class="stat-label" data-i18n="about.stat2">dokončených projektů</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="portfolio-section section" id="portfolio" aria-labelledby="portfolio-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label reveal" data-i18n="portfolio.label">Portfolio</span>
+          <h2 class="reveal" id="portfolio-heading" data-i18n="portfolio.title">Vybrané projekty</h2>
+        </div>
+        <div class="projects">
+
+          <a href="https://taxi-365.cz" target="_blank" rel="noopener noreferrer" class="project-card reveal" aria-label="Taxi-365 – otevřít web v novém okně">
+            <div class="project-thumb project-thumb--taxi">
+              <div class="thumb-bar">
+                <span class="thumb-dots" aria-hidden="true"></span>
+                <span class="thumb-url">taxi-365.cz</span>
+              </div>
+              <span class="project-thumb-icon" aria-hidden="true">🚕</span>
+            </div>
+            <div class="project-info">
+              <h3 class="project-name">Taxi-365</h3>
+              <p class="project-desc" data-i18n="portfolio.taxi.desc">Prémiová pražská taxi služba. Web s online rezervací, přehledným ceníkem pro letištní transfery a přepravu po Praze a vyhlídkovými jízdami. Čistý design vyšší třídy.</p>
+              <span class="project-link" aria-hidden="true" data-i18n="portfolio.visit">Navštívit web →</span>
+            </div>
+          </a>
+
+          <a href="https://kphdedina.cz" target="_blank" rel="noopener noreferrer" class="project-card reveal" aria-label="Pizza & Kebab House Na Dědině – otevřít web v novém okně">
+            <div class="project-thumb project-thumb--pizza">
+              <div class="thumb-bar">
+                <span class="thumb-dots" aria-hidden="true"></span>
+                <span class="thumb-url">kphdedina.cz</span>
+              </div>
+              <span class="project-thumb-icon" aria-hidden="true">🍕</span>
+            </div>
+            <div class="project-info">
+              <h3 class="project-name">Pizza &amp; Kebab House Na Dědině</h3>
+              <p class="project-desc" data-i18n="portfolio.pizza.desc">Restaurace v Praze 6 s rozsáhlým interaktivním menu, galerií, otevírací dobou, mapou a napojením na rozvozové platformy.</p>
+              <span class="project-link" aria-hidden="true" data-i18n="portfolio.visit">Navštívit web →</span>
+            </div>
+          </a>
+
+          <a href="https://earnedclub.club" target="_blank" rel="noopener noreferrer" class="project-card reveal" aria-label="EarnedClub – otevřít web v novém okně">
+            <div class="project-thumb project-thumb--earned">
+              <div class="thumb-bar">
+                <span class="thumb-dots" aria-hidden="true"></span>
+                <span class="thumb-url">earnedclub.club</span>
+              </div>
+              <span class="project-thumb-icon" aria-hidden="true">🏆</span>
+            </div>
+            <div class="project-info">
+              <h3 class="project-name">EarnedClub</h3>
+              <p class="project-desc" data-i18n="portfolio.earned.desc">Vlastní projekt – fitness leaderboard pro hybridní sportovce. Uživatelé nahrávají výkony s video důkazem a získávají ověřený Hybrid Score. Postaveno od nuly.</p>
+              <span class="project-link" aria-hidden="true" data-i18n="portfolio.visit">Navštívit web →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing section section-alt" id="cenik" aria-labelledby="pricing-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label reveal" data-i18n="pricing.label">Ceník</span>
+          <h2 class="reveal" id="pricing-heading" data-i18n="pricing.title">Co nabízím a za kolik</h2>
+          <p class="section-intro reveal" data-i18n="pricing.intro">Ceny jsou orientační – konečná cena se vždy dohodne individuálně podle rozsahu projektu.</p>
+        </div>
+        <div class="pricing-grid">
+          <div class="pricing-card reveal">
+            <div class="pricing-tier" data-i18n="pricing.tier1.name">Prezentační web</div>
+            <div class="pricing-price">od <strong>3 000 Kč</strong></div>
+            <div class="pricing-maintenance" data-i18n="pricing.tier1.maintenance">Správa a aktualizace: 300–500 Kč/měsíc</div>
+            <ul class="pricing-features" aria-label="Co je zahrnuto">
+              <li data-i18n="pricing.tier1.f1">Vizitka nebo prezentace firmy</li>
+              <li data-i18n="pricing.tier1.f2">Kontakty, popis služeb, galerie</li>
+              <li data-i18n="pricing.tier1.f3">Mapa a otevírací doba</li>
+              <li data-i18n="pricing.tier1.f4">Plně responzivní, rychlé načítání</li>
+            </ul>
+          </div>
+          <div class="pricing-card pricing-card--featured reveal">
+            <div class="pricing-tier" data-i18n="pricing.tier2.name">Web s pokročilými funkcemi</div>
+            <div class="pricing-price">od <strong>8 000 Kč</strong></div>
+            <div class="pricing-maintenance" data-i18n="pricing.tier2.maintenance">Správa a aktualizace: 800–1 000 Kč/měsíc</div>
+            <ul class="pricing-features" aria-label="Co je zahrnuto">
+              <li data-i18n="pricing.tier2.f1">Rezervační systémy</li>
+              <li data-i18n="pricing.tier2.f2">Databáze a uživatelské účty</li>
+              <li data-i18n="pricing.tier2.f3">Propojení s externími službami</li>
+              <li data-i18n="pricing.tier2.f4">Pokročilé interaktivní funkce</li>
+            </ul>
+          </div>
+        </div>
+        <p class="pricing-note reveal" data-i18n="pricing.note">Nejste si jistí, co přesně potřebujete? Napište mi – rád poradím a společně zjistíme, co pro vás dává smysl. Konečná cena je vždy smluvní.</p>
+      </div>
+    </section>
+
+    <!-- DEMO CTA -->
+    <section class="demo-cta-section section" aria-label="Ukázka">
+      <div class="container">
+        <div class="demo-cta-inner reveal">
+          <div class="demo-cta-text">
+            <h2 data-i18n="demo.title">Chcete vidět, jak může váš web vypadat?</h2>
+            <p data-i18n="demo.text">Připravil jsem ukázkový web – koukněte, jak by mohl vypadat váš.</p>
+          </div>
+          <a href="/demo/" class="btn btn-primary" data-i18n="demo.cta">Prohlédnout ukázku</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact section section-alt" id="kontakt" aria-labelledby="contact-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label reveal" data-i18n="contact.label">Kontakt</span>
+          <h2 class="reveal" id="contact-heading" data-i18n="contact.title">Ozvěte se</h2>
+          <p class="section-intro reveal" data-i18n="contact.intro">Nejrychlejší odpověď dostanete mailem nebo telefonicky. Klidně se zeptejte na cokoliv.</p>
+        </div>
+        <div class="contact-methods">
+          <a href="mailto:daniel.havlicek1@seznam.cz" class="contact-item reveal">
+            <span class="contact-icon" aria-hidden="true">✉</span>
+            <div>
+              <span class="contact-label" data-i18n="contact.email-label">E-mail</span>
+              <span class="contact-value">daniel.havlicek1@seznam.cz</span>
+            </div>
+          </a>
+          <a href="tel:+420777454591" class="contact-item reveal">
+            <span class="contact-icon" aria-hidden="true">☎</span>
+            <div>
+              <span class="contact-label" data-i18n="contact.phone-label">Telefon</span>
+              <span class="contact-value">+420 777 454 591</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-name">Daniel Havlíček</span>
+      <span class="footer-copy" data-i18n="footer.copy">© 2025 Všechna práva vyhrazena</span>
+      <a href="https://github.com/Danas2008" target="_blank" rel="noopener noreferrer" class="footer-github" aria-label="GitHub profil">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
