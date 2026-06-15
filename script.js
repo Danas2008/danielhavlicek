@@ -175,26 +175,27 @@ const nav       = document.getElementById('nav');
 
 function closeNav() {
   nav.classList.remove('open');
-  nav.style.top = '';
   hamburger.setAttribute('aria-expanded', 'false');
   hamburger.setAttribute('aria-label', 'Otevřít navigaci');
-  document.body.style.overflow = '';
 }
 
-hamburger.addEventListener('click', () => {
+hamburger.addEventListener('click', (e) => {
+  e.stopPropagation();
   const isOpen = nav.classList.toggle('open');
   hamburger.setAttribute('aria-expanded', String(isOpen));
   hamburger.setAttribute('aria-label', isOpen ? 'Zavřít navigaci' : 'Otevřít navigaci');
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-  if (isOpen) {
-    nav.style.top = header.getBoundingClientRect().bottom + 'px';
-  } else {
-    nav.style.top = '';
-  }
 });
 
 nav.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', closeNav);
+});
+
+document.addEventListener('click', (e) => {
+  if (nav.classList.contains('open') &&
+      !nav.contains(e.target) &&
+      !hamburger.contains(e.target)) {
+    closeNav();
+  }
 });
 
 document.addEventListener('keydown', e => {
