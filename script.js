@@ -44,6 +44,7 @@ const i18n = {
     'pricing.tier2.f3': 'Propojení s externími službami',
     'pricing.tier2.f4': 'Pokročilé interaktivní funkce',
     'pricing.note': 'Nejste si jistí, co přesně potřebujete? Napište mi – rád poradím a společně zjistíme, co pro vás dává smysl. Konečná cena je vždy smluvní.',
+    'pricing.calc': 'Spočítat cenu online →',
 
     'demo.title': 'Chcete vidět, jak může váš web vypadat?',
     'demo.text':  'Připravil jsem ukázkový web – koukněte, jak by mohl vypadat váš.',
@@ -54,6 +55,12 @@ const i18n = {
     'contact.intro':       'Nejrychlejší odpověď dostanete mailem nebo telefonicky. Klidně se zeptejte na cokoliv.',
     'contact.email-label': 'E-mail',
     'contact.phone-label': 'Telefon',
+
+    'contact.form.name':    'Jméno',
+    'contact.form.contact': 'E-mail nebo telefon',
+    'contact.form.message': 'Zpráva',
+    'contact.form.submit':  'Odeslat zprávu',
+    'contact.form.success': 'Zpráva odeslána! Ozvu se co nejdříve.',
 
     'footer.copy': '© 2025 Všechna práva vyhrazena',
   },
@@ -100,6 +107,7 @@ const i18n = {
     'pricing.tier2.f3': 'Integration with external services',
     'pricing.tier2.f4': 'Advanced interactive features',
     'pricing.note': 'Not sure exactly what you need? Write to me – I\'ll be happy to advise and together we\'ll figure out what makes sense for you. The final price is always negotiated.',
+    'pricing.calc': 'Calculate price online →',
 
     'demo.title': 'Want to see what your website could look like?',
     'demo.text':  'I\'ve prepared a sample website – take a look at how yours might turn out.',
@@ -110,6 +118,12 @@ const i18n = {
     'contact.intro':       'The quickest response is by email or phone. Feel free to ask me anything.',
     'contact.email-label': 'Email',
     'contact.phone-label': 'Phone',
+
+    'contact.form.name':    'Name',
+    'contact.form.contact': 'Email or phone',
+    'contact.form.message': 'Message',
+    'contact.form.submit':  'Send message',
+    'contact.form.success': 'Message sent! I\'ll get back to you as soon as possible.',
 
     'footer.copy': '© 2025 All rights reserved',
   }

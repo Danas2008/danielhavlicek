@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Spočítejte si orientační cenu vašeho webu. Vyberte sekce a okamžitě uvidíte cenu – Daniel Havlíček, webový vývojář z Prahy.">
+  <meta name="theme-color" content="#1e4080">
+  <title>Kalkulačka ceny webu – Daniel Havlíček</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ==============================================
+       CALCULATOR PAGE STYLES
+       ============================================== */
+
+    /* Hero */
+    .calc-hero {
+      padding-block: 72px 56px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .calc-hero h1 {
+      font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.8rem;
+      line-height: 1.15;
+    }
+
+    .calc-hero p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 56ch;
+      line-height: 1.7;
+    }
+
+    /* Body */
+    .calc-body {
+      padding-block: 48px 96px;
+    }
+
+    /* Two-column layout */
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    /* Cards */
+    .calc-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .calc-card:last-child { margin-bottom: 0; }
+
+    .calc-card-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+    }
+
+    .calc-card-title::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .calc-card-count {
+      margin-left: auto;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      background: var(--accent-lite);
+      color: var(--accent);
+      border-radius: 99px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Base includes */
+    .base-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .base-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.81rem;
+      font-weight: 500;
+      color: #27500a;
+      background: #eaf3de;
+      border: 1px solid #97c459;
+      padding: 0.28rem 0.7rem;
+      border-radius: 99px;
+    }
+
+    .base-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .base-price-label {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .base-price-val {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    /* Feature chips */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+    }
+
+    .feature-chip {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      padding: 0.85rem 0.95rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+      user-select: none;
+    }
+
+    .feature-chip:hover {
+      border-color: var(--accent);
+      background: var(--accent-lite);
+    }
+
+    .feature-chip.selected {
+      border-color: var(--accent);
+      background: var(--accent-lite);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    /* Checkbox visual */
+    .chip-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s, background 0.15s;
+      position: relative;
+    }
+
+    .feature-chip.selected .chip-check {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+
+    .feature-chip.selected .chip-check::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 6px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+
+    .chip-body { flex: 1; min-width: 0; }
+
+    .chip-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 0.18rem;
+    }
+
+    .feature-chip.selected .chip-name { color: var(--accent); }
+
+    .chip-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .chip-price {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    .feature-chip.selected .chip-price { color: var(--accent); }
+
+    /* Domain section */
+    .domain-lead {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .domain-opts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .domain-opt {
+      padding: 0.9rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: var(--font);
+      font-size: 0.88rem;
+      font-weight: 600;
+      background: var(--bg);
+      color: var(--text);
+      text-align: center;
+      transition: border-color 0.18s, background 0.18s, color 0.18s;
+      line-height: 1.3;
+    }
+
+    .domain-opt:hover { border-color: var(--accent); }
+
+    .domain-opt.active {
+      border-color: var(--accent);
+      background: var(--accent-lite);
+      color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .domain-opt-sub {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .domain-opt.active .domain-opt-sub { color: var(--accent); }
+
+    /* Price sidebar */
+    .price-card {
+      position: sticky;
+      top: calc(var(--hdr-h) + 1.25rem);
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .price-card-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+    }
+
+    .price-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.42rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.86rem;
+    }
+
+    .price-line:last-child { border-bottom: none; }
+
+    .pl-label { color: var(--text-muted); }
+    .pl-val { font-weight: 600; color: var(--text); }
+    .pl-val.new { color: var(--accent); }
+
+    .price-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-top: 0.85rem;
+      margin-top: 0.4rem;
+      border-top: 2px solid var(--border);
+    }
+
+    .price-total-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .price-total-val {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+    }
+
+    .price-monthly-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .price-disclaimer {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .price-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.88rem 1.4rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .price-cta:hover, .price-cta:focus-visible {
+      background: var(--accent-dark);
+      box-shadow: 0 4px 18px rgba(30,64,128,0.3);
+    }
+
+    .price-phone {
+      display: block;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.7rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .price-phone:hover { color: var(--accent); }
+
+    /* Mobile sticky bar */
+    .mobile-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border-top: 2px solid var(--accent);
+      padding: 0.85rem 1.25rem 0.95rem;
+      z-index: 90;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.1);
+    }
+
+    .mobile-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .mobile-total {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .mobile-monthly {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .calc-layout {
+        grid-template-columns: 1fr;
+      }
+      .calc-sidebar { display: none; }
+      .mobile-bar { display: block; }
+      .calc-body { padding-bottom: 120px; }
+    }
+
+    @media (max-width: 600px) {
+      .calc-hero { padding-block: 56px 44px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .domain-opts { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (shared with portfolio) -->
+  <header class="header" id="header">
+    <div class="header-inner container">
+      <a href="/" class="logo">Daniel Havlíček</a>
+      <nav class="nav" id="nav" role="navigation" aria-label="Hlavní navigace">
+        <a href="/" class="nav-link">Portfolio</a>
+        <a href="/#cenik" class="nav-link">Ceník</a>
+        <a href="/#kontakt" class="nav-link">Kontakt</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Otevřít navigaci" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="calc-hero">
+      <div class="container">
+        <p class="eyebrow" style="margin-bottom: 0.85rem;">Kalkulačka ceny</p>
+        <h1>Spočítejte si cenu<br>vašeho webu</h1>
+        <p>Vyberte kliknutím sekce, které chcete mít na webu, a okamžitě uvidíte orientační cenu. Nezávazně, bez registrace.</p>
+      </div>
+    </section>
+
+    <!-- CALCULATOR BODY -->
+    <section class="calc-body">
+      <div class="container">
+        <div class="calc-layout">
+
+          <!-- LEFT: Feature selection -->
+          <div class="calc-main">
+
+            <!-- Base package -->
+            <div class="calc-card">
+              <div class="calc-card-title">V základní ceně je vždy zahrnuto</div>
+              <div class="base-tags">
+                <span class="base-tag">✓ Úvodní stránka</span>
+                <span class="base-tag">✓ Mobilní verze</span>
+                <span class="base-tag">✓ Rychlé načítání</span>
+                <span class="base-tag">✓ Základní SEO</span>
+                <span class="base-tag">✓ Zabezpečení (HTTPS)</span>
+              </div>
+              <div class="base-price-row">
+                <span class="base-price-label">Základní cena od</span>
+                <span class="base-price-val">2 000 Kč</span>
+              </div>
+            </div>
+
+            <!-- Features -->
+            <div class="calc-card">
+              <div class="calc-card-title">
+                Co chcete přidat?
+                <span class="calc-card-count" id="selected-count" style="display:none"></span>
+              </div>
+              <div class="features-grid" id="features-grid">
+                <!-- Filled by JS -->
+              </div>
+            </div>
+
+            <!-- Domain -->
+            <div class="calc-card">
+              <div class="calc-card-title">Doména a hosting</div>
+              <p class="domain-lead">
+                Máte vlastní doménu a webhostingový prostor?
+              </p>
+              <div class="domain-opts">
+                <button class="domain-opt active" id="domain-yes" onclick="setDomain('yes')">
+                  Ano, mám
+                  <span class="domain-opt-sub">nic navíc</span>
+                </button>
+                <button class="domain-opt" id="domain-no" onclick="setDomain('no')">
+                  Ne, nemám
+                  <span class="domain-opt-sub">+200 Kč/měsíc</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT: Price summary (sticky) -->
+          <div class="calc-sidebar">
+            <div class="price-card">
+              <div class="price-card-title">Orientační cena</div>
+              <div id="price-breakdown"></div>
+              <div class="price-total-row">
+                <span class="price-total-label">Celkem jednorázově</span>
+                <span class="price-total-val" id="total-val">2 000 Kč</span>
+              </div>
+              <p class="price-monthly-note" id="monthly-note">+ 300 Kč / měsíc (správa webu)</p>
+              <p class="price-disclaimer">
+                Ceny jsou orientační a mohou se lišit podle konkrétních požadavků. Výsledná cena se vždy dohodne individuálně.
+              </p>
+              <a href="#" id="inquiry-link" class="price-cta">Chci takový web →</a>
+              <a href="tel:+420777454591" class="price-phone">nebo zavolejte: +420 777 454 591</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MOBILE STICKY PRICE BAR -->
+  <div class="mobile-bar">
+    <div class="mobile-bar-inner">
+      <div>
+        <div class="mobile-total" id="mobile-total">2 000 Kč</div>
+        <div class="mobile-monthly" id="mobile-monthly">+ 300 Kč/měsíc</div>
+      </div>
+      <a href="#" id="mobile-inquiry-link" class="btn btn-primary">Chci takový web</a>
+    </div>
+  </div>
+
+  <!-- FOOTER (shared with portfolio) -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-name">Daniel Havlíček</span>
+      <span class="footer-copy">© 2025 Všechna práva vyhrazena</span>
+      <a href="https://github.com/Danas2008" target="_blank" rel="noopener noreferrer" class="footer-github" aria-label="GitHub profil">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    /* ==============================================
+       FEATURES DATA
+       ============================================== */
+    const FEATURES = [
+      {
+        id: 'menu',
+        name: 'Menu / ceník',
+        desc: 'Přehledný ceník nebo jídelní lístek s kategoriemi a filtry',
+        price: 700,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>',
+      },
+      {
+        id: 'rezervace',
+        name: 'Rezervace online',
+        desc: 'Systém pro rezervaci termínů, stolů nebo schůzek',
+        price: 600,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+      },
+      {
+        id: 'galerie',
+        name: 'Fotogalerie',
+        desc: 'Galerie fotek vašich prací, prostoru nebo produktů',
+        price: 400,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+      },
+      {
+        id: 'o-nas',
+        name: 'O nás / příběh',
+        desc: 'Sekce s vaším příběhem, hodnotami nebo týmem',
+        price: 300,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>',
+      },
+      {
+        id: 'kontakt',
+        name: 'Kontakt + mapa',
+        desc: 'Kontaktní formulář, adresa a Google Maps',
+        price: 300,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+      },
+      {
+        id: 'rozvoz',
+        name: 'Rozvoz / objednávky',
+        desc: 'Online objednávky nebo propojení s rozvozovými platformami',
+        price: 1200,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>',
+      },
+      {
+        id: 'akce',
+        name: 'Akce / novinky',
+        desc: 'Sekce pro aktuální nabídky, novinky nebo slevy',
+        price: 500,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>',
+      },
+      {
+        id: 'vicejazyc',
+        name: 'Vícejazyčná verze',
+        desc: 'Web v češtině a angličtině (nebo dalším jazyce)',
+        price: 600,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>',
+      },
+      {
+        id: 'social',
+        name: 'Social media feed',
+        desc: 'Propojení s Instagramem nebo Facebookem',
+        price: 400,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>',
+      },
+      {
+        id: 'eshop',
+        name: 'E-shop / poukazy',
+        desc: 'Online prodej produktů nebo dárkových poukazů',
+        price: 1000,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-7.43H6"/></svg>',
+      },
+      {
+        id: 'admin',
+        name: 'Správa obsahu',
+        desc: 'Admin panel pro vlastní úpravy textů a fotek bez programátora',
+        price: 800,
+        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+      },
+    ];
+
+    /* ==============================================
+       STATE
+       ============================================== */
+    const BASE_PRICE   = 2000;
+    const MGMT_PRICE   = 300;
+    const DOMAIN_PRICE = 200;
+
+    const state = {
+      selected:    new Set(),
+      needsDomain: false,
+    };
+
+    /* ==============================================
+       RENDER FEATURE CHIPS
+       ============================================== */
+    function renderFeatures() {
+      const grid = document.getElementById('features-grid');
+      grid.innerHTML = FEATURES.map(f => `
+        <div class="feature-chip" id="chip-${f.id}" onclick="toggleFeature('${f.id}')" role="checkbox" aria-checked="false" tabindex="0">
+          <div class="chip-check"></div>
+          <div class="chip-body">
+            <div class="chip-name">${f.name}</div>
+            <div class="chip-desc">${f.desc}</div>
+            <span class="chip-price">+ ${f.price.toLocaleString('cs-CZ')} Kč</span>
+          </div>
+        </div>
+      `).join('');
+
+      /* Keyboard support */
+      grid.querySelectorAll('.feature-chip').forEach(chip => {
+        chip.addEventListener('keydown', e => {
+          if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            chip.click();
+          }
+        });
+      });
+    }
+
+    /* ==============================================
+       TOGGLE FEATURE
+       ============================================== */
+    function toggleFeature(id) {
+      if (state.selected.has(id)) {
+        state.selected.delete(id);
+      } else {
+        state.selected.add(id);
+      }
+      const chip = document.getElementById('chip-' + id);
+      if (chip) {
+        chip.classList.toggle('selected', state.selected.has(id));
+        chip.setAttribute('aria-checked', state.selected.has(id));
+      }
+      updateUI();
+    }
+
+    /* ==============================================
+       DOMAIN TOGGLE
+       ============================================== */
+    function setDomain(val) {
+      state.needsDomain = (val === 'no');
+      document.getElementById('domain-yes').classList.toggle('active', val === 'yes');
+      document.getElementById('domain-no').classList.toggle('active', val === 'no');
+      updateUI();
+    }
+
+    /* ==============================================
+       UPDATE PRICE UI
+       ============================================== */
+    function updateUI() {
+      let total = BASE_PRICE;
+
+      /* Build breakdown */
+      let html = `<div class="price-line">
+        <span class="pl-label">Základní web</span>
+        <span class="pl-val">${BASE_PRICE.toLocaleString('cs-CZ')} Kč</span>
+      </div>`;
+
+      FEATURES.forEach(f => {
+        if (state.selected.has(f.id)) {
+          total += f.price;
+          html += `<div class="price-line">
+            <span class="pl-label">${f.name}</span>
+            <span class="pl-val new">+${f.price.toLocaleString('cs-CZ')} Kč</span>
+          </div>`;
+        }
+      });
+
+      const monthly = MGMT_PRICE + (state.needsDomain ? DOMAIN_PRICE : 0);
+
+      /* Selected count badge */
+      const countEl = document.getElementById('selected-count');
+      if (state.selected.size > 0) {
+        countEl.textContent = state.selected.size + ' vybráno';
+        countEl.style.display = 'inline-block';
+      } else {
+        countEl.style.display = 'none';
+      }
+
+      /* Price breakdown */
+      document.getElementById('price-breakdown').innerHTML = html;
+
+      /* Totals */
+      document.getElementById('total-val').textContent = total.toLocaleString('cs-CZ') + ' Kč';
+
+      const monthlyLabel = state.needsDomain
+        ? `+ ${monthly.toLocaleString('cs-CZ')} Kč / měsíc (správa + doména/hosting)`
+        : `+ ${monthly.toLocaleString('cs-CZ')} Kč / měsíc (správa webu)`;
+      document.getElementById('monthly-note').textContent = monthlyLabel;
+
+      /* Mobile bar */
+      document.getElementById('mobile-total').textContent = total.toLocaleString('cs-CZ') + ' Kč';
+      document.getElementById('mobile-monthly').textContent =
+        '+ ' + monthly.toLocaleString('cs-CZ') + ' Kč/měs.';
+
+      /* Mailto link */
+      refreshMailto(total, monthly);
+    }
+
+    /* ==============================================
+       MAILTO CTA — pre-fill with selections
+       ============================================== */
+    function refreshMailto(total, monthly) {
+      const selected = FEATURES.filter(f => state.selected.has(f.id));
+      const domainLine = state.needsDomain ? '\n– Doména a hosting' : '';
+
+      const featuresList = selected.length
+        ? selected.map(f => `– ${f.name} (+${f.price.toLocaleString('cs-CZ')} Kč)`).join('\n')
+        : '– (žádné doplňky)';
+
+      const body = [
+        'Dobrý den,',
+        '',
+        'mám zájem o vytvoření webu. Vybral/a jsem si tyto sekce:',
+        '',
+        featuresList + domainLine,
+        '',
+        `Orientační cena: ${total.toLocaleString('cs-CZ')} Kč jednorázově + ${monthly.toLocaleString('cs-CZ')} Kč/měsíc`,
+        '',
+        '---',
+        'Jméno:',
+        'Telefon:',
+        'Popis firmy / projektu:',
+      ].join('\n');
+
+      const href = 'mailto:daniel.havlicek1@seznam.cz'
+        + '?subject=' + encodeURIComponent('Poptávka webu')
+        + '&body='    + encodeURIComponent(body);
+
+      document.getElementById('inquiry-link').href        = href;
+      document.getElementById('mobile-inquiry-link').href = href;
+    }
+
+    /* ==============================================
+       MOBILE NAV
+       ============================================== */
+    const headerEl   = document.getElementById('header');
+    const hamburger  = document.getElementById('hamburger');
+    const navEl      = document.getElementById('nav');
+
+    function closeNav() {
+      navEl.classList.remove('open');
+      navEl.style.top = '';
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = navEl.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+      if (isOpen) {
+        navEl.style.top = headerEl.getBoundingClientRect().bottom + 'px';
+      } else {
+        navEl.style.top = '';
+      }
+    });
+
+    navEl.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+
+    window.addEventListener('scroll', () => {
+      headerEl.classList.toggle('scrolled', window.scrollY > 12);
+    }, { passive: true });
+
+    /* ==============================================
+       INIT
+       ============================================== */
+    renderFeatures();
+    updateUI();
+  </script>
+</body>
+</html>

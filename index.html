@@ -169,6 +169,9 @@
           </div>
         </div>
         <p class="pricing-note reveal" data-i18n="pricing.note">Nejste si jistí, co přesně potřebujete? Napište mi – rád poradím a společně zjistíme, co pro vás dává smysl. Konečná cena je vždy smluvní.</p>
+        <div class="reveal" style="margin-top: 1.25rem;">
+          <a href="/calculator/" class="btn btn-ghost" data-i18n="pricing.calc">Spočítat cenu online →</a>
+        </div>
       </div>
     </section>
 
@@ -193,21 +196,58 @@
           <h2 class="reveal" id="contact-heading" data-i18n="contact.title">Ozvěte se</h2>
           <p class="section-intro reveal" data-i18n="contact.intro">Nejrychlejší odpověď dostanete mailem nebo telefonicky. Klidně se zeptejte na cokoliv.</p>
         </div>
-        <div class="contact-methods">
-          <a href="mailto:daniel.havlicek1@seznam.cz" class="contact-item reveal">
-            <span class="contact-icon" aria-hidden="true">✉</span>
-            <div>
-              <span class="contact-label" data-i18n="contact.email-label">E-mail</span>
-              <span class="contact-value">daniel.havlicek1@seznam.cz</span>
+        <div class="contact-layout">
+
+          <div class="contact-direct reveal">
+            <a href="mailto:daniel.havlicek1@seznam.cz" class="contact-item">
+              <span class="contact-icon" aria-hidden="true">✉</span>
+              <div>
+                <span class="contact-label" data-i18n="contact.email-label">E-mail</span>
+                <span class="contact-value">daniel.havlicek1@seznam.cz</span>
+              </div>
+            </a>
+            <a href="tel:+420777454591" class="contact-item">
+              <span class="contact-icon" aria-hidden="true">☎</span>
+              <div>
+                <span class="contact-label" data-i18n="contact.phone-label">Telefon</span>
+                <span class="contact-value">+420 777 454 591</span>
+              </div>
+            </a>
+          </div>
+
+          <div class="contact-form-side reveal">
+            <div data-fs-success class="form-success" style="display:none" role="status">
+              <div class="form-success-icon" aria-hidden="true">✓</div>
+              <p data-i18n="contact.form.success">Zpráva odeslána! Ozvu se co nejdříve.</p>
             </div>
-          </a>
-          <a href="tel:+420777454591" class="contact-item reveal">
-            <span class="contact-icon" aria-hidden="true">☎</span>
-            <div>
-              <span class="contact-label" data-i18n="contact.phone-label">Telefon</span>
-              <span class="contact-value">+420 777 454 591</span>
-            </div>
-          </a>
+            <div data-fs-error class="form-error-global" style="display:none" role="alert"></div>
+            <form id="contact-form" action="https://formspree.io/f/mbdewdzb" method="POST" novalidate>
+              <input type="hidden" name="_subject" value="Nová poptávka – danielhavlicek.cz">
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="cf-name" data-i18n="contact.form.name">Jméno</label>
+                  <input type="text" id="cf-name" name="name" required data-fs-field
+                         autocomplete="name" placeholder="Vaše jméno">
+                  <span class="form-field-err" data-fs-error="name" role="alert"></span>
+                </div>
+                <div class="form-field">
+                  <label for="cf-email" data-i18n="contact.form.contact">E-mail nebo telefon</label>
+                  <input type="text" id="cf-email" name="email" required data-fs-field
+                         autocomplete="email" placeholder="vas@email.cz nebo +420…">
+                  <span class="form-field-err" data-fs-error="email" role="alert"></span>
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="cf-message" data-i18n="contact.form.message">Zpráva</label>
+                <textarea id="cf-message" name="message" rows="4" data-fs-field
+                          placeholder="Popište stručně projekt nebo se prostě jen ozvěte…"></textarea>
+                <span class="form-field-err" data-fs-error="message" role="alert"></span>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full" data-fs-submit-btn
+                      data-i18n="contact.form.submit">Odeslat zprávu</button>
+            </form>
+          </div>
+
         </div>
       </div>
     </section>
@@ -228,5 +268,10 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { formElement: '#contact-form', formId: 'mbdewdzb' });
+  </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 </html>
