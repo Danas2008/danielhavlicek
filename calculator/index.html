@@ -529,6 +529,86 @@
     .price-phone:hover { color: var(--accent); }
 
     /* ==============================================
+       COUPON
+       ============================================== */
+    .coupon-row {
+      display: flex;
+      gap: 0.55rem;
+    }
+
+    .coupon-input {
+      flex: 1;
+      padding: 0.65rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 0.92rem;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .coupon-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(30, 64, 128, 0.1);
+    }
+
+    .coupon-input.valid {
+      border-color: #2a7f2a;
+      box-shadow: 0 0 0 3px rgba(42, 127, 42, 0.1);
+    }
+
+    .coupon-input.invalid {
+      border-color: #c0392b;
+      box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
+    }
+
+    .coupon-btn {
+      padding: 0.65rem 1.1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s;
+      white-space: nowrap;
+    }
+
+    .coupon-btn:hover { background: var(--accent-dark); }
+
+    .coupon-remove-btn {
+      padding: 0.65rem 0.8rem;
+      background: var(--surface-2);
+      color: var(--text-muted);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      line-height: 1;
+    }
+
+    .coupon-remove-btn:hover { background: #fde8e8; color: #c0392b; border-color: #c0392b; }
+
+    .coupon-msg {
+      margin-top: 0.55rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      min-height: 1.2em;
+    }
+
+    .coupon-msg.success { color: #2a7f2a; }
+    .coupon-msg.error   { color: #c0392b; }
+
+    /* ==============================================
        MOBILE STICKY BAR
        ============================================== */
     .mobile-bar {
@@ -580,6 +660,117 @@
       .features-grid { grid-template-columns: 1fr; }
       .domain-opts { grid-template-columns: 1fr; }
       .service-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ==============================================
+       INQUIRY MODAL
+       ============================================== */
+    .inquiry-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.48);
+      z-index: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+    }
+
+    .inquiry-overlay.open {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.25s ease;
+    }
+
+    .inquiry-modal {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      max-width: 460px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(14px);
+      transition: transform 0.25s ease;
+    }
+
+    .inquiry-overlay.open .inquiry-modal {
+      transform: translateY(0);
+    }
+
+    .inquiry-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: var(--surface-2);
+      border-radius: 50%;
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .inquiry-close:hover { background: var(--border); color: var(--text); }
+
+    .inquiry-modal h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      padding-right: 2.5rem;
+    }
+
+    .inquiry-modal > p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 1.1rem;
+      line-height: 1.55;
+    }
+
+    .inquiry-summary {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.81rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    .inquiry-summary strong {
+      color: var(--text);
+      display: block;
+      font-size: 0.88rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .inquiry-price-highlight {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      margin-top: 0.6rem;
+    }
+
+    .inquiry-success {
+      text-align: center;
+      padding: 1.25rem 0 0.5rem;
+    }
+
+    .inquiry-success .form-success-icon {
+      margin: 0 auto 0.75rem;
     }
   </style>
 </head>
@@ -659,12 +850,8 @@
             <div class="calc-card">
               <div class="calc-card-title">
                 Pokročilé funkce
-                <span class="addons-type-badge">Levnější v tarifu Web na míru</span>
                 <span class="calc-card-title-spacer"></span>
                 <span class="calc-card-count" id="advanced-count" style="display:none"></span>
-              </div>
-              <div class="card-note" id="advanced-tier-note" style="display:none">
-                V tarifu <strong>Jednoduchý web</strong> jsou pokročilé funkce dostupné za vyšší cenu — počítejte s tím při volbě tarifu.
               </div>
               <div class="features-grid" id="advanced-grid"><!-- Filled by JS --></div>
             </div>
@@ -688,6 +875,19 @@
               </div>
             </div>
 
+            <!-- Slevový kód -->
+            <div class="calc-card">
+              <div class="calc-card-title">Máte slevový kód?</div>
+              <div class="coupon-row">
+                <input type="text" class="coupon-input" id="coupon-input"
+                       placeholder="Zadejte kód…" autocomplete="off" spellcheck="false"
+                       onkeydown="if(event.key==='Enter') applyCoupon()">
+                <button class="coupon-btn" id="coupon-apply-btn" onclick="applyCoupon()">Uplatnit</button>
+                <button class="coupon-remove-btn" id="coupon-remove-btn" onclick="removeCoupon()" style="display:none" aria-label="Odebrat kód">✕</button>
+              </div>
+              <div class="coupon-msg" id="coupon-msg"></div>
+            </div>
+
           </div>
 
           <!-- RIGHT: Price summary -->
@@ -706,7 +906,7 @@
               <p class="price-disclaimer">
                 Ceny jsou orientační a mohou se lišit podle konkrétních požadavků. Výsledná cena se vždy dohodne individuálně.
               </p>
-              <a href="#" id="inquiry-link" class="price-cta">Chci takový web →</a>
+              <button class="price-cta" onclick="openInquiry()">Chci takový web →</button>
               <a href="tel:+420777454591" class="price-phone">nebo zavolejte: +420 777 454 591</a>
             </div>
           </div>
@@ -724,7 +924,50 @@
         <div class="mobile-total" id="mobile-total">3 000 Kč</div>
         <div class="mobile-monthly" id="mobile-monthly">+ 300 Kč/měsíc</div>
       </div>
-      <a href="#" id="mobile-inquiry-link" class="btn btn-primary">Chci takový web</a>
+      <button class="btn btn-primary" onclick="openInquiry()">Chci takový web</button>
+    </div>
+  </div>
+
+  <!-- INQUIRY MODAL -->
+  <div class="inquiry-overlay" id="inquiry-overlay" aria-hidden="true">
+    <div class="inquiry-modal" role="dialog" aria-modal="true" aria-labelledby="inquiry-title">
+      <button class="inquiry-close" onclick="closeInquiry()" aria-label="Zavřít">✕</button>
+      <h3 id="inquiry-title">Pojďme to rozjet</h3>
+      <p>Vyplňte kontakt a vaši konfiguraci vám pošleme spolu s poptávkou.</p>
+
+      <div class="inquiry-summary" id="inquiry-summary"></div>
+
+      <div id="inquiry-form-wrap">
+        <form id="inquiry-form" action="https://formspree.io/f/mbdewdzb" method="POST" novalidate>
+          <input type="hidden" name="_subject"          id="iq-subject"  value="">
+          <input type="hidden" name="Typ webu"          id="iq-type"     value="">
+          <input type="hidden" name="Vybrané doplňky"   id="iq-addons"   value="">
+          <input type="hidden" name="Orientační cena"   id="iq-price"    value="">
+          <input type="hidden" name="Měsíční platba"    id="iq-monthly"  value="">
+          <input type="hidden" name="Slevový kód"       id="iq-coupon"   value="">
+          <div class="form-field">
+            <label for="iq-name">Jméno</label>
+            <input type="text" id="iq-name" name="Jméno" required autocomplete="name" placeholder="Vaše jméno">
+            <span class="form-field-err" id="iq-name-err" role="alert"></span>
+          </div>
+          <div class="form-field">
+            <label for="iq-contact">E-mail nebo telefon</label>
+            <input type="text" id="iq-contact" name="Kontakt" required autocomplete="email" placeholder="vas@email.cz nebo +420…">
+            <span class="form-field-err" id="iq-contact-err" role="alert"></span>
+          </div>
+          <div class="form-field">
+            <label for="iq-note">Poznámka <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.78rem">(nepovinné)</span></label>
+            <textarea id="iq-note" name="Poznámka" rows="3" placeholder="Pár slov o projektu, termínu, nebo cokoliv důležité…"></textarea>
+          </div>
+          <div id="iq-error" class="form-error-global" style="display:none"></div>
+          <button type="submit" class="price-cta" id="iq-submit">Odeslat poptávku →</button>
+        </form>
+      </div>
+
+      <div class="inquiry-success" id="inquiry-success" style="display:none">
+        <div class="form-success-icon" aria-hidden="true">✓</div>
+        <p>Poptávka odeslána!<br>Ozvu se co nejdříve.</p>
+      </div>
     </div>
   </div>
 
@@ -771,16 +1014,15 @@
       { id: 'social',    name: 'Sociální sítě / Google profil', desc: 'Napojení na Instagram, Facebook nebo Google Business',     priceSimple:  700, priceAdvanced: 0 },
     ];
 
-    // Pokročilé funkce — dostupné v OBOU tarifech, ale dražší v Jednoduchém webu.
-    // priceAdvanced musí dát v součtu ≤ 6 000 Kč → 6 000 + 6 000 = 12 000 Kč (strop) ✓
-    // priceSimple je vyšší — pokud klient chce složité funkce na jednoduchém webu, zaplatí prémium.
+    // Pokročilé funkce — stejná cena na obou tarifech.
+    // Součet = 3 000 Kč → Jednoduchý web max: 3000+3000+3000=9000 | Web na míru max: 6000+3000=9000 ✓
     const ADVANCED_ADDONS = [
       //                                                                               priceSimple  priceAdvanced
-      { id: 'rezervace', name: 'Rezervační systém',              desc: 'Online rezervace termínů, stolů nebo schůzek',            priceSimple: 1800, priceAdvanced: 1000 },
-      { id: 'ucty',      name: 'Uživatelské účty / přihlašování',desc: 'Registrace a přihlášení uživatelů na webu',               priceSimple: 2500, priceAdvanced: 1500 },
-      { id: 'admin',     name: 'Databáze / správa obsahu',       desc: 'Administrace obsahu webu bez nutnosti programátora',       priceSimple: 1800, priceAdvanced: 1000 },
-      { id: 'imenu',     name: 'Interaktivní menu s filtrováním',desc: 'Menu nebo ceník s filtry, vyhledáváním a kategoriemi',    priceSimple:  900, priceAdvanced:  500 },
-      { id: 'eshop',     name: 'E-shop / platby online',         desc: 'Online prodej produktů nebo dárkových poukazů s platbami',priceSimple: 3000, priceAdvanced: 2000 },
+      { id: 'rezervace', name: 'Rezervační systém',              desc: 'Online rezervace termínů, stolů nebo schůzek',            priceSimple:  600, priceAdvanced:  600 },
+      { id: 'ucty',      name: 'Uživatelské účty / přihlašování',desc: 'Registrace a přihlášení uživatelů na webu',               priceSimple:  800, priceAdvanced:  800 },
+      { id: 'admin',     name: 'Databáze / správa obsahu',       desc: 'Administrace obsahu webu bez nutnosti programátora',       priceSimple:  600, priceAdvanced:  600 },
+      { id: 'imenu',     name: 'Interaktivní menu s filtrováním',desc: 'Menu nebo ceník s filtry, vyhledáváním a kategoriemi',    priceSimple:  200, priceAdvanced:  200 },
+      { id: 'eshop',     name: 'E-shop / platby online',         desc: 'Online prodej produktů nebo dárkových poukazů s platbami',priceSimple:  800, priceAdvanced:  800 },
     ];
 
     // Měsíční platby
@@ -789,9 +1031,13 @@
     const DOMAIN_PRICE        = 200;  // Kč/měsíc — doména a hosting (jen Jednoduchý web, pokud klient nemá)
     const PER_FEATURE_MGMT    = 100;  // Kč/měsíc — každá pokročilá funkce (oba tarify)
     const FREE_MGMT_FEATURES  = ['imenu']; // Tyto pokročilé funkce nemají měsíční příplatek
-    // Rozsahy: Jednoduchý web 300–500 Kč (+100/funkce) | Web na míru 500 Kč (+100/funkce, max ~900)
 
-    const PRICE_CAP = 12000; // Kč — strop orientační ceny; nad tuto hranici se cena domlouvá individuálně
+    const PRICE_CAP = 10000; // Kč — bezpečnostní strop (přirozené max obou tarifů je 9 000 Kč)
+
+    const COUPONS = {
+      'family': 25,
+      'local':  10,
+    };
 
     /* ==============================================
        STATE
@@ -800,6 +1046,8 @@
       serviceType: 'simple',
       selected: new Set(),
       needsDomain: false,
+      couponCode: null,
+      discountPct: 0,
     };
 
     /* ==============================================
@@ -868,8 +1116,6 @@
       /* Show/hide contextual notes */
       document.getElementById('simple-included-note').style.display =
         id === 'advanced' ? 'block' : 'none';
-      document.getElementById('advanced-tier-note').style.display =
-        id === 'simple' ? 'block' : 'none';
 
       /* Domain section: on advanced tier, domain is included — update note + button subtitles */
       const isAdvanced = id === 'advanced';
@@ -1042,9 +1288,23 @@
         if (paidProCount > 0) monthlyParts.push(`monitoring funkcí`);
       }
 
+      /* Apply coupon discount */
+      const discountAmt = state.discountPct > 0
+        ? Math.round(total * state.discountPct / 100)
+        : 0;
+
+      if (discountAmt > 0) {
+        html += `<div class="price-line">
+          <span class="pl-label">Sleva (${state.discountPct} %)</span>
+          <span class="pl-val" style="color:#2a7f2a;">−${discountAmt.toLocaleString('cs-CZ')} Kč</span>
+        </div>`;
+      }
+
+      const discountedTotal = total - discountAmt;
+
       /* Cap one-time price at PRICE_CAP */
-      const cappedTotal = Math.min(total, PRICE_CAP);
-      const isCapped    = total > PRICE_CAP;
+      const cappedTotal = Math.min(discountedTotal, PRICE_CAP);
+      const isCapped    = discountedTotal > PRICE_CAP;
 
       /* Count badges */
       const simpleCountEl   = document.getElementById('simple-count');
@@ -1068,56 +1328,183 @@
       document.getElementById('mobile-monthly').textContent =
         '+ ' + monthly.toLocaleString('cs-CZ') + ' Kč/měs.';
 
-      refreshMailto(cappedTotal, monthly, type, isCapped);
+      lastCalc = { cappedTotal, monthly, isCapped, monthlyParts: [...monthlyParts] };
     }
 
     /* ==============================================
-       MAILTO CTA
+       INQUIRY MODAL
        ============================================== */
-    function refreshMailto(total, monthly, type, isCapped) {
-      const lines = [];
+    let lastCalc = { cappedTotal: 3000, monthly: 300, isCapped: false, monthlyParts: ['správa webu'] };
 
+    function openInquiry() {
+      const type = SERVICE_TYPES.find(t => t.id === state.serviceType);
+
+      /* Build addon lines */
+      const addonLines = [];
       if (state.serviceType === 'advanced') {
-        lines.push('– Základní doplňky (zahrnuty v ceně tarifu)');
+        addonLines.push('Základní doplňky (zahrnuty v ceně)');
       }
-
-      const allAddons = [...SIMPLE_ADDONS, ...ADVANCED_ADDONS];
-      allAddons.forEach(a => {
+      [...SIMPLE_ADDONS, ...ADVANCED_ADDONS].forEach(a => {
         if (state.selected.has(a.id)) {
           const price = getAddonPrice(a);
-          if (price > 0) lines.push(`– ${a.name} (+${price.toLocaleString('cs-CZ')} Kč)`);
+          addonLines.push(price > 0
+            ? `${a.name} (+${price.toLocaleString('cs-CZ')} Kč)`
+            : `${a.name} (zahrnuto)`);
         }
       });
+      if (state.needsDomain && state.serviceType !== 'advanced') {
+        addonLines.push('Doména a hosting (+200 Kč/měsíc)');
+      }
 
-      if (!lines.length) lines.push('– (žádné doplňky)');
-      const domainLine = state.needsDomain ? '\n– Doména a hosting (+200 Kč/měsíc)' : '';
+      const { cappedTotal, monthly, isCapped, monthlyParts } = lastCalc;
+      const priceStr = cappedTotal.toLocaleString('cs-CZ') + ' Kč' + (isCapped ? '+' : '');
+      const couponStr = state.couponCode
+        ? `${state.couponCode.toUpperCase()} (−${state.discountPct} %)`
+        : null;
 
-      const priceStr = isCapped
-        ? `od ${total.toLocaleString('cs-CZ')} Kč jednorázově (individuální nacenění)`
-        : `${total.toLocaleString('cs-CZ')} Kč jednorázově`;
+      /* Fill summary block */
+      let summaryHtml = `<strong>${type.name}</strong>`;
+      summaryHtml += addonLines.length
+        ? addonLines.map(l => `• ${l}`).join('<br>')
+        : '• Bez doplňků';
+      if (couponStr) summaryHtml += `<br>• Kód: ${couponStr}`;
+      summaryHtml += `<span class="inquiry-price-highlight">${priceStr} + ${monthly.toLocaleString('cs-CZ')} Kč/měsíc</span>`;
+      document.getElementById('inquiry-summary').innerHTML = summaryHtml;
 
-      const body = [
-        'Dobrý den,',
-        '',
-        `mám zájem o vytvoření webu. Zvolený typ: ${type.name}`,
-        '',
-        'Vybrané doplňky:',
-        lines.join('\n') + domainLine,
-        '',
-        `Orientační cena: ${priceStr} + ${monthly.toLocaleString('cs-CZ')} Kč/měsíc`,
-        '',
-        '---',
-        'Jméno:',
-        'Telefon:',
-        'Popis firmy / projektu:',
-      ].join('\n');
+      /* Fill hidden fields */
+      document.getElementById('iq-subject').value  = `Kalkulačka – ${type.name} – ${priceStr}`;
+      document.getElementById('iq-type').value     = type.name;
+      document.getElementById('iq-addons').value   = addonLines.length ? addonLines.join(' | ') : 'žádné';
+      document.getElementById('iq-price').value    = priceStr + ' jednorázově';
+      document.getElementById('iq-monthly').value  = `${monthly.toLocaleString('cs-CZ')} Kč/měsíc (${monthlyParts.join(' + ')})`;
+      document.getElementById('iq-coupon').value   = couponStr || 'žádný';
 
-      const href = 'mailto:daniel.havlicek1@seznam.cz'
-        + '?subject=' + encodeURIComponent('Poptávka webu – ' + type.name)
-        + '&body='    + encodeURIComponent(body);
+      /* Reset form to initial state */
+      document.getElementById('inquiry-form-wrap').style.display = '';
+      document.getElementById('inquiry-success').style.display   = 'none';
+      document.getElementById('iq-error').style.display          = 'none';
+      const submitBtn = document.getElementById('iq-submit');
+      submitBtn.disabled    = false;
+      submitBtn.textContent = 'Odeslat poptávku →';
 
-      document.getElementById('inquiry-link').href        = href;
-      document.getElementById('mobile-inquiry-link').href = href;
+      const overlay = document.getElementById('inquiry-overlay');
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => document.getElementById('iq-name').focus(), 80);
+    }
+
+    function closeInquiry() {
+      const overlay = document.getElementById('inquiry-overlay');
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('inquiry-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeInquiry();
+    });
+
+    document.getElementById('inquiry-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      /* Validate */
+      let valid = true;
+      const nameEl    = document.getElementById('iq-name');
+      const contactEl = document.getElementById('iq-contact');
+
+      if (!nameEl.value.trim()) {
+        document.getElementById('iq-name-err').textContent = 'Zadejte prosím jméno.';
+        nameEl.setAttribute('aria-invalid', 'true');
+        valid = false;
+      } else {
+        document.getElementById('iq-name-err').textContent = '';
+        nameEl.removeAttribute('aria-invalid');
+      }
+
+      if (!contactEl.value.trim()) {
+        document.getElementById('iq-contact-err').textContent = 'Zadejte e-mail nebo telefon.';
+        contactEl.setAttribute('aria-invalid', 'true');
+        valid = false;
+      } else {
+        document.getElementById('iq-contact-err').textContent = '';
+        contactEl.removeAttribute('aria-invalid');
+      }
+
+      if (!valid) return;
+
+      const submitBtn = document.getElementById('iq-submit');
+      submitBtn.disabled    = true;
+      submitBtn.textContent = 'Odesílám…';
+      document.getElementById('iq-error').style.display = 'none';
+
+      try {
+        const res = await fetch(this.action, {
+          method:  'POST',
+          body:    new FormData(this),
+          headers: { 'Accept': 'application/json' },
+        });
+
+        if (res.ok) {
+          document.getElementById('inquiry-form-wrap').style.display = 'none';
+          document.getElementById('inquiry-success').style.display   = 'block';
+        } else {
+          const data = await res.json().catch(() => ({}));
+          const msg  = data.errors ? data.errors.map(e => e.message).join(', ')
+                                   : 'Nastala chyba. Zkuste to znovu nebo napište na e-mail.';
+          document.getElementById('iq-error').textContent    = msg;
+          document.getElementById('iq-error').style.display  = 'block';
+          submitBtn.disabled    = false;
+          submitBtn.textContent = 'Odeslat poptávku →';
+        }
+      } catch {
+        document.getElementById('iq-error').textContent    = 'Nastala chyba sítě. Zkuste to znovu.';
+        document.getElementById('iq-error').style.display  = 'block';
+        submitBtn.disabled    = false;
+        submitBtn.textContent = 'Odeslat poptávku →';
+      }
+    });
+
+    /* ==============================================
+       COUPON
+       ============================================== */
+    function applyCoupon() {
+      const input = document.getElementById('coupon-input');
+      const msg   = document.getElementById('coupon-msg');
+      const code  = input.value.trim().toLowerCase();
+
+      if (COUPONS[code] !== undefined) {
+        state.couponCode  = code;
+        state.discountPct = COUPONS[code];
+        input.classList.remove('invalid');
+        input.classList.add('valid');
+        input.disabled = true;
+        document.getElementById('coupon-apply-btn').style.display  = 'none';
+        document.getElementById('coupon-remove-btn').style.display = '';
+        msg.className   = 'coupon-msg success';
+        msg.textContent = `Kód uplatněn! Sleva ${state.discountPct} % na jednorázovou cenu.`;
+      } else {
+        input.classList.remove('valid');
+        input.classList.add('invalid');
+        msg.className   = 'coupon-msg error';
+        msg.textContent = 'Neplatný kód. Zkuste to znovu.';
+      }
+      updateUI();
+    }
+
+    function removeCoupon() {
+      state.couponCode  = null;
+      state.discountPct = 0;
+      const input = document.getElementById('coupon-input');
+      input.value    = '';
+      input.disabled = false;
+      input.classList.remove('valid', 'invalid');
+      document.getElementById('coupon-apply-btn').style.display  = '';
+      document.getElementById('coupon-remove-btn').style.display = 'none';
+      const msg   = document.getElementById('coupon-msg');
+      msg.className   = 'coupon-msg';
+      msg.textContent = '';
+      updateUI();
     }
 
     /* ==============================================
@@ -1129,21 +1516,24 @@
 
     function closeNav() {
       navEl.classList.remove('open');
-      navEl.style.top = '';
       hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      hamburger.setAttribute('aria-label', 'Otevřít navigaci');
     }
 
-    hamburger.addEventListener('click', () => {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
       const isOpen = navEl.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', String(isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-      if (isOpen) navEl.style.top = headerEl.getBoundingClientRect().bottom + 'px';
-      else navEl.style.top = '';
+      hamburger.setAttribute('aria-label', isOpen ? 'Zavřít navigaci' : 'Otevřít navigaci');
     });
 
     navEl.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+    document.addEventListener('click', (e) => {
+      if (navEl.classList.contains('open') && !navEl.contains(e.target) && !hamburger.contains(e.target)) closeNav();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { closeNav(); closeInquiry(); }
+    });
     window.addEventListener('scroll', () => {
       headerEl.classList.toggle('scrolled', window.scrollY > 12);
     }, { passive: true });
@@ -1153,8 +1543,6 @@
        ============================================== */
     renderServiceTypes();
     renderAddons();
-    /* Show advanced-tier-note by default (simple is the default type) */
-    document.getElementById('advanced-tier-note').style.display = 'block';
     updateUI();
   </script>
 </body>
