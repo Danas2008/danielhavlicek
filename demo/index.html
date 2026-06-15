@@ -821,25 +821,36 @@
       .nav {
         display: none;
         position: fixed;
-        inset: var(--hdr-h) 0 0 0;
+        top: var(--hdr-h); /* JS overrides this on open */
+        left: 0;
+        right: 0;
+        bottom: 0;
         background: var(--bg);
         flex-direction: column;
         align-items: stretch;
-        padding: 1.25rem;
-        gap: 0.2rem;
+        padding: 1rem 1.25rem 2rem;
+        gap: 0.15rem;
         border-top: 1px solid var(--border);
         overflow-y: auto;
-        z-index: 99;
+        z-index: 110; /* above sticky header */
       }
 
       .nav.open { display: flex; }
 
       .nav a {
-        padding: 0.85rem 1rem;
+        padding: 0.9rem 1rem;
         font-size: 1rem;
+        color: var(--text);
+        border-radius: var(--radius-sm);
       }
 
-      .nav .btn-nav { margin: 0.5rem 0 0; text-align: center; }
+      .nav a:hover { background: var(--surface); }
+
+      .nav .btn-nav {
+        margin: 0.5rem 0 0;
+        text-align: center;
+        color: var(--hero-bg) !important;
+      }
 
       .hero h1 { font-size: clamp(2rem, 8vw, 2.6rem); max-width: none; }
 
@@ -1118,7 +1129,7 @@
         <a href="#galerie">Galerie</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
-      <span class="footer-copy">© 2025 Vaše firma</span>
+      <span class="footer-copy">© 2026 Vaše firma</span>
     </div>
   </footer>
 
@@ -1146,6 +1157,7 @@
 
     function closeNav() {
       nav.classList.remove('open');
+      nav.style.top = '';
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }
@@ -1154,6 +1166,11 @@
       const isOpen = nav.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', String(isOpen));
       document.body.style.overflow = isOpen ? 'hidden' : '';
+      if (isOpen) {
+        nav.style.top = header.getBoundingClientRect().bottom + 'px';
+      } else {
+        nav.style.top = '';
+      }
     });
 
     nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));

@@ -161,6 +161,7 @@ const nav       = document.getElementById('nav');
 
 function closeNav() {
   nav.classList.remove('open');
+  nav.style.top = '';
   hamburger.setAttribute('aria-expanded', 'false');
   hamburger.setAttribute('aria-label', 'Otevřít navigaci');
   document.body.style.overflow = '';
@@ -171,6 +172,11 @@ hamburger.addEventListener('click', () => {
   hamburger.setAttribute('aria-expanded', String(isOpen));
   hamburger.setAttribute('aria-label', isOpen ? 'Zavřít navigaci' : 'Otevřít navigaci');
   document.body.style.overflow = isOpen ? 'hidden' : '';
+  if (isOpen) {
+    nav.style.top = header.getBoundingClientRect().bottom + 'px';
+  } else {
+    nav.style.top = '';
+  }
 });
 
 nav.querySelectorAll('.nav-link').forEach(link => {
