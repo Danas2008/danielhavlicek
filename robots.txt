@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Sitemap: https://danielhavlicek.cz/sitemap.xml
+
+Disallow: /leads/
+Disallow: /dashboard*/
+Disallow: /admin*/
+Disallow: /private*/

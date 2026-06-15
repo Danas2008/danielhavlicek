@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Set-Location \"C:\\\\Users\\\\Home\\\\Desktop\\\\Personal web\\\\danielhavlicek\"; powershell -ExecutionPolicy Bypass -File \".\\\\generate-icons.ps1\")"
+    ]
+  }
+}
