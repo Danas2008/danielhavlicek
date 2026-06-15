@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Spočítejte si orientační cenu vašeho webu. Vyberte sekce a okamžitě uvidíte cenu – Daniel Havlíček, webový vývojář z Prahy.">
+  <meta name="description" content="Spočítejte si orientační cenu vašeho webu. Vyberte typ a doplňky – Daniel Havlíček, webový vývojář z Prahy.">
   <meta name="theme-color" content="#1e4080">
   <title>Kalkulačka ceny webu – Daniel Havlíček</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,6 @@
        CALCULATOR PAGE STYLES
        ============================================== */
 
-    /* Hero */
     .calc-hero {
       padding-block: 72px 56px;
       background: var(--surface);
@@ -36,12 +35,10 @@
       line-height: 1.7;
     }
 
-    /* Body */
     .calc-body {
       padding-block: 48px 96px;
     }
 
-    /* Two-column layout */
     .calc-layout {
       display: grid;
       grid-template-columns: 1fr 320px;
@@ -82,7 +79,6 @@
     }
 
     .calc-card-count {
-      margin-left: auto;
       font-size: 0.72rem;
       font-weight: 600;
       padding: 2px 8px;
@@ -92,7 +88,109 @@
       letter-spacing: 0.04em;
     }
 
-    /* Base includes */
+    .addons-type-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      background: var(--surface-2);
+      color: var(--text-muted);
+      border-radius: 99px;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* card-title spacer: pushes count to the right */
+    .calc-card-title-spacer { flex: 1; }
+
+    /* ==============================================
+       SERVICE TYPE SELECTION
+       ============================================== */
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .service-card {
+      padding: 1.1rem 1.1rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
+    }
+
+    .service-card:hover {
+      border-color: var(--accent);
+      background: var(--accent-lite);
+    }
+
+    .service-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-lite);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .service-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.3rem;
+    }
+
+    .service-card-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .service-card.selected .service-card-name { color: var(--accent); }
+
+    .service-card-radio {
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      flex-shrink: 0;
+      position: relative;
+      transition: border-color 0.15s, background 0.15s;
+      margin-top: 2px;
+    }
+
+    .service-card.selected .service-card-radio {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+
+    .service-card.selected .service-card-radio::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .service-card-price {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.45rem;
+    }
+
+    .service-card-desc {
+      font-size: 0.77rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==============================================
+       BASE INCLUDES
+       ============================================== */
     .base-tags {
       display: flex;
       flex-wrap: wrap;
@@ -121,10 +219,7 @@
       border-top: 1px solid var(--border);
     }
 
-    .base-price-label {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
+    .base-price-label { font-size: 0.88rem; color: var(--text-muted); }
 
     .base-price-val {
       font-size: 1.35rem;
@@ -133,7 +228,9 @@
       letter-spacing: -0.02em;
     }
 
-    /* Feature chips */
+    /* ==============================================
+       FEATURE CHIPS
+       ============================================== */
     .features-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -163,7 +260,14 @@
       box-shadow: 0 0 0 1px var(--accent);
     }
 
-    /* Checkbox visual */
+    /* "Included in tier" state — green, non-interactive */
+    .feature-chip.included {
+      border-color: #6ab04c;
+      background: #f0f9e8;
+      cursor: default;
+      pointer-events: none;
+    }
+
     .chip-check {
       width: 18px;
       height: 18px;
@@ -179,12 +283,19 @@
       position: relative;
     }
 
-    .feature-chip.selected .chip-check {
+    .feature-chip.selected .chip-check,
+    .feature-chip.included .chip-check {
       border-color: var(--accent);
       background: var(--accent);
     }
 
-    .feature-chip.selected .chip-check::after {
+    .feature-chip.included .chip-check {
+      border-color: #2a7f2a;
+      background: #2a7f2a;
+    }
+
+    .feature-chip.selected .chip-check::after,
+    .feature-chip.included .chip-check::after {
       content: '';
       position: absolute;
       width: 10px;
@@ -205,6 +316,7 @@
     }
 
     .feature-chip.selected .chip-name { color: var(--accent); }
+    .feature-chip.included .chip-name { color: #27500a; }
 
     .chip-desc {
       font-size: 0.75rem;
@@ -221,8 +333,35 @@
     }
 
     .feature-chip.selected .chip-price { color: var(--accent); }
+    .feature-chip.included .chip-price { color: #27500a; }
 
-    /* Domain section */
+    .chip-monthly {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+
+    .chip-monthly.free { color: #27500a; }
+    .feature-chip.selected .chip-monthly { color: var(--accent); }
+    .feature-chip.selected .chip-monthly.free { color: #27500a; }
+
+    /* Info note inside a card */
+    .card-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: var(--surface);
+      border-left: 3px solid var(--border);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.55rem 0.85rem;
+      margin-bottom: 0.85rem;
+      line-height: 1.5;
+    }
+
+    /* ==============================================
+       DOMAIN SECTION
+       ============================================== */
     .domain-lead {
       font-size: 0.9rem;
       color: var(--text-muted);
@@ -270,7 +409,9 @@
 
     .domain-opt.active .domain-opt-sub { color: var(--accent); }
 
-    /* Price sidebar */
+    /* ==============================================
+       PRICE SIDEBAR
+       ============================================== */
     .price-card {
       position: sticky;
       top: calc(var(--hdr-h) + 1.25rem);
@@ -303,6 +444,7 @@
     .pl-label { color: var(--text-muted); }
     .pl-val { font-weight: 600; color: var(--text); }
     .pl-val.new { color: var(--accent); }
+    .pl-val.incl { color: #27500a; font-size: 0.8rem; }
 
     .price-total-row {
       display: flex;
@@ -313,10 +455,7 @@
       border-top: 2px solid var(--border);
     }
 
-    .price-total-label {
-      font-size: 0.88rem;
-      font-weight: 600;
-    }
+    .price-total-label { font-size: 0.88rem; font-weight: 600; }
 
     .price-total-val {
       font-size: 1.7rem;
@@ -330,6 +469,17 @@
       color: var(--text-muted);
       margin-top: 0.4rem;
       margin-bottom: 1rem;
+    }
+
+    .price-cap-note {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 0.5rem;
+      padding: 0.45rem 0.75rem;
+      background: var(--accent-lite);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
     }
 
     .price-disclaimer {
@@ -357,8 +507,8 @@
       text-decoration: none;
       text-align: center;
       transition: background 0.2s, box-shadow 0.2s;
-      cursor: pointer;
       border: none;
+      cursor: pointer;
     }
 
     .price-cta:hover, .price-cta:focus-visible {
@@ -378,13 +528,13 @@
 
     .price-phone:hover { color: var(--accent); }
 
-    /* Mobile sticky bar */
+    /* ==============================================
+       MOBILE STICKY BAR
+       ============================================== */
     .mobile-bar {
       display: none;
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       background: var(--bg);
       border-top: 2px solid var(--accent);
       padding: 0.85rem 1.25rem 0.95rem;
@@ -415,11 +565,11 @@
       margin-top: 0.1rem;
     }
 
-    /* Responsive */
+    /* ==============================================
+       RESPONSIVE
+       ============================================== */
     @media (max-width: 860px) {
-      .calc-layout {
-        grid-template-columns: 1fr;
-      }
+      .calc-layout { grid-template-columns: 1fr; }
       .calc-sidebar { display: none; }
       .mobile-bar { display: block; }
       .calc-body { padding-bottom: 120px; }
@@ -429,12 +579,13 @@
       .calc-hero { padding-block: 56px 44px; }
       .features-grid { grid-template-columns: 1fr; }
       .domain-opts { grid-template-columns: 1fr; }
+      .service-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER (shared with portfolio) -->
+  <!-- HEADER -->
   <header class="header" id="header">
     <div class="header-inner container">
       <a href="/" class="logo">Daniel Havlíček</a>
@@ -444,9 +595,7 @@
         <a href="/#kontakt" class="nav-link">Kontakt</a>
       </nav>
       <button class="hamburger" id="hamburger" aria-label="Otevřít navigaci" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
   </header>
@@ -458,7 +607,7 @@
       <div class="container">
         <p class="eyebrow" style="margin-bottom: 0.85rem;">Kalkulačka ceny</p>
         <h1>Spočítejte si cenu<br>vašeho webu</h1>
-        <p>Vyberte kliknutím sekce, které chcete mít na webu, a okamžitě uvidíte orientační cenu. Nezávazně, bez registrace.</p>
+        <p>Vyberte typ webu a doplňky, které chcete mít, a okamžitě uvidíte orientační cenu. Nezávazně, bez registrace.</p>
       </div>
     </section>
 
@@ -467,10 +616,17 @@
       <div class="container">
         <div class="calc-layout">
 
-          <!-- LEFT: Feature selection -->
           <div class="calc-main">
 
-            <!-- Base package -->
+            <!-- Krok 1: Typ webu -->
+            <div class="calc-card">
+              <div class="calc-card-title">Krok 1 — Typ webu</div>
+              <div class="service-grid" id="service-grid" role="radiogroup" aria-label="Typ webu">
+                <!-- Filled by JS -->
+              </div>
+            </div>
+
+            <!-- Základ -->
             <div class="calc-card">
               <div class="calc-card-title">V základní ceně je vždy zahrnuto</div>
               <div class="base-tags">
@@ -482,50 +638,70 @@
               </div>
               <div class="base-price-row">
                 <span class="base-price-label">Základní cena od</span>
-                <span class="base-price-val">2 000 Kč</span>
+                <span class="base-price-val" id="base-price-display">3 000 Kč</span>
               </div>
             </div>
 
-            <!-- Features -->
+            <!-- Volitelné doplňky -->
             <div class="calc-card">
               <div class="calc-card-title">
-                Co chcete přidat?
-                <span class="calc-card-count" id="selected-count" style="display:none"></span>
+                Volitelné doplňky
+                <span class="calc-card-title-spacer"></span>
+                <span class="calc-card-count" id="simple-count" style="display:none"></span>
               </div>
-              <div class="features-grid" id="features-grid">
-                <!-- Filled by JS -->
+              <div class="card-note" id="simple-included-note" style="display:none">
+                Tyto doplňky jsou zahrnuty v základní ceně tarifu <strong>Web na míru</strong>.
               </div>
+              <div class="features-grid" id="simple-grid"><!-- Filled by JS --></div>
             </div>
 
-            <!-- Domain -->
+            <!-- Pokročilé funkce -->
+            <div class="calc-card">
+              <div class="calc-card-title">
+                Pokročilé funkce
+                <span class="addons-type-badge">Levnější v tarifu Web na míru</span>
+                <span class="calc-card-title-spacer"></span>
+                <span class="calc-card-count" id="advanced-count" style="display:none"></span>
+              </div>
+              <div class="card-note" id="advanced-tier-note" style="display:none">
+                V tarifu <strong>Jednoduchý web</strong> jsou pokročilé funkce dostupné za vyšší cenu — počítejte s tím při volbě tarifu.
+              </div>
+              <div class="features-grid" id="advanced-grid"><!-- Filled by JS --></div>
+            </div>
+
+            <!-- Doména a hosting -->
             <div class="calc-card">
               <div class="calc-card-title">Doména a hosting</div>
-              <p class="domain-lead">
-                Máte vlastní doménu a webhostingový prostor?
-              </p>
+              <div class="card-note" id="domain-included-note" style="display:none">
+                V tarifu <strong>Web na míru</strong> jsou doména a hosting zahrnuty bez příplatku.
+              </div>
+              <p class="domain-lead">Máte vlastní doménu a webhostingový prostor?</p>
               <div class="domain-opts">
                 <button class="domain-opt active" id="domain-yes" onclick="setDomain('yes')">
                   Ano, mám
-                  <span class="domain-opt-sub">nic navíc</span>
+                  <span class="domain-opt-sub" id="domain-yes-sub">nic navíc</span>
                 </button>
                 <button class="domain-opt" id="domain-no" onclick="setDomain('no')">
                   Ne, nemám
-                  <span class="domain-opt-sub">+200 Kč/měsíc</span>
+                  <span class="domain-opt-sub" id="domain-no-sub">+200 Kč/měsíc</span>
                 </button>
               </div>
             </div>
 
           </div>
 
-          <!-- RIGHT: Price summary (sticky) -->
+          <!-- RIGHT: Price summary -->
           <div class="calc-sidebar">
             <div class="price-card">
               <div class="price-card-title">Orientační cena</div>
               <div id="price-breakdown"></div>
               <div class="price-total-row">
                 <span class="price-total-label">Celkem jednorázově</span>
-                <span class="price-total-val" id="total-val">2 000 Kč</span>
+                <span class="price-total-val" id="total-val">3 000 Kč</span>
               </div>
+              <p class="price-cap-note" id="cap-note" style="display:none">
+                Při tomto výběru se finální cena domluví individuálně.
+              </p>
               <p class="price-monthly-note" id="monthly-note">+ 300 Kč / měsíc (správa webu)</p>
               <p class="price-disclaimer">
                 Ceny jsou orientační a mohou se lišit podle konkrétních požadavků. Výsledná cena se vždy dohodne individuálně.
@@ -545,14 +721,14 @@
   <div class="mobile-bar">
     <div class="mobile-bar-inner">
       <div>
-        <div class="mobile-total" id="mobile-total">2 000 Kč</div>
+        <div class="mobile-total" id="mobile-total">3 000 Kč</div>
         <div class="mobile-monthly" id="mobile-monthly">+ 300 Kč/měsíc</div>
       </div>
       <a href="#" id="mobile-inquiry-link" class="btn btn-primary">Chci takový web</a>
     </div>
   </div>
 
-  <!-- FOOTER (shared with portfolio) -->
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
       <span class="footer-name">Daniel Havlíček</span>
@@ -567,131 +743,207 @@
 
   <script>
     /* ==============================================
-       FEATURES DATA
+       PRICES — edit values here
        ============================================== */
-    const FEATURES = [
+
+    const SERVICE_TYPES = [
       {
-        id: 'menu',
-        name: 'Menu / ceník',
-        desc: 'Přehledný ceník nebo jídelní lístek s kategoriemi a filtry',
-        price: 700,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>',
+        id: 'simple',
+        name: 'Jednoduchý web',
+        basePrice: 3000,   // ← základní cena
+        desc: 'Statický prezentační web — úvod, o nás, služby, kontakt, galerie. Ideální pro menší firmy a živnostníky.',
       },
       {
-        id: 'rezervace',
-        name: 'Rezervace online',
-        desc: 'Systém pro rezervaci termínů, stolů nebo schůzek',
-        price: 600,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-      },
-      {
-        id: 'galerie',
-        name: 'Fotogalerie',
-        desc: 'Galerie fotek vašich prací, prostoru nebo produktů',
-        price: 400,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
-      },
-      {
-        id: 'o-nas',
-        name: 'O nás / příběh',
-        desc: 'Sekce s vaším příběhem, hodnotami nebo týmem',
-        price: 300,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>',
-      },
-      {
-        id: 'kontakt',
-        name: 'Kontakt + mapa',
-        desc: 'Kontaktní formulář, adresa a Google Maps',
-        price: 300,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
-      },
-      {
-        id: 'rozvoz',
-        name: 'Rozvoz / objednávky',
-        desc: 'Online objednávky nebo propojení s rozvozovými platformami',
-        price: 1200,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>',
-      },
-      {
-        id: 'akce',
-        name: 'Akce / novinky',
-        desc: 'Sekce pro aktuální nabídky, novinky nebo slevy',
-        price: 500,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>',
-      },
-      {
-        id: 'vicejazyc',
-        name: 'Vícejazyčná verze',
-        desc: 'Web v češtině a angličtině (nebo dalším jazyce)',
-        price: 600,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>',
-      },
-      {
-        id: 'social',
-        name: 'Social media feed',
-        desc: 'Propojení s Instagramem nebo Facebookem',
-        price: 400,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>',
-      },
-      {
-        id: 'eshop',
-        name: 'E-shop / poukazy',
-        desc: 'Online prodej produktů nebo dárkových poukazů',
-        price: 1000,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-7.43H6"/></svg>',
-      },
-      {
-        id: 'admin',
-        name: 'Správa obsahu',
-        desc: 'Admin panel pro vlastní úpravy textů a fotek bez programátora',
-        price: 800,
-        svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+        id: 'advanced',
+        name: 'Web na míru',
+        basePrice: 6000,   // ← základní cena (zahrnuje všechny základní doplňky)
+        desc: 'Web s pokročilými funkcemi a backendem — rezervace, databáze, uživatelské účty, interaktivní obsah. Pro firmy, které potřebují víc.',
       },
     ];
+
+    // Základní doplňky — placené na Jednoduchém webu, ZDARMA v tarifu Web na míru.
+    // Součet priceSimple = 3 000 Kč → 3 000 + 3 000 = 6 000 Kč (= cena Web na míru) ✓
+    const SIMPLE_ADDONS = [
+      //                                                                              priceSimple  priceAdvanced
+      { id: 'vicejazyc', name: 'Vícejazyčnost',                desc: 'Web v češtině a angličtině (nebo dalším jazyce)',          priceSimple:  900, priceAdvanced: 0 },
+      { id: 'galerie',   name: 'Galerie / fotogalerie navíc',   desc: 'Rozšířená galerie fotek vašich prací nebo prostoru',       priceSimple:  700, priceAdvanced: 0 },
+      { id: 'kontform',  name: 'Kontaktní formulář',            desc: 'Formulář pro přijímání poptávek přímo na webu',            priceSimple:  700, priceAdvanced: 0 },
+      { id: 'social',    name: 'Sociální sítě / Google profil', desc: 'Napojení na Instagram, Facebook nebo Google Business',     priceSimple:  700, priceAdvanced: 0 },
+    ];
+
+    // Pokročilé funkce — dostupné v OBOU tarifech, ale dražší v Jednoduchém webu.
+    // priceAdvanced musí dát v součtu ≤ 6 000 Kč → 6 000 + 6 000 = 12 000 Kč (strop) ✓
+    // priceSimple je vyšší — pokud klient chce složité funkce na jednoduchém webu, zaplatí prémium.
+    const ADVANCED_ADDONS = [
+      //                                                                               priceSimple  priceAdvanced
+      { id: 'rezervace', name: 'Rezervační systém',              desc: 'Online rezervace termínů, stolů nebo schůzek',            priceSimple: 1800, priceAdvanced: 1000 },
+      { id: 'ucty',      name: 'Uživatelské účty / přihlašování',desc: 'Registrace a přihlášení uživatelů na webu',               priceSimple: 2500, priceAdvanced: 1500 },
+      { id: 'admin',     name: 'Databáze / správa obsahu',       desc: 'Administrace obsahu webu bez nutnosti programátora',       priceSimple: 1800, priceAdvanced: 1000 },
+      { id: 'imenu',     name: 'Interaktivní menu s filtrováním',desc: 'Menu nebo ceník s filtry, vyhledáváním a kategoriemi',    priceSimple:  900, priceAdvanced:  500 },
+      { id: 'eshop',     name: 'E-shop / platby online',         desc: 'Online prodej produktů nebo dárkových poukazů s platbami',priceSimple: 3000, priceAdvanced: 2000 },
+    ];
+
+    // Měsíční platby
+    const SIMPLE_MGMT_PRICE   = 300;  // Kč/měsíc — správa Jednoduchého webu
+    const ADVANCED_MGMT_PRICE = 500;  // Kč/měsíc — správa Webu na míru (doména/hosting zahrnuta)
+    const DOMAIN_PRICE        = 200;  // Kč/měsíc — doména a hosting (jen Jednoduchý web, pokud klient nemá)
+    const PER_FEATURE_MGMT    = 100;  // Kč/měsíc — každá pokročilá funkce (oba tarify)
+    const FREE_MGMT_FEATURES  = ['imenu']; // Tyto pokročilé funkce nemají měsíční příplatek
+    // Rozsahy: Jednoduchý web 300–500 Kč (+100/funkce) | Web na míru 500 Kč (+100/funkce, max ~900)
+
+    const PRICE_CAP = 12000; // Kč — strop orientační ceny; nad tuto hranici se cena domlouvá individuálně
 
     /* ==============================================
        STATE
        ============================================== */
-    const BASE_PRICE   = 2000;
-    const MGMT_PRICE   = 300;
-    const DOMAIN_PRICE = 200;
-
     const state = {
-      selected:    new Set(),
+      serviceType: 'simple',
+      selected: new Set(),
       needsDomain: false,
     };
 
     /* ==============================================
-       RENDER FEATURE CHIPS
+       HELPERS
        ============================================== */
-    function renderFeatures() {
-      const grid = document.getElementById('features-grid');
-      grid.innerHTML = FEATURES.map(f => `
-        <div class="feature-chip" id="chip-${f.id}" onclick="toggleFeature('${f.id}')" role="checkbox" aria-checked="false" tabindex="0">
-          <div class="chip-check"></div>
-          <div class="chip-body">
-            <div class="chip-name">${f.name}</div>
-            <div class="chip-desc">${f.desc}</div>
-            <span class="chip-price">+ ${f.price.toLocaleString('cs-CZ')} Kč</span>
+    function getAddonPrice(addon) {
+      return state.serviceType === 'simple' ? addon.priceSimple : addon.priceAdvanced;
+    }
+
+    /* ==============================================
+       RENDER SERVICE TYPE CARDS
+       ============================================== */
+    function renderServiceTypes() {
+      const grid = document.getElementById('service-grid');
+      grid.innerHTML = SERVICE_TYPES.map(t => `
+        <div class="service-card${t.id === state.serviceType ? ' selected' : ''}"
+             data-type="${t.id}"
+             onclick="setServiceType('${t.id}')"
+             role="radio" aria-checked="${t.id === state.serviceType}" tabindex="0">
+          <div class="service-card-top">
+            <div class="service-card-name">${t.name}</div>
+            <div class="service-card-radio"></div>
           </div>
+          <div class="service-card-price">od ${t.basePrice.toLocaleString('cs-CZ')} Kč</div>
+          <div class="service-card-desc">${t.desc}</div>
         </div>
       `).join('');
 
-      /* Keyboard support */
-      grid.querySelectorAll('.feature-chip').forEach(chip => {
-        chip.addEventListener('keydown', e => {
-          if (e.key === ' ' || e.key === 'Enter') {
-            e.preventDefault();
-            chip.click();
+      const cards = Array.from(grid.querySelectorAll('.service-card'));
+      cards.forEach((card, i) => {
+        card.addEventListener('keydown', e => {
+          if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); card.click(); }
+          else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault(); const n = cards[(i + 1) % cards.length]; n.focus(); n.click();
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault(); const p = cards[(i - 1 + cards.length) % cards.length]; p.focus(); p.click();
           }
         });
       });
     }
 
     /* ==============================================
-       TOGGLE FEATURE
+       SET SERVICE TYPE
        ============================================== */
-    function toggleFeature(id) {
+    function setServiceType(id) {
+      state.serviceType = id;
+
+      /* Clear simple add-ons from selection when switching to advanced
+         (they become "included", no longer individually tracked) */
+      if (id === 'advanced') {
+        SIMPLE_ADDONS.forEach(a => state.selected.delete(a.id));
+      }
+
+      /* Update radio card visuals */
+      document.querySelectorAll('.service-card').forEach(card => {
+        const sel = card.dataset.type === id;
+        card.classList.toggle('selected', sel);
+        card.setAttribute('aria-checked', String(sel));
+      });
+
+      /* Update base price */
+      const type = SERVICE_TYPES.find(t => t.id === id);
+      document.getElementById('base-price-display').textContent =
+        type.basePrice.toLocaleString('cs-CZ') + ' Kč';
+
+      /* Show/hide contextual notes */
+      document.getElementById('simple-included-note').style.display =
+        id === 'advanced' ? 'block' : 'none';
+      document.getElementById('advanced-tier-note').style.display =
+        id === 'simple' ? 'block' : 'none';
+
+      /* Domain section: on advanced tier, domain is included — update note + button subtitles */
+      const isAdvanced = id === 'advanced';
+      document.getElementById('domain-included-note').style.display =
+        isAdvanced ? 'block' : 'none';
+      document.getElementById('domain-yes-sub').textContent =
+        isAdvanced ? 'zahrnuto v tarifu' : 'nic navíc';
+      document.getElementById('domain-no-sub').textContent =
+        isAdvanced ? 'zahrnuto v tarifu' : '+200 Kč/měsíc';
+
+      /* Re-render add-on chips (prices and included states change per tier) */
+      renderAddons();
+
+      updateUI();
+    }
+
+    /* ==============================================
+       RENDER ADD-ON CHIPS
+       ============================================== */
+    function renderAddonChip(addon, showMonthly = false) {
+      const price    = getAddonPrice(addon);
+      const included = price === 0;
+      const selected = state.selected.has(addon.id);
+
+      if (included) {
+        return `
+          <div class="feature-chip included" id="chip-${addon.id}">
+            <div class="chip-check"></div>
+            <div class="chip-body">
+              <div class="chip-name">${addon.name}</div>
+              <div class="chip-desc">${addon.desc}</div>
+              <span class="chip-price">✓ Zahrnuto v ceně</span>
+            </div>
+          </div>`;
+      }
+
+      const isFreeMonthly = FREE_MGMT_FEATURES.includes(addon.id);
+      const monthlyLine = showMonthly
+        ? (isFreeMonthly
+            ? `<span class="chip-monthly free">bez měsíčního příplatku</span>`
+            : `<span class="chip-monthly">+${PER_FEATURE_MGMT} Kč/měsíc</span>`)
+        : '';
+
+      return `
+        <div class="feature-chip${selected ? ' selected' : ''}" id="chip-${addon.id}"
+             onclick="toggleAddon('${addon.id}')"
+             role="checkbox" aria-checked="${selected}" tabindex="0">
+          <div class="chip-check"></div>
+          <div class="chip-body">
+            <div class="chip-name">${addon.name}</div>
+            <div class="chip-desc">${addon.desc}</div>
+            <span class="chip-price">+ ${price.toLocaleString('cs-CZ')} Kč</span>
+            ${monthlyLine}
+          </div>
+        </div>`;
+    }
+
+    function renderAddons() {
+      document.getElementById('simple-grid').innerHTML =
+        SIMPLE_ADDONS.map(a => renderAddonChip(a, false)).join('');
+      document.getElementById('advanced-grid').innerHTML =
+        ADVANCED_ADDONS.map(a => renderAddonChip(a, true)).join('');
+
+      document.querySelectorAll('.feature-chip:not(.included)').forEach(chip => {
+        chip.addEventListener('keydown', e => {
+          if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); chip.click(); }
+        });
+      });
+    }
+
+    /* ==============================================
+       TOGGLE ADD-ON
+       ============================================== */
+    function toggleAddon(id) {
       if (state.selected.has(id)) {
         state.selected.delete(id);
       } else {
@@ -700,7 +952,7 @@
       const chip = document.getElementById('chip-' + id);
       if (chip) {
         chip.classList.toggle('selected', state.selected.has(id));
-        chip.setAttribute('aria-checked', state.selected.has(id));
+        chip.setAttribute('aria-checked', String(state.selected.has(id)));
       }
       updateUI();
     }
@@ -711,7 +963,7 @@
     function setDomain(val) {
       state.needsDomain = (val === 'no');
       document.getElementById('domain-yes').classList.toggle('active', val === 'yes');
-      document.getElementById('domain-no').classList.toggle('active', val === 'no');
+      document.getElementById('domain-no').classList.toggle('active',  val === 'no');
       updateUI();
     }
 
@@ -719,74 +971,140 @@
        UPDATE PRICE UI
        ============================================== */
     function updateUI() {
-      let total = BASE_PRICE;
+      const type = SERVICE_TYPES.find(t => t.id === state.serviceType);
+      let total = type.basePrice;
 
-      /* Build breakdown */
       let html = `<div class="price-line">
-        <span class="pl-label">Základní web</span>
-        <span class="pl-val">${BASE_PRICE.toLocaleString('cs-CZ')} Kč</span>
+        <span class="pl-label">${type.name}</span>
+        <span class="pl-val">${type.basePrice.toLocaleString('cs-CZ')} Kč</span>
       </div>`;
 
-      FEATURES.forEach(f => {
-        if (state.selected.has(f.id)) {
-          total += f.price;
+      /* On advanced tier, basic add-ons are included — show as one group line */
+      if (state.serviceType === 'advanced') {
+        html += `<div class="price-line">
+          <span class="pl-label">Základní doplňky</span>
+          <span class="pl-val incl">✓ v ceně</span>
+        </div>`;
+      }
+
+      let simpleCount   = 0;
+      let advancedCount = 0;
+
+      SIMPLE_ADDONS.forEach(a => {
+        if (state.selected.has(a.id)) {
+          const price = getAddonPrice(a);
+          if (price > 0) {
+            simpleCount++;
+            total += price;
+            html += `<div class="price-line">
+              <span class="pl-label">${a.name}</span>
+              <span class="pl-val new">+${price.toLocaleString('cs-CZ')} Kč</span>
+            </div>`;
+          }
+        }
+      });
+
+      const hasAdvancedFeatures = ADVANCED_ADDONS.some(a => state.selected.has(a.id));
+
+      ADVANCED_ADDONS.forEach(a => {
+        if (state.selected.has(a.id)) {
+          const price = getAddonPrice(a);
+          advancedCount++;
+          total += price;
           html += `<div class="price-line">
-            <span class="pl-label">${f.name}</span>
-            <span class="pl-val new">+${f.price.toLocaleString('cs-CZ')} Kč</span>
+            <span class="pl-label">${a.name}</span>
+            <span class="pl-val new">+${price.toLocaleString('cs-CZ')} Kč</span>
           </div>`;
         }
       });
 
-      const monthly = MGMT_PRICE + (state.needsDomain ? DOMAIN_PRICE : 0);
+      /* Monthly fee logic:
+         - Jednoduchý web: 300 base + 200 if no domain + 100 per paid pro feature
+         - Web na míru:    500 base (domain included) + 100 per paid pro feature
+         Paid pro features = ADVANCED_ADDONS except those in FREE_MGMT_FEATURES */
+      const paidProCount = ADVANCED_ADDONS.filter(
+        a => state.selected.has(a.id) && !FREE_MGMT_FEATURES.includes(a.id)
+      ).length;
 
-      /* Selected count badge */
-      const countEl = document.getElementById('selected-count');
-      if (state.selected.size > 0) {
-        countEl.textContent = state.selected.size + ' vybráno';
-        countEl.style.display = 'inline-block';
+      let monthly;
+      const monthlyParts = [];
+
+      if (state.serviceType === 'simple') {
+        monthly = SIMPLE_MGMT_PRICE
+          + (state.needsDomain ? DOMAIN_PRICE : 0)
+          + paidProCount * PER_FEATURE_MGMT;
+        monthlyParts.push('správa webu');
+        if (state.needsDomain) monthlyParts.push('doména/hosting');
+        if (paidProCount > 0)  monthlyParts.push(`monitoring funkcí`);
       } else {
-        countEl.style.display = 'none';
+        monthly = ADVANCED_MGMT_PRICE + paidProCount * PER_FEATURE_MGMT;
+        monthlyParts.push('správa webu vč. domény');
+        if (paidProCount > 0) monthlyParts.push(`monitoring funkcí`);
       }
 
-      /* Price breakdown */
+      /* Cap one-time price at PRICE_CAP */
+      const cappedTotal = Math.min(total, PRICE_CAP);
+      const isCapped    = total > PRICE_CAP;
+
+      /* Count badges */
+      const simpleCountEl   = document.getElementById('simple-count');
+      const advancedCountEl = document.getElementById('advanced-count');
+      simpleCountEl.textContent   = simpleCount   + ' vybráno';
+      advancedCountEl.textContent = advancedCount + ' vybráno';
+      simpleCountEl.style.display   = simpleCount   > 0 ? 'inline-block' : 'none';
+      advancedCountEl.style.display = advancedCount > 0 ? 'inline-block' : 'none';
+
+      /* Price panel */
       document.getElementById('price-breakdown').innerHTML = html;
-
-      /* Totals */
-      document.getElementById('total-val').textContent = total.toLocaleString('cs-CZ') + ' Kč';
-
-      const monthlyLabel = state.needsDomain
-        ? `+ ${monthly.toLocaleString('cs-CZ')} Kč / měsíc (správa + doména/hosting)`
-        : `+ ${monthly.toLocaleString('cs-CZ')} Kč / měsíc (správa webu)`;
-      document.getElementById('monthly-note').textContent = monthlyLabel;
+      document.getElementById('total-val').textContent =
+        cappedTotal.toLocaleString('cs-CZ') + ' Kč' + (isCapped ? '+' : '');
+      document.getElementById('cap-note').style.display = isCapped ? 'block' : 'none';
+      document.getElementById('monthly-note').textContent =
+        `+ ${monthly.toLocaleString('cs-CZ')} Kč / měsíc (${monthlyParts.join(' + ')})`;
 
       /* Mobile bar */
-      document.getElementById('mobile-total').textContent = total.toLocaleString('cs-CZ') + ' Kč';
+      document.getElementById('mobile-total').textContent =
+        cappedTotal.toLocaleString('cs-CZ') + ' Kč' + (isCapped ? '+' : '');
       document.getElementById('mobile-monthly').textContent =
         '+ ' + monthly.toLocaleString('cs-CZ') + ' Kč/měs.';
 
-      /* Mailto link */
-      refreshMailto(total, monthly);
+      refreshMailto(cappedTotal, monthly, type, isCapped);
     }
 
     /* ==============================================
-       MAILTO CTA — pre-fill with selections
+       MAILTO CTA
        ============================================== */
-    function refreshMailto(total, monthly) {
-      const selected = FEATURES.filter(f => state.selected.has(f.id));
-      const domainLine = state.needsDomain ? '\n– Doména a hosting' : '';
+    function refreshMailto(total, monthly, type, isCapped) {
+      const lines = [];
 
-      const featuresList = selected.length
-        ? selected.map(f => `– ${f.name} (+${f.price.toLocaleString('cs-CZ')} Kč)`).join('\n')
-        : '– (žádné doplňky)';
+      if (state.serviceType === 'advanced') {
+        lines.push('– Základní doplňky (zahrnuty v ceně tarifu)');
+      }
+
+      const allAddons = [...SIMPLE_ADDONS, ...ADVANCED_ADDONS];
+      allAddons.forEach(a => {
+        if (state.selected.has(a.id)) {
+          const price = getAddonPrice(a);
+          if (price > 0) lines.push(`– ${a.name} (+${price.toLocaleString('cs-CZ')} Kč)`);
+        }
+      });
+
+      if (!lines.length) lines.push('– (žádné doplňky)');
+      const domainLine = state.needsDomain ? '\n– Doména a hosting (+200 Kč/měsíc)' : '';
+
+      const priceStr = isCapped
+        ? `od ${total.toLocaleString('cs-CZ')} Kč jednorázově (individuální nacenění)`
+        : `${total.toLocaleString('cs-CZ')} Kč jednorázově`;
 
       const body = [
         'Dobrý den,',
         '',
-        'mám zájem o vytvoření webu. Vybral/a jsem si tyto sekce:',
+        `mám zájem o vytvoření webu. Zvolený typ: ${type.name}`,
         '',
-        featuresList + domainLine,
+        'Vybrané doplňky:',
+        lines.join('\n') + domainLine,
         '',
-        `Orientační cena: ${total.toLocaleString('cs-CZ')} Kč jednorázově + ${monthly.toLocaleString('cs-CZ')} Kč/měsíc`,
+        `Orientační cena: ${priceStr} + ${monthly.toLocaleString('cs-CZ')} Kč/měsíc`,
         '',
         '---',
         'Jméno:',
@@ -795,7 +1113,7 @@
       ].join('\n');
 
       const href = 'mailto:daniel.havlicek1@seznam.cz'
-        + '?subject=' + encodeURIComponent('Poptávka webu')
+        + '?subject=' + encodeURIComponent('Poptávka webu – ' + type.name)
         + '&body='    + encodeURIComponent(body);
 
       document.getElementById('inquiry-link').href        = href;
@@ -805,9 +1123,9 @@
     /* ==============================================
        MOBILE NAV
        ============================================== */
-    const headerEl   = document.getElementById('header');
-    const hamburger  = document.getElementById('hamburger');
-    const navEl      = document.getElementById('nav');
+    const headerEl  = document.getElementById('header');
+    const hamburger = document.getElementById('hamburger');
+    const navEl     = document.getElementById('nav');
 
     function closeNav() {
       navEl.classList.remove('open');
@@ -820,16 +1138,12 @@
       const isOpen = navEl.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', String(isOpen));
       document.body.style.overflow = isOpen ? 'hidden' : '';
-      if (isOpen) {
-        navEl.style.top = headerEl.getBoundingClientRect().bottom + 'px';
-      } else {
-        navEl.style.top = '';
-      }
+      if (isOpen) navEl.style.top = headerEl.getBoundingClientRect().bottom + 'px';
+      else navEl.style.top = '';
     });
 
     navEl.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
-
     window.addEventListener('scroll', () => {
       headerEl.classList.toggle('scrolled', window.scrollY > 12);
     }, { passive: true });
@@ -837,7 +1151,10 @@
     /* ==============================================
        INIT
        ============================================== */
-    renderFeatures();
+    renderServiceTypes();
+    renderAddons();
+    /* Show advanced-tier-note by default (simple is the default type) */
+    document.getElementById('advanced-tier-note').style.display = 'block';
     updateUI();
   </script>
 </body>
