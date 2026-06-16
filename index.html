@@ -215,7 +215,7 @@
           <div class="pricing-card pricing-card--featured reveal">
             <div class="pricing-tier" data-i18n="pricing.tier2.name">Web s pokročilými funkcemi</div>
             <div class="pricing-price">od <strong>6 000 Kč</strong></div>
-            <div class="pricing-maintenance" data-i18n="pricing.tier2.maintenance">Správa a aktualizace: 500–900 Kč/měsíc</div>
+            <div class="pricing-maintenance" data-i18n="pricing.tier2.maintenance">Správa a aktualizace: 500–1 000 Kč/měsíc</div>
             <ul class="pricing-features" aria-label="Co je zahrnuto">
               <li data-i18n="pricing.tier2.f1">Rezervační systémy</li>
               <li data-i18n="pricing.tier2.f2">Databáze a uživatelské účty</li>
@@ -327,6 +327,68 @@
   <script>
     window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
     formspree('initForm', { formElement: '#contact-form', formId: 'mbdewdzb' });
+
+    (function () {
+      const RATE_KEY   = 'fs_last_sent';
+      const COOLDOWN   = 24 * 60 * 60 * 1000; // 24 hours in ms
+      const form       = document.getElementById('contact-form');
+      const submitBtn  = form ? form.querySelector('[data-fs-submit-btn]') : null;
+      const errorBox   = document.querySelector('[data-fs-error]');
+
+      function showRateError(remainingMs) {
+        const hrs  = Math.floor(remainingMs / 3600000);
+        const mins = Math.ceil((remainingMs % 3600000) / 60000);
+        const msg  = currentLang === 'en'
+          ? `You already sent a message. Please wait ${hrs > 0 ? hrs + 'h ' : ''}${mins}min before trying again.`
+          : `Zprávu jste již odeslali. Zkuste to prosím za ${hrs > 0 ? hrs + ' h ' : ''}${mins} min.`;
+        if (errorBox) { errorBox.textContent = msg; errorBox.style.display = 'block'; }
+        if (submitBtn) submitBtn.disabled = true;
+      }
+
+      function clearRateError() {
+        if (errorBox) { errorBox.textContent = ''; errorBox.style.display = 'none'; }
+        if (submitBtn) submitBtn.disabled = false;
+      }
+
+      function checkOnLoad() {
+        try {
+          const last = parseInt(localStorage.getItem(RATE_KEY), 10);
+          if (!last) return;
+          const remaining = COOLDOWN - (Date.now() - last);
+          if (remaining > 0) showRateError(remaining);
+        } catch (_) {}
+      }
+
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          try {
+            const last = parseInt(localStorage.getItem(RATE_KEY), 10);
+            if (last) {
+              const remaining = COOLDOWN - (Date.now() - last);
+              if (remaining > 0) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                showRateError(remaining);
+                return;
+              }
+            }
+            clearRateError();
+          } catch (_) {}
+        }, true); // capture phase — runs before Formspree
+
+        // Record timestamp when Formspree reports success
+        const successBox = document.querySelector('[data-fs-success]');
+        if (successBox) {
+          new MutationObserver(function () {
+            if (successBox.style.display !== 'none') {
+              try { localStorage.setItem(RATE_KEY, String(Date.now())); } catch (_) {}
+            }
+          }).observe(successBox, { attributes: true, attributeFilter: ['style'] });
+        }
+      }
+
+      checkOnLoad();
+    })();
   </script>
   <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>

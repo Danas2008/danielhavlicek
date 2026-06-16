@@ -879,7 +879,7 @@
             <div class="calc-card">
               <div class="calc-card-title">Doména a hosting</div>
               <div class="card-note" id="domain-included-note" style="display:none">
-                V tarifu <strong>Web na míru</strong> jsou doména a hosting zahrnuty bez příplatku.
+                V tarifu <strong>Web na míru</strong> je správa domény součástí služby. Pokud doménu ještě nemáte, pořídíme ji za +100 Kč/měsíc.
               </div>
               <p class="domain-lead">Máte vlastní doménu a webhostingový prostor?</p>
               <div class="domain-opts">
@@ -1046,8 +1046,9 @@
 
     // Měsíční platby
     const SIMPLE_MGMT_PRICE   = 300;  // Kč/měsíc — správa Jednoduchého webu
-    const ADVANCED_MGMT_PRICE = 500;  // Kč/měsíc — správa Webu na míru (doména/hosting zahrnuta)
-    const DOMAIN_PRICE        = 200;  // Kč/měsíc — doména a hosting (jen Jednoduchý web, pokud klient nemá)
+    const ADVANCED_MGMT_PRICE = 500;  // Kč/měsíc — správa Webu na míru (základ)
+    const DOMAIN_PRICE        = 200;  // Kč/měsíc — doména a hosting (Jednoduchý web, pokud klient nemá)
+    const DOMAIN_PRICE_ADV    = 100;  // Kč/měsíc — doménová obnova (Web na míru, pokud klient nemá)
     const PER_FEATURE_MGMT    = 100;  // Kč/měsíc — každá pokročilá funkce (oba tarify)
     const FREE_MGMT_FEATURES  = ['imenu']; // Tyto pokročilé funkce nemají měsíční příplatek
 
@@ -1140,10 +1141,9 @@
       const isAdvanced = id === 'advanced';
       document.getElementById('domain-included-note').style.display =
         isAdvanced ? 'block' : 'none';
-      document.getElementById('domain-yes-sub').textContent =
-        isAdvanced ? 'zahrnuto v tarifu' : 'nic navíc';
+      document.getElementById('domain-yes-sub').textContent = 'nic navíc';
       document.getElementById('domain-no-sub').textContent =
-        isAdvanced ? 'zahrnuto v tarifu' : '+200 Kč/měsíc';
+        isAdvanced ? '+100 Kč/měsíc' : '+200 Kč/měsíc';
 
       /* Re-render add-on chips (prices and included states change per tier) */
       renderAddons();
@@ -1302,9 +1302,12 @@
         if (state.needsDomain) monthlyParts.push('doména/hosting');
         if (paidProCount > 0)  monthlyParts.push(`monitoring funkcí`);
       } else {
-        monthly = ADVANCED_MGMT_PRICE + paidProCount * PER_FEATURE_MGMT;
-        monthlyParts.push('správa webu vč. domény');
-        if (paidProCount > 0) monthlyParts.push(`monitoring funkcí`);
+        monthly = ADVANCED_MGMT_PRICE
+          + (state.needsDomain ? DOMAIN_PRICE_ADV : 0)
+          + paidProCount * PER_FEATURE_MGMT;
+        monthlyParts.push('správa webu');
+        if (state.needsDomain) monthlyParts.push('doména/hosting');
+        if (paidProCount > 0)  monthlyParts.push('monitoring funkcí');
       }
 
       /* Apply coupon discount */
