@@ -69,7 +69,7 @@ header{
 .badge{font-size:12px; color:var(--text3); margin-left:2px}
 
 .card{background:var(--surface); border:0.5px solid var(--line); border-radius:var(--r); padding:15px; margin-bottom:11px}
-.card-title{font-size:13px; font-weight:600; color:var(--text2); margin-bottom:11px; text-transform:uppercase; letter-spacing:0.4px; font-size:11px}
+.card-title{font-size:11px; font-weight:600; color:var(--text2); margin-bottom:11px; text-transform:uppercase; letter-spacing:0.4px}
 
 input,select,textarea{
   width:100%; background:var(--bg); border:0.5px solid var(--line2); color:var(--text);
@@ -91,11 +91,11 @@ select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns
 .lead-head{display:flex; justify-content:space-between; align-items:flex-start; gap:8px}
 .lead-name{font-weight:600; font-size:15px}
 .lead-price{color:var(--text2); font-weight:400; font-size:13px}
-.lead-meta{font-size:13px; color:var(--text2); margin-top:3px; display:flex; align-items:center; gap:5px}
+.lead-meta{font-size:13px; color:var(--text2); margin-top:3px}
 .lead-meta.note{color:var(--text3)}
 .lead-foot{display:flex; align-items:center; gap:7px; margin-top:11px; flex-wrap:wrap}
 .pill{font-size:12px; font-weight:500; padding:4px 11px; border-radius:99px; cursor:pointer; border:none; font-family:'Inter'; display:inline-flex; align-items:center; gap:4px}
-.icon-btn{background:transparent; border:none; color:var(--text3); cursor:pointer; padding:3px 5px; font-size:13px}
+.icon-btn{background:transparent; border:none; color:var(--text3); cursor:pointer; padding:3px 5px; font-size:13px; line-height:1}
 .icon-btn:active{color:var(--text)}
 .icon-btn.call{color:var(--green)}
 .days{font-size:11px; color:var(--text3); margin-left:auto}
@@ -114,9 +114,13 @@ select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns
 .empty{text-align:center; padding:32px 16px; color:var(--text3); font-size:14px}
 .empty i{font-size:30px; display:block; margin-bottom:10px; opacity:.5}
 
-.filter-row{display:flex; gap:6px; margin-bottom:12px; overflow-x:auto; padding-bottom:2px; -webkit-overflow-scrolling:touch}
+.filter-row{display:flex; gap:6px; margin-bottom:8px; overflow-x:auto; padding-bottom:2px; -webkit-overflow-scrolling:touch}
 .chip{white-space:nowrap; font-size:12px; padding:6px 12px; border-radius:99px; background:var(--surface); border:0.5px solid var(--line2); color:var(--text2); cursor:pointer; font-family:'Inter'}
 .chip.on{background:var(--accent); color:#1a1206; border-color:var(--accent); font-weight:500}
+
+.sort-row{display:flex; align-items:center; gap:8px; margin-bottom:12px}
+.sort-row label{font-size:12px; color:var(--text3); white-space:nowrap; flex-shrink:0}
+.sort-row select{width:auto; flex:1; font-size:13px; padding:6px 32px 6px 10px}
 
 .month-nav{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; background:var(--surface); border:0.5px solid var(--line); border-radius:var(--r-sm); padding:6px}
 .month-nav button{background:transparent; border:none; color:var(--text2); font-size:18px; padding:4px 14px; cursor:pointer; border-radius:6px}
@@ -128,11 +132,43 @@ select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns
 .toast{position:fixed; bottom:96px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--accent); color:#1a1206; padding:10px 18px; border-radius:99px; font-size:14px; font-weight:500; opacity:0; transition:all .3s; z-index:50; pointer-events:none}
 .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
 
+/* Confirm modal */
 .modal-bg{position:fixed; inset:0; background:rgba(0,0,0,.6); display:none; align-items:center; justify-content:center; z-index:40; padding:20px}
 .modal-bg.show{display:flex}
 .modal{background:var(--surface); border:0.5px solid var(--line2); border-radius:var(--r); padding:20px; max-width:380px; width:100%}
 .modal h3{font-size:18px; margin-bottom:8px}
 .modal p{font-size:14px; color:var(--text2); margin:0 0 16px}
+
+/* Edit modal */
+.edit-modal-bg{position:fixed; inset:0; background:rgba(0,0,0,.75); display:none; z-index:45; overflow-y:auto; padding:16px}
+.edit-modal-bg.show{display:block}
+.edit-modal{background:var(--surface); border:0.5px solid var(--line2); border-radius:var(--r); padding:20px; max-width:460px; width:100%; margin:0 auto}
+.edit-modal h3{font-size:18px; margin-bottom:16px}
+
+/* Star picker */
+.star-picker{display:flex; gap:6px; padding:4px 0}
+.sp-star{font-size:24px; cursor:pointer; color:var(--line2); transition:color .1s; line-height:1; user-select:none; -webkit-user-select:none}
+.sp-star.filled{color:var(--amber)}
+
+/* Stars on cards */
+.lead-stars{font-size:12px; letter-spacing:2px; margin-top:2px; margin-bottom:2px}
+.lead-stars .fs{color:var(--amber)}
+.lead-stars .es{color:var(--line2)}
+
+/* Niche badge */
+.niche-badge{font-size:11px; font-weight:500; padding:3px 8px; border-radius:99px; display:inline-block; flex-shrink:0}
+
+/* Problem tags */
+.prob-tags{display:flex; flex-wrap:wrap; gap:4px; margin-top:5px}
+.prob-tag{font-size:11px; padding:2px 7px; border-radius:4px; background:var(--surface2); border:0.5px solid var(--line); color:var(--text3)}
+
+/* Problem checkboxes */
+.prob-grid{display:flex; flex-direction:column; gap:4px}
+.prob-item{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text2); padding:7px 9px; border-radius:var(--r-sm); background:var(--bg); border:0.5px solid var(--line); cursor:pointer; transition:border-color .15s}
+.prob-item:has(input:checked){border-color:var(--accent-dim); color:var(--text)}
+.prob-item input{width:auto; margin:0; cursor:pointer; accent-color:var(--accent); flex-shrink:0}
+
+.field-label{font-size:12px; color:var(--text3); margin-bottom:5px}
 
 .tip{background:var(--surface2); border:0.5px solid var(--line); border-left:2px solid var(--accent); border-radius:var(--r-sm); padding:11px 13px; font-size:13px; color:var(--text2); margin-bottom:16px}
 .tip b{color:var(--text)}
@@ -188,21 +224,59 @@ select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns
     <div class="card">
       <div class="card-title">Add lead</div>
       <div class="row">
-        <input id="l-name" placeholder="Business name">
-        <input id="l-contact" placeholder="Phone / email">
+        <input id="l-name" placeholder="Název firmy">
+        <input id="l-contact" placeholder="Telefon / email">
       </div>
-      <input id="l-problem" class="mb" placeholder="What's wrong? (no site, outdated…)">
-      <div class="row">
-        <input id="l-price" type="number" inputmode="numeric" placeholder="Quote Kč">
+      <div class="row mb">
+        <input id="l-price" type="number" inputmode="numeric" placeholder="Cena Kč">
         <select id="l-stage">
           <option>New</option><option>Contacted</option><option>Interested</option><option>Won</option><option>Lost</option>
         </select>
       </div>
-      <input id="l-notes" class="mb" placeholder="Notes (optional)">
-      <button class="btn" onclick="addLead()">Add lead</button>
+      <div class="mb">
+        <select id="l-niche">
+          <option value="">Niše (vyberte)</option>
+          <option>Autoservis</option>
+          <option>Pneuservis</option>
+          <option>Beauty / Nehtové studio</option>
+          <option>Kadeřnictví / Holičství</option>
+          <option>STK</option>
+          <option>Restaurace / Kavárna</option>
+          <option>Železářství / Hobby market</option>
+          <option>Autoškola</option>
+          <option>Nail salon</option>
+          <option>Jiné</option>
+        </select>
+      </div>
+      <div class="mb">
+        <div class="field-label">Priorita</div>
+        <div class="star-picker" id="add-priority" data-val="3">
+          <span class="sp-star filled" onclick="pickStar('add-priority',1)">★</span>
+          <span class="sp-star filled" onclick="pickStar('add-priority',2)">★</span>
+          <span class="sp-star filled" onclick="pickStar('add-priority',3)">★</span>
+          <span class="sp-star" onclick="pickStar('add-priority',4)">★</span>
+          <span class="sp-star" onclick="pickStar('add-priority',5)">★</span>
+        </div>
+      </div>
+      <div class="mb">
+        <div class="field-label">Co je špatně</div>
+        <div class="prob-grid" id="add-problems"></div>
+      </div>
+      <input id="l-notes" class="mb" placeholder="Poznámky (volitelné)">
+      <button class="btn" onclick="addLead()">Přidat lead</button>
     </div>
 
     <div class="filter-row" id="lead-filters"></div>
+    <div class="sort-row">
+      <label>Řadit:</label>
+      <select id="lead-sort" onchange="setSort(this.value)">
+        <option value="priority-desc">Priorita ↓</option>
+        <option value="priority-asc">Priorita ↑</option>
+        <option value="score-desc">Skóre ↓</option>
+        <option value="newest">Nejnovější</option>
+        <option value="oldest">Nejstarší</option>
+      </select>
+    </div>
     <div id="leads-list"></div>
   </div>
 
@@ -250,6 +324,7 @@ select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns
 
 <div class="toast" id="toast"></div>
 
+<!-- Confirm modal -->
 <div class="modal-bg" id="modal">
   <div class="modal">
     <h3 id="modal-title">Are you sure?</h3>
@@ -257,6 +332,74 @@ select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns
     <div style="display:flex; gap:8px">
       <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
       <button class="btn" id="modal-ok" style="background:var(--red); color:#fff">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit modal -->
+<div class="edit-modal-bg" id="edit-modal" onclick="if(event.target===this)closeEditModal()">
+  <div class="edit-modal">
+    <h3>Upravit lead</h3>
+    <input type="hidden" id="e-id">
+    <div class="row">
+      <div>
+        <div class="field-label">Název firmy</div>
+        <input id="e-name" placeholder="Název firmy">
+      </div>
+      <div>
+        <div class="field-label">Kontakt</div>
+        <input id="e-contact" placeholder="Telefon / email">
+      </div>
+    </div>
+    <div class="row" style="margin-top:4px">
+      <div>
+        <div class="field-label">Cena (Kč)</div>
+        <input id="e-price" type="number" inputmode="numeric" placeholder="Cena Kč">
+      </div>
+      <div>
+        <div class="field-label">Fáze</div>
+        <select id="e-stage">
+          <option>New</option><option>Contacted</option><option>Interested</option><option>Won</option><option>Lost</option>
+        </select>
+      </div>
+    </div>
+    <div class="mb" style="margin-top:8px">
+      <div class="field-label">Niše</div>
+      <select id="e-niche">
+        <option value="">-- Niše --</option>
+        <option>Autoservis</option>
+        <option>Pneuservis</option>
+        <option>Beauty / Nehtové studio</option>
+        <option>Kadeřnictví / Holičství</option>
+        <option>STK</option>
+        <option>Restaurace / Kavárna</option>
+        <option>Železářství / Hobby market</option>
+        <option>Autoškola</option>
+        <option>Nail salon</option>
+        <option>Jiné</option>
+      </select>
+    </div>
+    <div class="mb">
+      <div class="field-label">Priorita</div>
+      <div class="star-picker" id="edit-priority" data-val="3">
+        <span class="sp-star filled" onclick="pickStar('edit-priority',1)">★</span>
+        <span class="sp-star filled" onclick="pickStar('edit-priority',2)">★</span>
+        <span class="sp-star filled" onclick="pickStar('edit-priority',3)">★</span>
+        <span class="sp-star" onclick="pickStar('edit-priority',4)">★</span>
+        <span class="sp-star" onclick="pickStar('edit-priority',5)">★</span>
+      </div>
+    </div>
+    <div class="mb">
+      <div class="field-label">Co je špatně</div>
+      <div class="prob-grid" id="edit-problems"></div>
+    </div>
+    <div class="mb">
+      <div class="field-label">Poznámky</div>
+      <textarea id="e-notes" rows="3" placeholder="Poznámky (volitelné)" style="resize:vertical"></textarea>
+    </div>
+    <div style="display:flex; gap:8px; margin-top:8px">
+      <button class="btn btn-ghost" onclick="closeEditModal()">Zrušit</button>
+      <button class="btn" onclick="saveEdit()">Uložit změny</button>
     </div>
   </div>
 </div>
@@ -271,6 +414,29 @@ const DEFAULT_CHECK = [
   "Ask one happy client for a referral"
 ];
 
+const PROBLEMS = [
+  'Žádný web',
+  'Web z roku 2006–2015',
+  'Nefunguje na mobilu',
+  'Žádný ceník online',
+  'Jen Instagram / Facebook',
+  'Pomalé načítání webu',
+  'Žádné Google recenze',
+];
+
+const NICHES = {
+  'Autoservis':                 {bg:'var(--blue-bg)',  color:'var(--blue-text)'},
+  'Pneuservis':                 {bg:'#2a1d0e',         color:'#f0a040'},
+  'Beauty / Nehtové studio':    {bg:'#2a1528',         color:'#e89cd8'},
+  'Kadeřnictví / Holičství':    {bg:'#1f1a2e',         color:'#b09ee0'},
+  'STK':                        {bg:'var(--red-bg)',   color:'var(--red-text)'},
+  'Restaurace / Kavárna':       {bg:'var(--green-bg)', color:'var(--green-text)'},
+  'Železářství / Hobby market': {bg:'#231810',         color:'#c4935a'},
+  'Autoškola':                  {bg:'var(--amber-bg)', color:'var(--amber-text)'},
+  'Nail salon':                 {bg:'#2a1528',         color:'#e89cd8'},
+  'Jiné':                       {bg:'var(--gray-bg)',  color:'var(--gray-text)'},
+};
+
 let data = {
   goal: 10000,
   leads: [],
@@ -280,6 +446,7 @@ let data = {
 };
 let curTab = 'leads';
 let leadFilter = 'active';
+let leadSort = 'priority-desc';
 
 function monthKey(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'); }
 function monthLabel(key){
@@ -294,7 +461,9 @@ function save(){ try{ localStorage.setItem('klient_data', JSON.stringify(data));
 function load(){
   try{
     const raw = localStorage.getItem('klient_data');
-    if(raw){ const p = JSON.parse(raw); data = Object.assign(data, p);
+    if(raw){
+      const p = JSON.parse(raw);
+      data = Object.assign(data, p);
       if(!data.checklist || !data.checklist.length) data.checklist = DEFAULT_CHECK.map(t=>({t,done:false}));
       if(!data.viewMonth) data.viewMonth = monthKey(new Date());
     }
@@ -316,23 +485,88 @@ function tab(name){
   render();
 }
 
-function addLead(){
-  const name = document.getElementById('l-name').value.trim();
-  if(!name){ toast('Add a business name'); return; }
-  data.leads.unshift({
-    id:Date.now(), name,
-    contact:document.getElementById('l-contact').value.trim(),
-    problem:document.getElementById('l-problem').value.trim(),
-    price:parseInt(document.getElementById('l-price').value)||0,
-    stage:document.getElementById('l-stage').value,
-    notes:document.getElementById('l-notes').value.trim(),
-    touched:Date.now()
-  });
-  ['l-name','l-contact','l-problem','l-price','l-notes'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('l-stage').value='New';
-  save(); render(); toast('Lead added');
+// ── Star picker ──────────────────────────────────────────────────────────────
+function pickStar(pickerId, val){
+  const el = document.getElementById(pickerId);
+  if(!el) return;
+  el.dataset.val = val;
+  el.querySelectorAll('.sp-star').forEach((s,i) => s.classList.toggle('filled', i < val));
+}
+function getStarVal(pickerId){
+  return parseInt(document.getElementById(pickerId).dataset.val) || 3;
 }
 
+// ── Problem checkboxes ───────────────────────────────────────────────────────
+function renderProbGrid(containerId, selected){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  el.innerHTML = PROBLEMS.map(p => {
+    const checked = (selected||[]).includes(p);
+    return '<label class="prob-item"><input type="checkbox" value="'+esc(p)+'"'+(checked?' checked':'')+'>'+esc(p)+'</label>';
+  }).join('');
+}
+function getCheckedProblems(containerId){
+  return Array.from(document.getElementById(containerId).querySelectorAll('input:checked')).map(c=>c.value);
+}
+
+// ── Stars display ────────────────────────────────────────────────────────────
+function starsHtml(n){
+  let s = '';
+  for(let i=1;i<=5;i++) s += i<=n ? '<span class="fs">★</span>' : '<span class="es">☆</span>';
+  return s;
+}
+
+// ── Niche badge ──────────────────────────────────────────────────────────────
+function nicheBadge(niche){
+  if(!niche) return '';
+  const c = NICHES[niche] || {bg:'var(--gray-bg)', color:'var(--gray-text)'};
+  return '<span class="niche-badge" style="background:'+c.bg+';color:'+c.color+'">'+esc(niche)+'</span>';
+}
+
+// ── Sort ─────────────────────────────────────────────────────────────────────
+function leadScore(l){
+  const w = {New:0,Contacted:1,Interested:2,Won:3,Lost:-1};
+  return (l.priority||3)*2 + (w[l.stage]||0);
+}
+function sortLeads(arr){
+  const copy = [...arr];
+  switch(leadSort){
+    case 'priority-desc': return copy.sort((a,b)=>(b.priority||3)-(a.priority||3));
+    case 'priority-asc':  return copy.sort((a,b)=>(a.priority||3)-(b.priority||3));
+    case 'score-desc':    return copy.sort((a,b)=>leadScore(b)-leadScore(a));
+    case 'newest':        return copy.sort((a,b)=>b.id-a.id);
+    case 'oldest':        return copy.sort((a,b)=>a.id-b.id);
+    default: return copy;
+  }
+}
+function setSort(val){ leadSort = val; render(); }
+function setFilter(f){ leadFilter = f; render(); }
+
+// ── Add lead ─────────────────────────────────────────────────────────────────
+function addLead(){
+  const name = document.getElementById('l-name').value.trim();
+  if(!name){ toast('Zadej název firmy'); return; }
+  data.leads.unshift({
+    id: Date.now(),
+    name,
+    contact: document.getElementById('l-contact').value.trim(),
+    price: parseInt(document.getElementById('l-price').value)||0,
+    stage: document.getElementById('l-stage').value,
+    niche: document.getElementById('l-niche').value,
+    priority: getStarVal('add-priority'),
+    problems: getCheckedProblems('add-problems'),
+    notes: document.getElementById('l-notes').value.trim(),
+    touched: Date.now()
+  });
+  ['l-name','l-contact','l-price','l-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('l-stage').value = 'New';
+  document.getElementById('l-niche').value = '';
+  pickStar('add-priority', 3);
+  renderProbGrid('add-problems', []);
+  save(); render(); toast('Lead přidán');
+}
+
+// ── Stage cycle ───────────────────────────────────────────────────────────────
 const STAGES = ['New','Contacted','Interested','Won','Lost'];
 function cycleStage(id){
   const l = data.leads.find(x=>x.id===id); if(!l) return;
@@ -340,12 +574,57 @@ function cycleStage(id){
   l.touched = Date.now();
   if(l.stage==='Won' && l.price){
     data.income.unshift({id:Date.now(), client:l.name, amount:l.price, type:'project', month:monthKey(new Date())});
-    toast('Won! Logged '+fmt(l.price)+' Kč');
+    toast('Won! Zaznamenáno '+fmt(l.price)+' Kč');
   }
   save(); render();
 }
 function delLead(id){ data.leads = data.leads.filter(x=>x.id!==id); save(); render(); }
 
+// ── Edit lead ─────────────────────────────────────────────────────────────────
+function editLead(id){
+  const l = data.leads.find(x=>x.id===id); if(!l) return;
+  document.getElementById('e-id').value = id;
+  document.getElementById('e-name').value = l.name||'';
+  document.getElementById('e-contact').value = l.contact||'';
+  document.getElementById('e-price').value = l.price||'';
+  document.getElementById('e-stage').value = l.stage||'New';
+  document.getElementById('e-niche').value = l.niche||'';
+  document.getElementById('e-notes').value = l.notes||'';
+  pickStar('edit-priority', l.priority||3);
+  renderProbGrid('edit-problems', l.problems||[]);
+  document.getElementById('edit-modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function saveEdit(){
+  const id = parseInt(document.getElementById('e-id').value);
+  const l = data.leads.find(x=>x.id===id); if(!l) return;
+  const newName = document.getElementById('e-name').value.trim();
+  if(!newName){ toast('Název nesmí být prázdný'); return; }
+  const newStage = document.getElementById('e-stage').value;
+  if(newStage==='Won' && l.stage!=='Won' && l.price){
+    data.income.unshift({id:Date.now(), client:newName, amount:l.price, type:'project', month:monthKey(new Date())});
+    toast('Won! Zaznamenáno '+fmt(l.price)+' Kč');
+  }
+  l.name = newName;
+  l.contact = document.getElementById('e-contact').value.trim();
+  l.price = parseInt(document.getElementById('e-price').value)||0;
+  l.stage = newStage;
+  l.niche = document.getElementById('e-niche').value;
+  l.priority = getStarVal('edit-priority');
+  l.problems = getCheckedProblems('edit-problems');
+  l.notes = document.getElementById('e-notes').value.trim();
+  l.touched = Date.now();
+  closeEditModal();
+  save(); render(); toast('Lead uložen');
+}
+
+function closeEditModal(){
+  document.getElementById('edit-modal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ── Income ────────────────────────────────────────────────────────────────────
 function addIncome(){
   const client = document.getElementById('i-client').value.trim();
   const amount = parseInt(document.getElementById('i-amount').value)||0;
@@ -358,8 +637,7 @@ function delIncome(id){ data.income = data.income.filter(x=>x.id!==id); save(); 
 
 function navMonth(dir){
   const [y,m] = data.viewMonth.split('-').map(Number);
-  const d = new Date(y, m-1+dir, 1);
-  data.viewMonth = monthKey(d); save(); render();
+  data.viewMonth = monthKey(new Date(y, m-1+dir, 1)); save(); render();
 }
 
 function saveGoal(){
@@ -369,14 +647,12 @@ function saveGoal(){
 
 function toggleCheck(i){ data.checklist[i].done = !data.checklist[i].done; save(); render(); }
 
-function setFilter(f){ leadFilter = f; render(); }
-
 function nextMove(){
   const active = data.leads.filter(l=>l.stage!=='Won'&&l.stage!=='Lost');
   const interested = active.filter(l=>l.stage==='Interested');
   const stale = active.filter(l=>daysSince(l.touched)>=3 && l.stage==='Contacted');
   const cur = monthKey(new Date());
-  const earned = data.income.filter(i=>i.type==='recurring' || i.month===cur).reduce((s,i)=>s+i.amount,0);
+  const earned = data.income.filter(i=>i.type==='recurring'||i.month===cur).reduce((s,i)=>s+i.amount,0);
   if(interested.length) return '<b>Close '+esc(interested[0].name)+'.</b> They\'re interested — send the quote or push for a yes.';
   if(stale.length) return '<b>Follow up '+esc(stale[0].name)+'.</b> Contacted '+daysSince(stale[0].touched)+' days ago with no movement.';
   if(earned>=data.goal) return '<b>Goal hit this month.</b> Lock in one recurring client to make next month easier.';
@@ -384,6 +660,7 @@ function nextMove(){
   return '<b>Keep the pipeline moving.</b> Advance each lead one stage — every "maybe" needs a follow-up.';
 }
 
+// ── Render ────────────────────────────────────────────────────────────────────
 function render(){
   const cur = monthKey(new Date());
   const recurring = data.income.filter(i=>i.type==='recurring').reduce((s,i)=>s+i.amount,0);
@@ -407,57 +684,74 @@ function render(){
 
   // Lead filters
   const counts = {active:0, Interested:0, Contacted:0, Won:0};
-  data.leads.forEach(l=>{ if(l.stage!=='Won'&&l.stage!=='Lost') counts.active++; if(counts[l.stage]!==undefined) counts[l.stage]++; });
+  data.leads.forEach(l=>{
+    if(l.stage!=='Won'&&l.stage!=='Lost') counts.active++;
+    if(counts[l.stage]!==undefined) counts[l.stage]++;
+  });
   const filters = [['active','Active'],['Interested','Interested'],['Contacted','Contacted'],['Won','Won'],['all','All']];
   document.getElementById('lead-filters').innerHTML = filters.map(([k,lbl])=>
     '<button class="chip '+(leadFilter===k?'on':'')+'" onclick="setFilter(\''+k+'\')">'+lbl+(counts[k]?' '+counts[k]:'')+'</button>'
   ).join('');
 
+  // Sync sort dropdown
+  document.getElementById('lead-sort').value = leadSort;
+
   // Leads list
   let shown = data.leads;
   if(leadFilter==='active') shown = data.leads.filter(l=>l.stage!=='Won'&&l.stage!=='Lost');
   else if(leadFilter!=='all') shown = data.leads.filter(l=>l.stage===leadFilter);
+  shown = sortLeads(shown);
+
   const ll = document.getElementById('leads-list');
   if(!shown.length){
     ll.innerHTML = '<div class="empty">No leads here yet.<br>Walk in, show your work, add them.</div>';
   } else {
     ll.innerHTML = shown.map(l=>{
       const stale = (l.stage==='Contacted'||l.stage==='Interested') && daysSince(l.touched)>=3;
-      const tel = l.contact.replace(/[^0-9+]/g,'');
+      const tel = (l.contact||'').replace(/[^0-9+]/g,'');
+      // backwards compat: old leads have string l.problem, new have array l.problems
+      const probs = Array.isArray(l.problems) && l.problems.length
+        ? l.problems
+        : (l.problem ? [l.problem] : []);
       return '<div class="lead">'+
         '<div class="lead-head">'+
           '<div style="flex:1;min-width:0">'+
-            '<div class="lead-name">'+esc(l.name)+(l.price?' <span class="lead-price">· '+fmt(l.price)+' Kč</span>':'')+'</div>'+
-            (l.contact?'<div class="lead-meta">'+esc(l.contact)+'</div>':'')+
-            (l.problem?'<div class="lead-meta">'+esc(l.problem)+'</div>':'')+
-            (l.notes?'<div class="lead-meta note">'+esc(l.notes)+'</div>':'')+
+            '<div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">'+
+              '<span class="lead-name">'+esc(l.name)+(l.price?' <span class="lead-price">· '+fmt(l.price)+' Kč</span>':'')+'</span>'+
+              (l.niche ? nicheBadge(l.niche) : '')+
+            '</div>'+
+            (l.priority ? '<div class="lead-stars">'+starsHtml(l.priority)+'</div>' : '')+
+            (l.contact ? '<div class="lead-meta">'+esc(l.contact)+'</div>' : '')+
+            (probs.length ? '<div class="prob-tags">'+probs.map(p=>'<span class="prob-tag">'+esc(p)+'</span>').join('')+'</div>' : '')+
+            (l.notes ? '<div class="lead-meta note">'+esc(l.notes)+'</div>' : '')+
           '</div>'+
-          '<button class="icon-btn" onclick="delLead('+l.id+')" aria-label="Delete">✕</button>'+
+          '<div style="display:flex;gap:1px;flex-shrink:0;align-items:flex-start">'+
+            '<button class="icon-btn" onclick="editLead('+l.id+')" aria-label="Upravit" style="font-size:16px">✏</button>'+
+            '<button class="icon-btn" onclick="delLead('+l.id+')" aria-label="Smazat">✕</button>'+
+          '</div>'+
         '</div>'+
         '<div class="lead-foot">'+
           '<button class="pill st-'+l.stage+'" onclick="cycleStage('+l.id+')">'+l.stage+' →</button>'+
-          (tel.length>=6?'<a class="icon-btn call" href="tel:'+tel+'" aria-label="Call">☏ call</a>':'')+
+          (tel.length>=6 ? '<a class="icon-btn call" href="tel:'+tel+'" aria-label="Zavolat">☏ call</a>' : '')+
           '<span class="days'+(stale?' warn':'')+'">'+(daysSince(l.touched)===0?'today':daysSince(l.touched)+'d ago')+'</span>'+
         '</div>'+
       '</div>';
     }).join('');
   }
 
-  // Income (by viewed month)
+  // Income
   document.getElementById('m-label').textContent = monthLabel(data.viewMonth);
   const vm = data.viewMonth;
   const projInc = data.income.filter(i=>i.type==='project'&&i.month===vm);
   const recInc = data.income.filter(i=>i.type==='recurring');
-  const il = document.getElementById('income-list');
   let html = '';
   if(recInc.length){
     html += '<div class="section-label">Recurring (every month)</div>';
     html += recInc.map(i=>incRow(i,true)).join('');
   }
   html += '<div class="section-label">Projects · '+monthLabel(vm)+'</div>';
-  if(projInc.length){ html += projInc.map(i=>incRow(i,false)).join(''); }
-  else { html += '<div class="empty" style="padding:20px">No projects logged this month.</div>'; }
-  il.innerHTML = html;
+  html += projInc.length ? projInc.map(i=>incRow(i,false)).join('') : '<div class="empty" style="padding:20px">No projects logged this month.</div>';
+  document.getElementById('income-list').innerHTML = html;
 
   // Plan
   document.getElementById('next-tip').innerHTML = nextMove();
@@ -476,33 +770,39 @@ function incRow(i, rec){
   '</div>';
 }
 
-// Modal
+// ── Confirm modal ─────────────────────────────────────────────────────────────
 let modalAction = null;
 function confirmReset(){
   document.getElementById('modal-title').textContent = 'Reset all data?';
   document.getElementById('modal-text').textContent = 'This deletes every lead and income entry permanently. Export a backup first if you want to keep it.';
-  modalAction = ()=>{ data={goal:10000,leads:[],income:[],checklist:DEFAULT_CHECK.map(t=>({t,done:false})),viewMonth:monthKey(new Date())}; save(); render(); toast('Reset done'); };
+  modalAction = ()=>{
+    data = {goal:10000,leads:[],income:[],checklist:DEFAULT_CHECK.map(t=>({t,done:false})),viewMonth:monthKey(new Date())};
+    save(); render(); toast('Reset done');
+  };
   document.getElementById('modal').classList.add('show');
 }
 function closeModal(){ document.getElementById('modal').classList.remove('show'); modalAction=null; }
 document.getElementById('modal-ok').onclick = ()=>{ if(modalAction) modalAction(); closeModal(); };
 
-// Import / export
+// ── Import / export ───────────────────────────────────────────────────────────
 function exportData(){
   const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = 'klient-backup-'+monthKey(new Date())+'.json';
+  a.href=url; a.download='klient-backup-'+monthKey(new Date())+'.json';
   a.click(); URL.revokeObjectURL(url); toast('Backup downloaded');
 }
 function importData(e){
   const f = e.target.files[0]; if(!f) return;
   const r = new FileReader();
-  r.onload = ()=>{ try{ data = Object.assign(data, JSON.parse(r.result)); save(); render(); toast('Restored'); }catch(err){ toast('Bad file'); } };
+  r.onload = ()=>{ try{ data=Object.assign(data,JSON.parse(r.result)); save(); render(); toast('Restored'); }catch(err){ toast('Bad file'); } };
   r.readAsText(f); e.target.value='';
 }
 
-load(); render();
+// ── Init ──────────────────────────────────────────────────────────────────────
+renderProbGrid('add-problems', []);
+load();
+render();
 </script>
 </body>
 </html>
