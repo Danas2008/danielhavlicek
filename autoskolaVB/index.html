@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autoškola VB Praha — Výcvik B, A, AM | Dejvice</title>
+  <meta name="description" content="Autoškola VB v Praze Dejvicích nabízí výcvik skupin B, A, AM a dalších. Studentské slevy, splátky bez navýšení, učebnice zdarma. Tel: 605 158 258">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0f1923;
+      --navy-mid: #1e3a5f;
+      --orange: #e8821a;
+      --orange-light: #f09a3e;
+      --white: #ffffff;
+      --gray-50: #f8f9fa;
+      --gray-100: #f0f2f5;
+      --gray-200: #e2e6ea;
+      --gray-400: #9aa5b1;
+      --gray-600: #4a5568;
+      --gray-800: #2d3748;
+      --text: #1a202c;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(15,25,35,.10);
+      --shadow-lg: 0 8px 40px rgba(15,25,35,.16);
+      --banner-h: 44px;
+      --nav-h: 66px;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      padding-top: calc(var(--banner-h) + var(--nav-h));
+    }
+
+    /* ── BANNER ── */
+    .banner {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--navy);
+      height: var(--banner-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: .85rem;
+      color: rgba(255,255,255,.85);
+      gap: .4rem;
+    }
+    .banner a {
+      color: var(--orange-light);
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .banner a:hover { text-decoration: underline; }
+    .banner .full { display: inline; }
+    .banner .short { display: none; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: fixed;
+      top: var(--banner-h);
+      left: 0; right: 0;
+      z-index: 999;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+    }
+    .nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      text-decoration: none;
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .nav-logo-icon {
+      width: 38px; height: 38px;
+      background: var(--navy-mid);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { width: 22px; height: 22px; fill: var(--white); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-size: .9rem;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      padding: .5rem 1.1rem;
+      border-radius: 8px;
+      transition: background .2s !important;
+    }
+    .nav-cta:hover { background: var(--orange-light) !important; color: var(--white) !important; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: .4rem;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--navy);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: calc(var(--banner-h) + var(--nav-h));
+      left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 1rem 1.5rem 1.5rem;
+      z-index: 998;
+      flex-direction: column;
+      gap: .25rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-size: 1rem;
+      font-weight: 500;
+      padding: .65rem 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .mobile-menu a:last-child { border-bottom: none; color: var(--orange); font-weight: 600; }
+
+    /* ── SHARED ── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 88px 0; }
+    .section-alt { background: var(--gray-50); }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: .75rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: block;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: .75rem;
+    }
+    .section-intro {
+      color: var(--gray-600);
+      font-size: 1.05rem;
+      max-width: 620px;
+    }
+    .section-header { margin-bottom: 3rem; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 1.5rem;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+    }
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,.4);
+    }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+    .btn-outline {
+      background: transparent;
+      color: var(--navy-mid);
+      border: 2px solid var(--navy-mid);
+    }
+    .btn-outline:hover { background: var(--navy-mid); color: var(--white); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #2a4f7c 100%);
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 5rem 0 4rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(232,130,26,.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 70%, rgba(30,58,95,.6) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* Road decoration */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 160px;
+      background: linear-gradient(to bottom, transparent, rgba(15,25,35,.4));
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(232,130,26,.15);
+      border: 1px solid rgba(232,130,26,.35);
+      color: var(--orange-light);
+      font-size: .82rem;
+      font-weight: 600;
+      padding: .4rem .9rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.1rem, 5vw, 3.4rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      letter-spacing: -.02em;
+    }
+    .hero h1 span { color: var(--orange-light); }
+    .hero-sub {
+      color: rgba(255,255,255,.78);
+      font-size: 1.1rem;
+      margin-bottom: 2.25rem;
+      line-height: 1.65;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-stat strong {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+    .hero-stat span {
+      font-size: .8rem;
+      color: rgba(255,255,255,.55);
+      margin-top: .2rem;
+    }
+    /* Car SVG decoration */
+    .hero-visual {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 46%;
+      max-width: 540px;
+      opacity: .07;
+      pointer-events: none;
+    }
+
+    /* ── BENEFITS ── */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .benefit-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .benefit-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .benefit-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, rgba(232,130,26,.12), rgba(232,130,26,.06));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .benefit-icon svg { width: 26px; height: 26px; }
+    .benefit-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .4rem;
+    }
+    .benefit-card p { font-size: .9rem; color: var(--gray-600); line-height: 1.55; }
+
+    /* ── COURSES ── */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    .course-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow .2s, border-color .2s;
+    }
+    .course-card:hover { box-shadow: var(--shadow); border-color: var(--orange); }
+    .course-card.featured {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-color: transparent;
+      color: var(--white);
+    }
+    .course-tag {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: .25rem .65rem;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+      width: fit-content;
+    }
+    .course-tag.tag-moto { background: var(--navy-mid); }
+    .course-tag.tag-special { background: #2d7a3e; }
+    .course-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .5rem;
+    }
+    .course-card.featured h3 { color: var(--white); }
+    .course-card p {
+      font-size: .9rem;
+      color: var(--gray-600);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+    .course-card.featured p { color: rgba(255,255,255,.75); }
+    .course-vehicles {
+      font-size: .82rem;
+      color: var(--gray-400);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: .4rem;
+    }
+    .course-card.featured .course-vehicles { color: rgba(255,255,255,.5); }
+    .course-vehicles svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px; }
+    .course-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--orange);
+      text-decoration: none;
+    }
+    .course-card.featured .course-link { color: var(--orange-light); }
+    .course-link:hover { gap: .6rem; }
+
+    /* ── PRICING ── */
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .pricing-card {
+      background: var(--white);
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 2rem 1.75rem;
+      text-align: center;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .pricing-card:hover { border-color: var(--orange); box-shadow: var(--shadow); }
+    .pricing-card.featured {
+      border-color: var(--orange);
+      position: relative;
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: var(--white);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: .25rem .9rem;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .pricing-name {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--gray-600);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: .75rem;
+    }
+    .pricing-price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: .35rem;
+    }
+    .pricing-price small {
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--gray-400);
+    }
+    .pricing-desc {
+      font-size: .85rem;
+      color: var(--gray-600);
+      margin-top: .65rem;
+      line-height: 1.5;
+    }
+    .pricing-note {
+      background: linear-gradient(135deg, #fff8f0, #fff3e5);
+      border: 1px solid rgba(232,130,26,.25);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      font-size: .9rem;
+      color: var(--gray-600);
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+    }
+    .pricing-note svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; fill: var(--orange); }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: calc(16.66% + 32px);
+      right: calc(16.66% + 32px);
+      height: 2px;
+      background: linear-gradient(to right, var(--orange), var(--orange-light));
+      z-index: 0;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    .step-num {
+      width: 64px; height: 64px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      position: relative;
+      box-shadow: 0 0 0 6px rgba(232,130,26,.15);
+    }
+    .step h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: .5rem;
+    }
+    .step p { font-size: .9rem; color: var(--gray-600); line-height: 1.55; }
+
+    /* ── FORM ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: .75rem 1rem;
+      border: 2px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: .95rem;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color .2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--orange);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit { margin-top: .75rem; }
+    .form-submit .btn { width: 100%; justify-content: center; font-size: 1rem; padding: .9rem; }
+    .form-phone {
+      margin-top: 1.25rem;
+      text-align: center;
+      font-size: .9rem;
+      color: var(--gray-600);
+    }
+    .form-phone a { color: var(--navy); font-weight: 700; text-decoration: none; }
+    .form-phone a:hover { color: var(--orange); }
+    .form-wrapper {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    /* ── VEHICLES ── */
+    .vehicles-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .vehicle-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .vehicle-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .vehicle-thumb {
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .vehicle-thumb.car {
+      background: linear-gradient(135deg, #1e3a5f 0%, #2a4f7c 100%);
+    }
+    .vehicle-thumb.moto {
+      background: linear-gradient(135deg, #0f1923 0%, #1e3a5f 100%);
+    }
+    .vehicle-thumb svg { width: 64px; height: 64px; opacity: .7; }
+    .vehicle-info { padding: .9rem 1rem; background: var(--white); }
+    .vehicle-cat {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--orange);
+      margin-bottom: .2rem;
+    }
+    .vehicle-name {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .vehicle-group {
+      font-size: .8rem;
+      color: var(--gray-400);
+      margin-top: .15rem;
+    }
+
+    /* ── REVIEWS ── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .review-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow .2s;
+    }
+    .review-card:hover { box-shadow: var(--shadow); }
+    .review-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 1rem;
+    }
+    .review-stars svg { width: 16px; height: 16px; fill: #f59e0b; }
+    .review-text {
+      font-size: .93rem;
+      color: var(--gray-600);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .review-author { display: flex; align-items: center; gap: .75rem; }
+    .review-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .review-name { font-weight: 600; font-size: .9rem; color: var(--navy); }
+    .review-meta { font-size: .8rem; color: var(--gray-400); }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .contact-items { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .contact-item:hover { border-color: var(--orange); box-shadow: var(--shadow); }
+    .contact-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, rgba(232,130,26,.15), rgba(232,130,26,.06));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 22px; height: 22px; fill: var(--orange); }
+    .contact-label {
+      font-size: .78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--gray-400);
+      margin-bottom: .2rem;
+    }
+    .contact-value {
+      font-size: .97rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .contact-sub { font-size: .82rem; color: var(--gray-600); margin-top: .1rem; }
+    .map-placeholder {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-radius: var(--radius);
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      text-align: center;
+      padding: 2rem;
+    }
+    .map-placeholder svg { width: 44px; height: 44px; fill: var(--orange-light); opacity: .9; }
+    .map-placeholder h4 { color: var(--white); font-size: 1.1rem; font-weight: 700; }
+    .map-placeholder p { color: rgba(255,255,255,.65); font-size: .9rem; line-height: 1.5; }
+    .map-placeholder a {
+      margin-top: .5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--orange);
+      color: var(--white);
+      font-size: .85rem;
+      font-weight: 600;
+      padding: .55rem 1.1rem;
+      border-radius: 7px;
+      text-decoration: none;
+    }
+    .map-placeholder a:hover { background: var(--orange-light); }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.65);
+      padding: 3rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand h3 {
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+    .footer-brand p { font-size: .88rem; line-height: 1.65; }
+    .footer-col h4 {
+      color: var(--white);
+      font-size: .85rem;
+      font-weight: 700;
+      margin-bottom: .75rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+    .footer-col ul li { font-size: .85rem; }
+    .footer-col ul a { color: rgba(255,255,255,.55); text-decoration: none; }
+    .footer-col ul a:hover { color: var(--orange-light); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .75rem;
+      font-size: .82rem;
+    }
+    .footer-credit a {
+      color: var(--orange-light);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-credit a:hover { text-decoration: underline; }
+
+    /* ── SUCCESS MESSAGE ── */
+    .form-success {
+      display: none;
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      color: #065f46;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .vehicles-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      :root { --banner-h: 40px; }
+      .banner .full { display: none; }
+      .banner .short { display: inline; }
+      .banner { font-size: .78rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .courses-grid { grid-template-columns: 1fr; }
+      .pricing-cards { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; gap: 2.5rem; }
+      .steps::before { display: none; }
+      .step { padding: 0; }
+      .step-num { margin-bottom: 1rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .vehicles-grid { grid-template-columns: repeat(2, 1fr); }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .hero { min-height: 80vh; padding: 3rem 0 3rem; }
+      .hero-stats { gap: 1.25rem; }
+      .section { padding: 64px 0; }
+      .hero-visual { display: none; }
+      .form-wrapper { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY BANNER -->
+  <div class="banner">
+    <span class="full">💡 Takhle může vypadat Váš nový web →</span>
+    <span class="short">Chcete takový web? →</span>
+    <a href="https://danielhavlicek.cz" target="_blank" rel="noopener noreferrer">danielhavlicek.cz</a>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" aria-label="Hlavní navigace">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+          </svg>
+        </div>
+        <span>Autoškola VB</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#vyhody">Výhody</a></li>
+        <li><a href="#kurzy">Kurzy</a></li>
+        <li><a href="#cenik">Ceník</a></li>
+        <li><a href="#vozidla">Vozidla</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="#prihlaska" class="nav-cta">Přihlásit se</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Otevřít menu" aria-expanded="false" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu" role="navigation">
+    <a href="#vyhody" class="menu-link">Výhody</a>
+    <a href="#kurzy" class="menu-link">Kurzy</a>
+    <a href="#cenik" class="menu-link">Ceník</a>
+    <a href="#vozidla" class="menu-link">Vozidla</a>
+    <a href="#kontakt" class="menu-link">Kontakt</a>
+    <a href="#prihlaska" class="menu-link">Přihlásit se →</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <!-- Decorative car SVG background -->
+    <svg class="hero-visual" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="50" y="220" width="700" height="120" rx="20" fill="white"/>
+      <rect x="130" y="140" width="460" height="130" rx="30" fill="white"/>
+      <circle cx="200" cy="340" r="55" fill="white"/>
+      <circle cx="200" cy="340" r="30" fill="#1e3a5f"/>
+      <circle cx="600" cy="340" r="55" fill="white"/>
+      <circle cx="600" cy="340" r="30" fill="#1e3a5f"/>
+      <rect x="280" y="155" width="240" height="80" rx="15" fill="#1e3a5f" opacity=".4"/>
+    </svg>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+          Přijímáme přihlášky · rychlokurz B za 5–6 týdnů
+        </div>
+        <h1>Autoškola VB Praha —<br><span>výcvik na míru</span></h1>
+        <p class="hero-sub">
+          Dejvice · skupiny B, A, AM a další · studentské slevy · splátky bez navýšení<br>
+          Instruktory Valentín Bydlo a David Kodym
+        </p>
+        <div class="hero-btns">
+          <a href="#prihlaska" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+            Přihlásit se
+          </a>
+          <a href="#cenik" class="btn btn-ghost">Zobrazit ceník →</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>10+</strong>
+            <span>skupin řidičáku</span>
+          </div>
+          <div class="hero-stat">
+            <strong>5–6 týdnů</strong>
+            <span>rychlokurz B</span>
+          </div>
+          <div class="hero-stat">
+            <strong>Praha</strong>
+            <span>jízdy celý týden</span>
+          </div>
+          <div class="hero-stat">
+            <strong>0 Kč</strong>
+            <span>navýšení splátky</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="section" id="vyhody">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Proč Autoškola VB</div>
+        <h2 class="section-title">Výcvik s individuálním přístupem</h2>
+        <p class="section-intro">Přizpůsobíme se Vám — termínově i finančně. Žádné kompromisy.</p>
+      </div>
+      <div class="benefits-grid">
+        <!-- 1 -->
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e8821a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>Studentské slevy</h3>
+          <p>Zvýhodněné ceny pro studenty. Výcvik nemusí být drahý — ozvi se a domluvíme se.</p>
+        </div>
+        <!-- 2 -->
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e8821a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+            </svg>
+          </div>
+          <h3>Splátky bez navýšení</h3>
+          <p>Celý kurz lze rozložit do splátek — bez úroků, bez poplatků. Platíte jen cenu kurzu.</p>
+        </div>
+        <!-- 3 -->
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e8821a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </div>
+          <h3>Učebnice zdarma</h3>
+          <p>Učebnici autoškoly dostanete bez příplatku. Plně se soustřeďte na zkoušku.</p>
+        </div>
+        <!-- 4 -->
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e8821a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3>Výcvik na míru</h3>
+          <p>Individuální plánování výcviku podle Vašeho rozvrhu. Přizpůsobíme se Vám na míru.</p>
+        </div>
+        <!-- 5 -->
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e8821a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h3>Jízdy po celé Praze</h3>
+          <p>Nejezdíme jen kolem autoškoly — trénujeme na reálném provozu celé Prahy, celý týden.</p>
+        </div>
+        <!-- 6 -->
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e8821a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/><circle cx="6.5" cy="15.5" r="1.5"/><circle cx="17.5" cy="15.5" r="1.5"/>
+            </svg>
+          </div>
+          <h3>Prémiová vozidla</h3>
+          <p>Škoda a Audi pro skupinu B. Na motorky Yamaha, Honda, Kawasaki, Suzuki a Jawa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES -->
+  <section class="section section-alt" id="kurzy">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Kurzy & skupiny</div>
+        <h2 class="section-title">Co u nás můžete získat</h2>
+        <p class="section-intro">Od osobního auta přes motorky až po kondiční jízdy — nabízíme všechny základní skupiny.</p>
+      </div>
+      <div class="courses-grid">
+        <!-- B -->
+        <div class="course-card featured">
+          <span class="course-tag">Nejoblíbenější</span>
+          <h3>Skupina B — osobní auto</h3>
+          <p>Nejžádanější kurz. Naučíme Vás řídit v reálném provozu Prahy. Rychlokurz zvládnete za 5–6 týdnů, pak rovnou ke zkoušce.</p>
+          <div class="course-vehicles">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM5 11l1.5-4.5h11L19 11H5zm1.5 5c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+            Vozidla: Škoda · Audi
+          </div>
+          <a href="#prihlaska" class="course-link">Přihlásit se → <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg></a>
+        </div>
+        <!-- Motorky -->
+        <div class="course-card">
+          <span class="course-tag tag-moto">Motorky</span>
+          <h3>Skupiny A, A2, A1, AM</h3>
+          <p>Kompletní výcvik motocyklistů — od malých skútrů AM přes A1 a A2 až po neomezené A. Prémiové motorky, zkušení instruktoři.</p>
+          <div class="course-vehicles">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.44 9.03L15.41 5H11v2h3.59l2 2H5c-2.8 0-5 2.2-5 5s2.2 5 5 5c2.46 0 4.45-1.69 4.9-4h1.65l2.77-2.77c-.21.54-.32 1.14-.32 1.77 0 2.8 2.2 5 5 5s5-2.2 5-5c0-2.65-1.97-4.77-4.56-4.97zM7.82 15C7.4 16.15 6.28 17 5 17c-1.63 0-3-1.37-3-3s1.37-3 3-3c1.28 0 2.4.85 2.82 2H5v2h2.82zm11.18 2c-1.63 0-3-1.37-3-3s1.37-3 3-3 3 1.37 3 3-1.37 3-3 3z"/></svg>
+            Jawa 125 · Yamaha YBR 125 · Yamaha 600 · Honda CBF600 · Suzuki 500 · Kawasaki ER6
+          </div>
+          <a href="#prihlaska" class="course-link">Přihlásit se → <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg></a>
+        </div>
+        <!-- Kondiční -->
+        <div class="course-card">
+          <span class="course-tag tag-special">Kondiční jízdy</span>
+          <h3>Kondiční jízdy & vrácení ŘP</h3>
+          <p>Cítíte se nejistě za volantem? Obnovte si dovednosti nebo se připravte na vrácení řidičského průkazu. Cena na dotaz dle rozsahu.</p>
+          <div class="course-vehicles">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM5 11l1.5-4.5h11L19 11H5zm1.5 5c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+            Škoda · Audi — cena na dotaz telefonicky
+          </div>
+          <a href="tel:605158258" class="course-link">Zavolat → <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg></a>
+        </div>
+        <!-- Rychlokurz -->
+        <div class="course-card">
+          <span class="course-tag">Rychlokurz</span>
+          <h3>Rychlokurz B — automat</h3>
+          <p>Chcete řidičák co nejrychleji? Náš rychlokurz zvládnete za 5–6 týdnů. Intenzivní výcvik, přizpůsobený Vašemu tempu.</p>
+          <div class="course-vehicles">
+            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Délka: 5–6 týdnů + závěrečná zkouška · cena: 29 900 Kč
+          </div>
+          <a href="#prihlaska" class="course-link">Přihlásit se → <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg></a>
+        </div>
+        <!-- Ostatní skupiny -->
+        <div class="course-card" style="grid-column: 1 / -1;">
+          <span class="course-tag tag-moto">Rozšířené skupiny</span>
+          <h3>Skupiny BE, C, CE, D, T</h3>
+          <p>Nabízíme také výcvik pro nákladní automobily, autobusy, přívěsy a traktory. Kontaktujte nás pro více informací o podmínkách a ceníku.</p>
+          <div class="course-vehicles">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+            BE (přívěs) · C (nákladní) · CE · D (autobus) · T (traktor) — ceny na dotaz
+          </div>
+          <a href="tel:605158258" class="course-link">Zjistit více → <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="cenik">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Ceník</div>
+        <h2 class="section-title">Přehledné ceny bez překvapení</h2>
+        <p class="section-intro">Všechny ceny jsou konečné. Možnost splátky bez navýšení.</p>
+      </div>
+      <div class="pricing-cards">
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Nejoblíbenější</div>
+          <div class="pricing-name">Rychlokurz B — automat</div>
+          <div class="pricing-price">29 900 <small>Kč</small></div>
+          <div class="pricing-desc">Celý kurz včetně výuky<br>5–6 týdnů · splátky bez navýšení</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-name">Závěrečná zkouška</div>
+          <div class="pricing-price">1 000 <small>Kč</small></div>
+          <div class="pricing-desc">Skupiny AM, A1, A2, A (motorky)<br>Platba předem na účet</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-name">Kondiční jízdy</div>
+          <div class="pricing-price" style="font-size:1.4rem; padding-top:.25rem;">Na dotaz</div>
+          <div class="pricing-desc">Cena dle počtu jízd<br>Volejte: <a href="tel:605158258" style="color:var(--orange);font-weight:600;text-decoration:none;">605 158 258</a></div>
+        </div>
+      </div>
+      <div class="pricing-note">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <div>
+          <strong>Výsledná cena závisí na počtu jízd.</strong> Výuka = 1 vyučovací hodina = 45 minut. Možnost splátky bez navýšení.
+          Platba instruktor V. Bydlo: ČSOB 225066721/0300 · Platba instruktor D. Kodym: MBank 670100-2217178060/6210
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Jak to funguje</div>
+        <h2 class="section-title">3 kroky k řidičáku</h2>
+        <p class="section-intro">Jednoduchý proces bez zbytečné byrokracie.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Zavolejte nebo napište</h3>
+          <p>Kontaktujte nás telefonicky nebo e-mailem. Domluvíme termín a probereme Vaše možnosti — skupinu, tempo i platbu.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Přihlaste se a začněte</h3>
+          <p>Podáte žádost, splníte věkové a zdravotní podmínky a zahájíme výcvik. Teoria i praxe na míru Vašemu rozvrhu.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Zkouška a jedete!</h3>
+          <p>Po splnění hodin složíte závěrečnou zkoušku a s řidičákem v kapse vyjedete sami na cestu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATION FORM -->
+  <section class="section" id="prihlaska">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Přihláška</div>
+        <h2 class="section-title">Přihlaste se online</h2>
+        <p class="section-intro">Vyplňte formulář a ozveme se Vám co nejdříve.</p>
+      </div>
+      <div class="form-wrapper">
+        <form id="contactForm" novalidate>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Jméno a příjmení *</label>
+              <input type="text" id="name" name="name" placeholder="Jan Novák" required>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail *</label>
+              <input type="email" id="email" name="email" placeholder="jan@example.cz" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon *</label>
+              <input type="tel" id="phone" name="phone" placeholder="+420 000 000 000" required>
+            </div>
+            <div class="form-group">
+              <label for="group">Skupina řidičského průkazu *</label>
+              <select id="group" name="group" required>
+                <option value="" disabled selected>Vyberte skupinu…</option>
+                <option value="B">B — osobní auto</option>
+                <option value="B-rychlokurz">B — rychlokurz (5–6 týdnů)</option>
+                <option value="A">A — motorka (neomezená)</option>
+                <option value="A2">A2 — motorka (do 35 kW)</option>
+                <option value="A1">A1 — motorka (do 125 cc)</option>
+                <option value="AM">AM — moped / skútr</option>
+                <option value="kondicni">Kondiční jízdy</option>
+                <option value="vraceni">Vrácení řidičského průkazu</option>
+                <option value="jine">Jiné (upřesním níže)</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="message">Zpráva / poznámka</label>
+              <textarea id="message" name="message" placeholder="Dotaz, preferovaný termín, zájem o splátky…"></textarea>
+            </div>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              Odeslat přihlášku
+            </button>
+          </div>
+        </form>
+        <div class="form-success" id="formSuccess">
+          ✅ Děkujeme! Ozveme se Vám co nejdříve na tel. 605 158 258 nebo emailem.
+        </div>
+        <div class="form-phone">
+          Nebo volejte přímo: <a href="tel:605158258">605 158 258</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VEHICLES -->
+  <section class="section section-alt" id="vozidla">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Vozový park</div>
+        <h2 class="section-title">Naše výuková vozidla</h2>
+        <p class="section-intro">Moderní a spolehlivá vozidla pro výcvik v bezpečném prostředí.</p>
+      </div>
+      <div class="vehicles-grid">
+        <!-- Cars -->
+        <div class="vehicle-card">
+          <div class="vehicle-thumb car">
+            <svg viewBox="0 0 64 64" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M52 24l-5-14H17L12 24H4v6h4v14h8v-4h32v4h8V30h4v-6h-8zm-33.5-8h27l3.5 8H15l3.5-8zM14 36a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm36 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+            </svg>
+          </div>
+          <div class="vehicle-info">
+            <div class="vehicle-cat">Osobní auto · sk. B</div>
+            <div class="vehicle-name">Škoda</div>
+            <div class="vehicle-group">Výcvikové vozidlo</div>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-thumb car">
+            <svg viewBox="0 0 64 64" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M54 26l-6-16H16L10 26H2v8h4v12h10v-4h32v4h10V34h4v-8h-8zm-36-10h28l4 10H14l4-10zM13 36a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm38 0a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+            </svg>
+          </div>
+          <div class="vehicle-info">
+            <div class="vehicle-cat">Osobní auto · sk. B</div>
+            <div class="vehicle-name">Audi</div>
+            <div class="vehicle-group">Výcvikové vozidlo</div>
+          </div>
+        </div>
+        <!-- Motorcycles -->
+        <div class="vehicle-card">
+          <div class="vehicle-thumb moto">
+            <svg viewBox="0 0 64 64" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="44" r="10"/><circle cx="14" cy="44" r="5" fill="#1e3a5f"/>
+              <circle cx="50" cy="44" r="10"/><circle cx="50" cy="44" r="5" fill="#1e3a5f"/>
+              <path d="M14 34h10l8-14h12l4 8h-8l-4-4h-2l-6 10H14z"/>
+              <rect x="36" y="20" width="4" height="8" rx="1"/>
+            </svg>
+          </div>
+          <div class="vehicle-info">
+            <div class="vehicle-cat">Motorka · sk. AM</div>
+            <div class="vehicle-name">Jawa 125</div>
+            <div class="vehicle-group">125 cc</div>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-thumb moto">
+            <svg viewBox="0 0 64 64" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="44" r="10"/><circle cx="14" cy="44" r="5" fill="#1e3a5f"/>
+              <circle cx="50" cy="44" r="10"/><circle cx="50" cy="44" r="5" fill="#1e3a5f"/>
+              <path d="M14 34h10l8-14h12l4 8h-8l-4-4h-2l-6 10H14z"/>
+              <rect x="36" y="20" width="4" height="8" rx="1"/>
+            </svg>
+          </div>
+          <div class="vehicle-info">
+            <div class="vehicle-cat">Motorka · sk. AM</div>
+            <div class="vehicle-name">Yamaha YBR 125</div>
+            <div class="vehicle-group">125 cc</div>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-thumb moto">
+            <svg viewBox="0 0 64 64" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="44" r="10"/><circle cx="14" cy="44" r="5" fill="#0f1923"/>
+              <circle cx="50" cy="44" r="10"/><circle cx="50" cy="44" r="5" fill="#0f1923"/>
+              <path d="M14 34h10l8-14h12l4 8h-8l-4-4h-2l-6 10H14z"/>
+              <rect x="36" y="20" width="4" height="8" rx="1"/>
+            </svg>
+          </div>
+          <div class="vehicle-info">
+            <div class="vehicle-cat">Motorka · sk. A2</div>
+            <div class="vehicle-name">Yamaha 600</div>
+            <div class="vehicle-group">600 cc</div>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-thumb moto">
+            <svg viewBox="0 0 64 64" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="44" r="10"/><circle cx="14" cy="44" r="5" fill="#0f1923"/>
+              <circle cx="50" cy="44" r="10"/><circle cx="50" cy="44" r="5" fill="#0f1923"/>
+              <path d="M14 34h10l8-14h12l4 8h-8l-4-4h-2l-6 10H14z"/>
+              <rect x="36" y="20" width="4" height="8" rx="1"/>
+            </svg>
+          </div>
+          <div class="vehicle-info">
+            <div class="vehicle-cat">Motorka · sk. A2</div>
+            <div class="vehicle-name">Honda CBF600</div>
+            <div class="vehicle-group">600 cc</div>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-thumb moto">
+            <svg viewBox="0 0 64 64" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="44" r="10"/><circle cx="14" cy="44" r="5" fill="#0f1923"/>
+              <circle cx="50" cy="44" r="10"/><circle cx="50" cy="44" r="5" fill="#0f1923"/>
+              <path d="M14 34h10l8-14h12l4 8h-8l-4-4h-2l-6 10H14z"/>
+              <rect x="36" y="20" width="4" height="8" rx="1"/>
+            </svg>
+          </div>
+          <div class="vehicle-info">
+            <div class="vehicle-cat">Motorka · sk. A</div>
+            <div class="vehicle-name">Suzuki 500</div>
+            <div class="vehicle-group">500 cc</div>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-thumb moto">
+            <svg viewBox="0 0 64 64" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="14" cy="44" r="10"/><circle cx="14" cy="44" r="5" fill="#0f1923"/>
+              <circle cx="50" cy="44" r="10"/><circle cx="50" cy="44" r="5" fill="#0f1923"/>
+              <path d="M14 34h10l8-14h12l4 8h-8l-4-4h-2l-6 10H14z"/>
+              <rect x="36" y="20" width="4" height="8" rx="1"/>
+            </svg>
+          </div>
+          <div class="vehicle-info">
+            <div class="vehicle-cat">Motorka · sk. A</div>
+            <div class="vehicle-name">Kawasaki ER6</div>
+            <div class="vehicle-group">650 cc</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section" id="recenze">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Recenze</div>
+        <h2 class="section-title">Co říkají naši absolventi</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="review-text">„Super autoškola! Ocenil jsem hlavně možnost splátky bez navýšení — jako student to byl pro mě klíčový faktor. Valentín je trpělivý instruktor a jezdí se skutečně po celé Praze, takže praxe je opravdová."</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #1e3a5f, #2a4f7c);">TN</div>
+            <div>
+              <div class="review-name">Tomáš Novotný</div>
+              <div class="review-meta">Skupina B · 19 let</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="review-text">„Rychlokurz B za 5 týdnů a rovnou ke zkoušce — přesně jak slíbili. Učebnici dostanete zdarma, termíny si lze domluvit flexibilně. Doporučuju všem, kdo chtějí řidičák rychle a bez zbytečného stresu."</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #e8821a, #f09a3e);">KP</div>
+            <div>
+              <div class="review-name">Karolína Procházková</div>
+              <div class="review-meta">Rychlokurz B · 21 let</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="review-text">„Dělal jsem A2 — motorky. Výcvik na Yamaze a Hondě byl skvělý, David Kodym výborně vysvětloval techniku jízdy. Jsem nadšený, rád se vrátím pro skupinu A. Studentská sleva taky potěšila!"</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background: linear-gradient(135deg, #2d7a3e, #3a9e50);">MH</div>
+            <div>
+              <div class="review-name">Martin Horáček</div>
+              <div class="review-meta">Skupina A2 · 22 let</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section-alt" id="kontakt">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Kontakt</div>
+        <h2 class="section-title">Ozvěte se nám</h2>
+        <p class="section-intro">Odpovídáme rychle — telefonicky i e-mailem.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-items">
+          <a href="tel:605158258" class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Telefon</div>
+              <div class="contact-value">605 158 258</div>
+              <div class="contact-sub">Valentín Bydlo — instruktor</div>
+            </div>
+          </a>
+          <a href="mailto:autoskolavb@autoskolavb.cz" class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">E-mail</div>
+              <div class="contact-value">autoskolavb@autoskolavb.cz</div>
+              <div class="contact-sub">Odpovídáme do 24 hodin</div>
+            </div>
+          </a>
+          <div class="contact-item" style="cursor:default;">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Adresa</div>
+              <div class="contact-value">Flemingovo náměstí 3, Praha 6 — Dejvice</div>
+              <div class="contact-sub">Křižovatka s ulicí Nikoly Tesly</div>
+            </div>
+          </div>
+          <div class="contact-item" style="cursor:default;">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>
+            </div>
+            <div>
+              <div class="contact-label">Otevírací doba</div>
+              <div class="contact-value">Po domluvě</div>
+              <div class="contact-sub">Individuální přístup — celý týden</div>
+            </div>
+          </div>
+        </div>
+        <div style="border-radius:var(--radius); overflow:hidden; height:320px;">
+          <iframe
+            src="https://maps.google.com/maps?q=Flemingovo+n%C3%A1m%C4%9Bst%C3%AD+3%2C+Praha+6&output=embed&z=16"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="Mapa polohy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Autoškola VB Praha</h3>
+          <p>Valentín Bydlo · IČO: 660 11 841<br>
+          Flemingovo náměstí 3, Praha 6 — Dejvice<br>
+          Křižovatka s ulicí Nikoly Tesly</p>
+        </div>
+        <div class="footer-col">
+          <h4>Nabídka kurzů</h4>
+          <ul>
+            <li><a href="#kurzy">Skupina B — osobní auto</a></li>
+            <li><a href="#kurzy">Motorky (A, A2, A1, AM)</a></li>
+            <li><a href="#kurzy">Rychlokurz B (5–6 týdnů)</a></li>
+            <li><a href="#kurzy">Kondiční jízdy</a></li>
+            <li><a href="#kurzy">BE, C, CE, D, T</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="tel:605158258">📞 605 158 258</a></li>
+            <li><a href="mailto:autoskolavb@autoskolavb.cz">✉ autoskolavb@autoskolavb.cz</a></li>
+            <li><a href="#prihlaska">Přihlásit se online</a></li>
+            <li><a href="https://www.autoskolavb.cz" target="_blank" rel="noopener">autoskolavb.cz</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Autoškola VB · Valentín Bydlo · Všechna práva vyhrazena</span>
+        <span class="footer-credit">Web vytvořil <a href="https://danielhavlicek.cz" target="_blank" rel="noopener">Daniel Havlíček</a> — danielhavlicek.cz</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Form submit
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const group = document.getElementById('group').value;
+
+      if (!name || !email || !phone || !group) {
+        alert('Prosím vyplňte všechna povinná pole (označená *).');
+        return;
+      }
+
+      this.style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    });
+
+    // Smooth scroll offset for fixed header
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        const offset = 44 + 66 + 16; // banner + nav + gap
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
