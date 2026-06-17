@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Restaurace U Starého Dubu Praha 6 Dejvice – domácí česká kuchyně, denní menu 129 Kč, rezervace stolů online. Rodinná atmosféra od roku 2008.">
+<title>U Starého Dubu – Restaurace Praha 6 Dejvice</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #1c1208; --surface: #251a0e; --surface2: #2e2012;
+  --amber: #c8873a; --amber-light: rgba(200,135,58,.12); --amber-dim: #a06a28;
+  --cream: #f5ede0; --cream-dim: #e8d8c0; --cream-muted: #c4a882;
+  --text: #d4b896; --muted: #8a6f52; --white: #fff;
+  --line: rgba(200,135,58,.12);
+  --bh: 40px; --nh: 72px;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Lato', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+
+/* Banner */
+.banner {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--bh); background: #110c05;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: rgba(255,255,255,.7); gap: 5px; text-align: center; padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+.banner a { color: var(--amber); font-weight: 700; transition: color .2s; }
+.banner a:hover { color: #e0a060; }
+.banner .mob { display: none; }
+
+/* Nav */
+.nav {
+  position: fixed; top: var(--bh); left: 0; right: 0; z-index: 999;
+  height: var(--nh); background: rgba(28,18,8,.97);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);
+  transition: box-shadow .3s;
+}
+.nav.sc { box-shadow: 0 2px 24px rgba(0,0,0,.6); }
+.nav-in { max-width: 1100px; margin: 0 auto; height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+.logo { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--cream); letter-spacing: -.2px; }
+.logo em { color: var(--amber); font-style: italic; }
+.links { display: flex; gap: 26px; align-items: center; }
+.links a { font-size: 14px; font-weight: 400; color: var(--muted); transition: color .2s; position: relative; letter-spacing: .3px; }
+.links a:hover { color: var(--cream); }
+.links a.on { color: var(--cream); }
+.links a.on::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--amber); }
+.links .cta { background: var(--amber); color: var(--bg) !important; padding: 9px 22px; border-radius: 6px; font-weight: 700; transition: background .2s, transform .15s; }
+.links .cta:hover { background: var(--amber-dim); transform: translateY(-1px); }
+.links .cta::after { display: none !important; }
+.burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+.burger span { width: 24px; height: 1.5px; background: var(--cream); display: block; border-radius: 2px; transition: all .3s; }
+.mmenu { display: none; position: fixed; top: calc(var(--bh) + var(--nh)); left: 0; right: 0; background: var(--surface); padding: 20px 24px 28px; flex-direction: column; gap: 4px; border-bottom: 1px solid var(--line); box-shadow: 0 8px 24px rgba(0,0,0,.5); z-index: 998; }
+.mmenu.open { display: flex; }
+.mmenu a { padding: 12px 0; font-size: 16px; color: var(--text); border-bottom: 1px solid var(--line); }
+.mmenu a:last-child { border: none; color: var(--amber); font-weight: 700; margin-top: 4px; }
+
+/* Sections */
+section { padding: 90px 24px; }
+.wrap { max-width: 1100px; margin: 0 auto; }
+.tag { font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
+.h2 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4.5vw, 48px); font-weight: 700; color: var(--cream); line-height: 1.15; }
+.h2 i { color: var(--amber); font-style: italic; }
+.sub { font-size: 17px; color: var(--muted); line-height: 1.8; margin-top: 16px; }
+
+/* Animations */
+.fu { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+.fu.v { opacity: 1; transform: none; }
+.d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+
+/* Hero */
+#hero {
+  padding-top: calc(var(--bh) + var(--nh) + 80px); padding-bottom: 110px;
+  background: linear-gradient(140deg, #1c1208 0%, #2a1a08 40%, #3d2410 80%, #251608 100%);
+  position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center;
+}
+.hero-deco { position: absolute; inset: 0; pointer-events: none; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; z-index: 1; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(200,135,58,.35); border-radius: 6px; padding: 7px 14px; font-size: 13px; font-weight: 700; color: var(--amber); margin-bottom: 24px; letter-spacing: .5px; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(34px, 5.5vw, 60px); font-weight: 700; color: var(--cream); line-height: 1.1; margin-bottom: 20px; }
+h1 em { color: var(--amber); font-style: italic; display: block; }
+.hero-p { font-size: 18px; color: var(--muted); line-height: 1.8; margin-bottom: 36px; max-width: 460px; }
+.btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-a { background: var(--amber); color: var(--bg); padding: 15px 32px; border-radius: 6px; font-weight: 700; font-size: 15px; transition: background .2s, transform .15s; display: inline-block; }
+.btn-a:hover { background: var(--amber-dim); transform: translateY(-2px); }
+.btn-g { background: transparent; color: var(--cream); padding: 14px 31px; border-radius: 6px; font-weight: 700; font-size: 15px; border: 1px solid rgba(245,237,224,.25); transition: all .2s; display: inline-block; }
+.btn-g:hover { background: rgba(245,237,224,.07); border-color: rgba(245,237,224,.45); }
+.hero-vis { display: flex; flex-direction: column; gap: 14px; }
+.hero-card-big { background: linear-gradient(145deg, #2e1a08, #4a2810, #3d2010); border: 1px solid var(--line); border-radius: 16px; padding: 28px; position: relative; overflow: hidden; }
+.hero-card-big::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'><circle cx='350' cy='50' r='100' fill='rgba(200,135,58,0.06)'/><circle cx='50' cy='180' r='80' fill='rgba(200,135,58,0.04)'/></svg>"); }
+.hero-card-big .label { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+.hero-card-big .title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--cream); font-weight: 600; margin-bottom: 6px; }
+.hero-card-big .desc { font-size: 14px; color: var(--muted); }
+.hero-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.hc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px 18px; }
+.hc .num { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--amber); font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.hc .lbl { font-size: 13px; color: var(--muted); }
+
+/* About */
+#about { background: var(--surface); }
+.about-g { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-text p { font-size: 16px; color: var(--muted); line-height: 1.85; margin-top: 20px; }
+.values { display: flex; flex-direction: column; gap: 18px; margin-top: 32px; }
+.val { display: flex; align-items: flex-start; gap: 16px; }
+.val-ico { width: 46px; height: 46px; background: var(--amber-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.val b { display: block; font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 2px; }
+.val span { font-size: 13px; color: var(--muted); }
+.about-vis { position: relative; }
+.aimg { width: 100%; aspect-ratio: 4/5; border-radius: 20px; background: linear-gradient(145deg, #2e1a08 0%, #4a2810 40%, #6a3c18 80%, #3d2010 100%); }
+.aimg-acc { position: absolute; bottom: -16px; right: -16px; background: var(--amber); border-radius: 14px; padding: 20px 24px; border: 4px solid var(--surface); }
+.aimg-acc .yr { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--bg); font-weight: 700; }
+.aimg-acc .t { font-size: 12px; color: rgba(28,18,8,.65); margin-top: 2px; font-weight: 700; }
+
+/* Menu tabs */
+#menu { background: var(--bg); }
+.menu-h { margin-bottom: 40px; }
+.tabs-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; margin-bottom: 36px; -webkit-overflow-scrolling: touch; }
+.tab-btn { white-space: nowrap; font-size: 14px; font-weight: 700; padding: 10px 22px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); color: var(--muted); cursor: pointer; font-family: 'Lato', sans-serif; transition: all .2s; }
+.tab-btn.on { background: var(--amber); color: var(--bg); border-color: var(--amber); }
+.menu-panel { display: none; }
+.menu-panel.on { display: block; }
+.menu-items { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.mi { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; transition: border-color .3s; }
+.mi:hover { border-color: rgba(200,135,58,.3); }
+.mi-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--cream); margin-bottom: 4px; }
+.mi-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+.mi-price { font-size: 17px; font-weight: 700; color: var(--amber); white-space: nowrap; margin-top: 2px; }
+
+/* Gallery */
+#gallery { background: var(--surface); }
+.gal-h { text-align: center; margin-bottom: 48px; }
+.gg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.gi { aspect-ratio: 4/3; border-radius: 14px; position: relative; overflow: hidden; cursor: pointer; transition: transform .4s; }
+.gi:hover { transform: scale(1.03); }
+.gi-ov { position: absolute; inset: 0; background: rgba(28,18,8,.55); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .3s; font-family: 'Playfair Display', serif; font-size: 20px; color: var(--cream); letter-spacing: 1px; }
+.gi:hover .gi-ov { opacity: 1; }
+
+/* Daily menu */
+#daily { background: var(--amber); padding: 72px 24px; }
+.daily-in { max-width: 700px; margin: 0 auto; text-align: center; }
+.daily-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(28,18,8,.2); border-radius: 99px; padding: 6px 16px; font-size: 13px; font-weight: 700; color: var(--bg); margin-bottom: 20px; letter-spacing: .5px; }
+.daily-in h2 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 4vw, 40px); font-weight: 700; color: var(--bg); margin-bottom: 8px; }
+.daily-price { font-size: 48px; font-weight: 900; color: var(--bg); font-family: 'Playfair Display', serif; line-height: 1; margin: 16px 0; }
+.daily-price small { font-size: 18px; font-weight: 400; }
+.daily-items { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; max-width: 500px; margin-left: auto; margin-right: auto; }
+.di { background: rgba(28,18,8,.12); border-radius: 10px; padding: 16px 20px; text-align: left; }
+.di .dt { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(28,18,8,.5); margin-bottom: 4px; }
+.di .dn { font-size: 15px; font-weight: 700; color: var(--bg); }
+.daily-note { font-size: 14px; color: rgba(28,18,8,.55); margin-top: 8px; }
+.daily-cta { display: inline-block; margin-top: 24px; background: var(--bg); color: var(--amber); padding: 14px 32px; border-radius: 6px; font-weight: 700; font-size: 15px; transition: background .2s; }
+.daily-cta:hover { background: #2a1a08; }
+
+/* Reviews */
+#reviews { background: var(--bg); }
+.rh { text-align: center; margin-bottom: 48px; }
+.rg { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; }
+.rc { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 28px 24px; transition: border-color .3s; }
+.rc:hover { border-color: rgba(200,135,58,.3); }
+.stars { display: flex; gap: 3px; margin-bottom: 14px; }
+.stars span { color: var(--amber); font-size: 17px; }
+.rt { font-size: 15px; color: var(--text); line-height: 1.75; font-style: italic; margin-bottom: 20px; }
+.ra { display: flex; align-items: center; gap: 12px; }
+.rav { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--amber), #6a3c18); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 16px; flex-shrink: 0; }
+.ran b { display: block; font-size: 15px; font-weight: 700; color: var(--cream); }
+.ran span { font-size: 13px; color: var(--muted); }
+
+/* Contact & Reservation */
+#contact { background: var(--surface); }
+.cg { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.citems { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.ci { display: flex; align-items: flex-start; gap: 15px; }
+.ci-ico { width: 44px; height: 44px; background: var(--amber-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ci-t strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); margin-bottom: 4px; }
+.ci-t a, .ci-t span { font-size: 16px; color: var(--cream); transition: color .2s; }
+.ci-t a:hover { color: var(--amber); }
+.hg { display: grid; grid-template-columns: auto auto; gap: 5px 20px; margin-top: 6px; }
+.hg span { font-size: 14px; color: var(--text); }
+.hg .cl { color: var(--muted); }
+
+/* Form */
+.form { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 28px; }
+.form h3 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--cream); margin-bottom: 20px; }
+.fg { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.finput { width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(200,135,58,.2); border-radius: 8px; padding: 11px 14px; font-size: 15px; color: var(--cream); font-family: 'Lato', sans-serif; outline: none; transition: border-color .2s; }
+.finput:focus { border-color: var(--amber); }
+.finput::placeholder { color: var(--muted); }
+.finput.full { grid-column: 1 / -1; }
+select.finput { appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a6f52' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>"); background-repeat: no-repeat; background-position: right 12px center; }
+select.finput option { background: #251a0e; }
+.fsubmit { width: 100%; background: var(--amber); color: var(--bg); border: none; border-radius: 8px; padding: 13px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'Lato', sans-serif; margin-top: 4px; transition: background .2s, transform .15s; }
+.fsubmit:hover { background: var(--amber-dim); transform: translateY(-1px); }
+
+/* Footer */
+footer { background: #110c05; padding: 28px 24px; text-align: center; border-top: 1px solid var(--line); }
+footer .fi { max-width: 1100px; margin: 0 auto; }
+.fc { font-size: 14px; color: rgba(245,237,224,.3); }
+.fc em { color: var(--amber); font-style: normal; font-weight: 600; }
+.fm { font-size: 12px; color: rgba(245,237,224,.2); margin-top: 6px; }
+.fm a { color: rgba(245,237,224,.3); transition: color .2s; }
+.fm a:hover { color: var(--amber); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .banner .desk { display: none; }
+  .banner .mob { display: block; }
+  .links { display: none; }
+  .burger { display: flex; }
+  #hero { min-height: auto; padding-top: calc(var(--bh) + var(--nh) + 48px); padding-bottom: 60px; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-vis { display: none; }
+  .about-g { grid-template-columns: 1fr; gap: 40px; }
+  .about-vis { display: none; }
+  .menu-items { grid-template-columns: 1fr; }
+  .gg { grid-template-columns: repeat(2, 1fr); }
+  .daily-items { grid-template-columns: 1fr; }
+  .cg { grid-template-columns: 1fr; gap: 48px; }
+  .fg { grid-template-columns: 1fr; }
+  section { padding: 64px 20px; }
+  .btns { flex-direction: column; }
+  .btn-a, .btn-g { text-align: center; }
+}
+@media (max-width: 480px) {
+  .gg { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- BANNER -->
+<div class="banner">
+  <span class="desk">💡 Takhle může vypadat váš web → <a href="https://danielhavlicek.cz" target="_blank" rel="noopener">danielhavlicek.cz</a></span>
+  <span class="mob">Chcete takový web? <a href="https://danielhavlicek.cz" target="_blank" rel="noopener">danielhavlicek.cz →</a></span>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-in">
+    <a href="#hero" class="logo">U Starého <em>Dubu</em></a>
+    <div class="links">
+      <a href="#about">O nás</a>
+      <a href="#menu">Menu</a>
+      <a href="#daily">Denní menu</a>
+      <a href="#reviews">Recenze</a>
+      <a href="#contact" class="cta">Rezervovat stůl</a>
+    </div>
+    <button class="burger" id="burg" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mmenu" id="mm">
+  <a href="#about" onclick="closeMM()">O nás</a>
+  <a href="#menu" onclick="closeMM()">Menu</a>
+  <a href="#daily" onclick="closeMM()">Denní menu</a>
+  <a href="#reviews" onclick="closeMM()">Recenze</a>
+  <a href="#contact" onclick="closeMM()">Rezervovat stůl</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <svg class="hero-deco" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <!-- Decorative branch/leaf shapes -->
+    <ellipse cx="900" cy="200" rx="280" ry="180" fill="rgba(200,135,58,0.06)" transform="rotate(-20 900 200)"/>
+    <ellipse cx="180" cy="680" rx="200" ry="130" fill="rgba(200,135,58,0.04)" transform="rotate(15 180 680)"/>
+    <circle cx="1080" cy="600" r="180" fill="rgba(61,36,16,0.6)"/>
+    <circle cx="80" cy="120" r="120" fill="rgba(61,36,16,0.5)"/>
+    <!-- Leaf shapes -->
+    <path d="M920 100 Q980 160 920 220 Q860 160 920 100Z" fill="rgba(200,135,58,0.08)"/>
+    <path d="M960 130 Q1030 200 960 270 Q890 200 960 130Z" fill="rgba(200,135,58,0.05)"/>
+    <path d="M150 600 Q210 660 150 720 Q90 660 150 600Z" fill="rgba(200,135,58,0.06)"/>
+  </svg>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow fu">🌿 Praha 6 — Dejvice · Od roku 2008</div>
+        <h1 class="fu d1">Domácí česká kuchyně <em>v srdci Dejvic</em></h1>
+        <p class="hero-p fu d2">Čerstvé suroviny, rodinná atmosféra a recepty předávané z generace na generaci. Místo, kam se budete rádi vracet.</p>
+        <div class="btns fu d3">
+          <a href="#contact" class="btn-a">Rezervovat stůl</a>
+          <a href="#menu" class="btn-g">Zobrazit menu</a>
+        </div>
+      </div>
+      <div class="hero-vis fu d2">
+        <div class="hero-card-big">
+          <div class="label">Dnešní denní menu</div>
+          <div class="title">Gulášová polévka + Svíčková na smetaně</div>
+          <div class="desc" style="margin-top:8px;color:var(--amber)">129 Kč · Dostupné 11:00–14:30</div>
+        </div>
+        <div class="hero-cards-row">
+          <div class="hc">
+            <div class="num">15+</div>
+            <div class="lbl">let v provozu</div>
+          </div>
+          <div class="hc">
+            <div class="num">4,9★</div>
+            <div class="lbl">hodnocení hostů</div>
+          </div>
+          <div class="hc">
+            <div class="num">60</div>
+            <div class="lbl">míst k sezení</div>
+          </div>
+          <div class="hc">
+            <div class="num">8+</div>
+            <div class="lbl">jídel denně</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-g">
+      <div>
+        <div class="tag fu">O nás</div>
+        <h2 class="h2 fu d1">Rodinná restaurace <i>s tradicí</i></h2>
+        <p class="fu d2">Restaurace U Starého Dubu otevřela dveře v roce 2008 jako malá rodinná hospůdka. Za ty roky jsme si získali srdce celé čtvrti — díky poctivé české kuchyni, přátelskému přístupu a domácí atmosféře.</p>
+        <p class="fu d2" style="margin-top:12px">Naše menu se mění podle sezóny a nabídky lokálních dodavatelů. Věříme, že nejlepší ingrediencí každého jídla je péče, s jakou se vaří.</p>
+        <div class="values">
+          <div class="val fu d2">
+            <div class="val-ico">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div><b>Čerstvé suroviny</b><span>Nakupujeme každý den od lokálních farmářů a dodavatelů</span></div>
+          </div>
+          <div class="val fu d3">
+            <div class="val-ico">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <div><b>Rodinná atmosféra</b><span>Přátelský personál, útulný interiér, kde se cítíte jako doma</span></div>
+          </div>
+          <div class="val fu d4">
+            <div class="val-ico">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <div><b>Denní menu za 129 Kč</b><span>Polévka + hlavní chod každý všední den od 11:00 do 14:30</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="about-vis fu d2">
+        <div class="aimg"></div>
+        <div class="aimg-acc">
+          <div class="yr">2008</div>
+          <div class="t">Rok otevření</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="wrap">
+    <div class="menu-h">
+      <div class="tag fu">Jídelní lístek</div>
+      <h2 class="h2 fu d1">Naše <i>menu</i></h2>
+    </div>
+    <div class="tabs-row">
+      <button class="tab-btn on" onclick="showTab('predkrmy')">Předkrmy</button>
+      <button class="tab-btn" onclick="showTab('polevky')">Polévky</button>
+      <button class="tab-btn" onclick="showTab('hlavni')">Hlavní chody</button>
+      <button class="tab-btn" onclick="showTab('dezerty')">Dezerty</button>
+      <button class="tab-btn" onclick="showTab('napoje')">Nápoje</button>
+    </div>
+
+    <div class="menu-panel on" data-panel="predkrmy">
+      <div class="menu-items">
+        <div class="mi"><div><div class="mi-name">Svíčková tatarák</div><div class="mi-desc">Tatarský biftek z hovězí svíčkové, topinky, vajíčko</div></div><div class="mi-price">189 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Sýrový talíř</div><div class="mi-desc">Výběr tří zrajících sýrů, hrozny, ořechy, chléb</div></div><div class="mi-price">159 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Nakládaný hermelín</div><div class="mi-desc">V oleji s bylinkami, česnekem a pepřem</div></div><div class="mi-price">89 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Domácí pomazánky</div><div class="mi-desc">Tvarohová, šunková a uzená — s chlebem</div></div><div class="mi-price">95 Kč</div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" data-panel="polevky">
+      <div class="menu-items">
+        <div class="mi"><div><div class="mi-name">Hovězí vývar</div><div class="mi-desc">S masem, nudlemi a zeleninou, domácí vývar</div></div><div class="mi-price">65 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Gulášová polévka</div><div class="mi-desc">Hustá, sytá, s hovězím masem a paprikou</div></div><div class="mi-price">75 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Česneková</div><div class="mi-desc">Klasická česká česnečka se sýrem a krutony</div></div><div class="mi-price">65 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Kulajda</div><div class="mi-desc">Jihočeská krémová polévka s houbami a koprem</div></div><div class="mi-price">79 Kč</div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" data-panel="hlavni">
+      <div class="menu-items">
+        <div class="mi"><div><div class="mi-name">Svíčková na smetaně</div><div class="mi-desc">Hovězí svíčková, houskový knedlík, brusinky, šlehačka</div></div><div class="mi-price">265 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Vepřo-knedlo-zelo</div><div class="mi-desc">Pečené vepřové koleno, houskový knedlík, kysané zelí</div></div><div class="mi-price">195 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Smažený sýr</div><div class="mi-desc">Eidam v trojobalu, tatarská omáčka, hranolky</div></div><div class="mi-price">165 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Grilovaný losos</div><div class="mi-desc">S bylinkovým máslem, bramborovým pyré a salátem</div></div><div class="mi-price">295 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Kuřecí řízek</div><div class="mi-desc">Domácí bramborový salát, citron</div></div><div class="mi-price">185 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Guláš z hovězího masa</div><div class="mi-desc">Houskový nebo bramborový knedlík dle výběru</div></div><div class="mi-price">215 Kč</div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" data-panel="dezerty">
+      <div class="menu-items">
+        <div class="mi"><div><div class="mi-name">Palačinky</div><div class="mi-desc">Se zakysanou smetanou a domácí jahodovou marmeládou</div></div><div class="mi-price">95 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Jablečný závin</div><div class="mi-desc">Teplý, se šlehačkou a skořicí, podle babiččina receptu</div></div><div class="mi-price">85 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Zmrzlinový pohár</div><div class="mi-desc">Tři kopečky zmrzliny, šlehačka, ovoce, karamel</div></div><div class="mi-price">110 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Domácí tiramisu</div><div class="mi-desc">Mascarpone, káva, kakao — klasický italský recept</div></div><div class="mi-price">105 Kč</div></div>
+      </div>
+    </div>
+
+    <div class="menu-panel" data-panel="napoje">
+      <div class="menu-items">
+        <div class="mi"><div><div class="mi-name">Kozel 11° (čep)</div><div class="mi-desc">0,5 l, světlý ležák</div></div><div class="mi-price">55 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Moravské víno</div><div class="mi-desc">Sklenice 2 dl, bílé nebo červené</div></div><div class="mi-price">75 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Domácí limonáda</div><div class="mi-desc">Citron, máta nebo bezinka — 0,5 l</div></div><div class="mi-price">65 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Káva z pákového kávovaru</div><div class="mi-desc">Espresso, cappuccino, latté</div></div><div class="mi-price">55 Kč</div></div>
+        <div class="mi"><div><div class="mi-name">Nealkoholické nápoje</div><div class="mi-desc">Kofola, džusy, minerální voda — 0,33 l</div></div><div class="mi-price">35 Kč</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="gal-h">
+      <div class="tag fu">Galerie</div>
+      <h2 class="h2 fu d1">Atmosféra a <i>kuchyně</i></h2>
+    </div>
+    <div class="gg">
+      <div class="gi fu" style="background:linear-gradient(145deg,#3d2010,#6a3820,#4a2810)"><div class="gi-ov">Interiér</div></div>
+      <div class="gi fu d1" style="background:linear-gradient(145deg,#5a3210,#8a5020,#6a4018)"><div class="gi-ov">Svíčková</div></div>
+      <div class="gi fu d2" style="background:linear-gradient(145deg,#2e1808,#5a3410,#4a2810)"><div class="gi-ov">Bar</div></div>
+      <div class="gi fu d1" style="background:linear-gradient(145deg,#6a3820,#9a6030,#7a4820)"><div class="gi-ov">Salónek</div></div>
+      <div class="gi fu d2" style="background:linear-gradient(145deg,#4a2c10,#7a4820,#5a3c18)"><div class="gi-ov">Guláš</div></div>
+      <div class="gi fu d3" style="background:linear-gradient(145deg,#3a2010,#6a4020,#4a2c14)"><div class="gi-ov">Terasa</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DAILY MENU -->
+<section id="daily">
+  <div class="daily-in">
+    <div class="daily-badge fu">🌿 Denní nabídka · Každý všední den</div>
+    <h2 class="fu d1">Dnešní denní menu</h2>
+    <div class="daily-price fu d2">129 Kč <small>/ osoba</small></div>
+    <div class="daily-items fu d3">
+      <div class="di"><div class="dt">Polévka</div><div class="dn">Gulášová polévka</div></div>
+      <div class="di"><div class="dt">Hlavní chod</div><div class="dn">Svíčková na smetaně s knedlíkem</div></div>
+    </div>
+    <div class="daily-note fu d3">Dostupné 11:00–14:30 · Nabídka se každý den mění</div>
+    <a href="#contact" class="daily-cta fu d4">Rezervovat místo</a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="rh">
+      <div class="tag fu">Recenze</div>
+      <h2 class="h2 fu d1">Co říkají naši <i>hosté</i></h2>
+    </div>
+    <div class="rg">
+      <div class="rc fu">
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="rt">„Svíčková tady je nejlepší v celé Praze — to říkám bez nadsázky. Porce jsou velkorysé, ceny přijatelné a obsluha velmi příjemná. Chodíme sem každý týden na denní menu a ještě nikdy jsme nebyli zklamáni."</p>
+        <div class="ra"><div class="rav">J</div><div class="ran"><b>Jana Málková</b><span>Stálá hostka od roku 2019</span></div></div>
+      </div>
+      <div class="rc fu d1">
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="rt">„Konečně restaurace, kde člověk ví, co dostane. Jídlo chutná jako od maminky, atmosféra útulná a personál vždy s úsměvem. Byl jsem tu s celou rodinou a všichni odcházeli nadšení. Určitě se vrátíme!"</p>
+        <div class="ra"><div class="rav">R</div><div class="ran"><b>Radek Horáček</b><span>Host od roku 2021</span></div></div>
+      </div>
+      <div class="rc fu d2">
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="rt">„Denní menu za 129 Kč je naprosto fenomenální poměr ceny a kvality. Guláš, svíčková, kulajda — všechno domácí a poctivé. Do Dejvic se rád vracím mimo jiné kvůli U Starého Dubu. Skvělé místo!"</p>
+        <div class="ra"><div class="rav">L</div><div class="ran"><b>Lucie Fišerová</b><span>Hostka od roku 2020</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT & RESERVATION -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cg">
+      <div>
+        <div class="tag fu">Kontakt</div>
+        <h2 class="h2 fu d1">Přijďte k nám <i>nebo rezervujte</i></h2>
+        <div class="citems">
+          <div class="ci fu d1">
+            <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-.52a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div class="ci-t"><strong>Telefon</strong><a href="tel:+420234567890">+420 234 567 890</a></div>
+          </div>
+          <div class="ci fu d2">
+            <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="ci-t"><strong>Email</strong><a href="mailto:rezervace@ustarehodu bu.cz">rezervace@ustarehodu.cz</a></div>
+          </div>
+          <div class="ci fu d3">
+            <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="ci-t"><strong>Adresa</strong><span>Jugoslávských partyzánů 8, Praha 6</span></div>
+          </div>
+          <div class="ci fu d4">
+            <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="ci-t">
+              <strong>Otevírací doba</strong>
+              <div class="hg">
+                <span>Pondělí – Čtvrtek</span><span>11:00 – 22:00</span>
+                <span>Pátek – Sobota</span><span>11:00 – 23:00</span>
+                <span>Neděle</span><span>12:00 – 21:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--amber-light);border:1px solid rgba(200,135,58,.25);border-radius:12px;padding:20px;margin-top:28px" class="fu">
+          <div style="font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);margin-bottom:8px">Parkování</div>
+          <div style="font-size:15px;color:var(--text)">Parkoviště P+R Dejvická (200 m) · Metro A: Dejvická (3 min pěšky)</div>
+        </div>
+      </div>
+      <div class="fu d2">
+        <div class="form">
+          <h3>Rezervace stolu</h3>
+          <div class="fg">
+            <input class="finput" type="text" placeholder="Vaše jméno" required>
+            <input class="finput" type="tel" placeholder="Telefon">
+            <input class="finput" type="date" placeholder="Datum">
+            <select class="finput">
+              <option value="" disabled selected>Čas rezervace</option>
+              <option>11:00</option><option>11:30</option><option>12:00</option>
+              <option>12:30</option><option>13:00</option><option>17:00</option>
+              <option>17:30</option><option>18:00</option><option>18:30</option>
+              <option>19:00</option><option>19:30</option><option>20:00</option>
+            </select>
+            <select class="finput">
+              <option value="" disabled selected>Počet osob</option>
+              <option>1 osoba</option><option>2 osoby</option><option>3 osoby</option>
+              <option>4 osoby</option><option>5 osob</option><option>6 osob</option>
+              <option>7–10 osob</option><option>10+ osob (firemní akce)</option>
+            </select>
+            <input class="finput" type="text" placeholder="Příležitost (narozeniny, firemní, ...)">
+            <textarea class="finput full" rows="3" placeholder="Poznámka (alergie, přání, ...)"></textarea>
+          </div>
+          <button class="fsubmit" onclick="submitReservation(event)">Odeslat rezervaci</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <p class="fc">© 2025 <em>Restaurace U Starého Dubu</em> · Jugoslávských partyzánů 8, Praha 6</p>
+    <p class="fm">Web vytvořil <a href="https://danielhavlicek.cz" target="_blank" rel="noopener">Daniel Havlíček</a> — danielhavlicek.cz</p>
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+const burg = document.getElementById('burg');
+const mm = document.getElementById('mm');
+burg.addEventListener('click', () => mm.classList.toggle('open'));
+function closeMM() { mm.classList.remove('open'); }
+
+// Navbar
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('sc', scrollY > 10), {passive:true});
+
+// Scroll-spy
+const secs = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.links a[href^="#"]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (scrollY >= s.offsetTop - 130) cur = s.id; });
+  navAs.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur));
+}, {passive:true});
+
+// Intersection Observer
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); } }), {threshold: 0.1});
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+// Menu tabs
+function showTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('on', b.getAttribute('onclick').includes("'" + name + "'")));
+  document.querySelectorAll('.menu-panel').forEach(p => p.classList.toggle('on', p.dataset.panel === name));
+}
+
+// Reservation form
+function submitReservation(e) {
+  e.preventDefault();
+  alert('Děkujeme za rezervaci! Potvrdíme ji do 30 minut telefonicky nebo e-mailem. Těšíme se na vás!');
+}
+</script>
+</body>
+</html>
