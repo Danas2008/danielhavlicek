@@ -1032,3 +1032,215 @@ img {
 @media (max-width: 400px) {
   .container { width: calc(100% - 2rem); }
 }
+
+/* ==============================================
+   DEMO SHOWCASE SECTION
+   ============================================== */
+.demos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.demo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(30, 64, 128, 0.13);
+  border-color: transparent;
+}
+
+/* Laptop frame */
+.demo-mockup {
+  background: var(--surface-2);
+  padding: 28px 32px 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.demo-laptop {
+  width: 100%;
+  max-width: 230px;
+}
+
+.demo-screen {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 6px 6px 0 0;
+  border: 2.5px solid #232323;
+  border-bottom: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.demo-screen-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  padding: 0 7px;
+  gap: 5px;
+}
+
+.demo-dots::before {
+  content: '● ● ●';
+  font-size: 0.35rem;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.demo-url {
+  flex: 1;
+  text-align: center;
+  font-size: 0.5rem;
+  color: rgba(255, 255, 255, 0.36);
+  font-family: ui-monospace, 'Courier New', monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.demo-screen-label {
+  position: absolute;
+  inset: 20px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  text-align: center;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  padding: 0 8px;
+  line-height: 1.3;
+}
+
+.demo-base {
+  height: 9px;
+  background: #1c1c1c;
+  border: 2.5px solid #232323;
+  border-top: 1px solid #303030;
+  border-radius: 0 0 4px 4px;
+}
+
+.demo-stand {
+  width: 36%;
+  height: 6px;
+  background: #181818;
+  margin: 0 auto;
+  border-radius: 0 0 3px 3px;
+  border: 1.5px solid #252525;
+  border-top: none;
+}
+
+.demo-foot {
+  width: 54%;
+  height: 3px;
+  background: #141414;
+  margin: 0 auto;
+  border-radius: 0 0 2px 2px;
+  border: 1px solid #282828;
+  border-top: none;
+}
+
+/* Card info */
+.demo-info {
+  padding: 1.4rem 1.5rem 1.6rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.demo-niche {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.demo-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+  flex: 1;
+}
+
+.demo-features li {
+  font-size: 0.855rem;
+  color: var(--text-muted);
+  padding-left: 1.25rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.demo-features li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.demo-price {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+
+.demo-btn {
+  align-self: flex-start;
+  font-size: 0.85rem;
+  padding: 0.6rem 1.25rem;
+}
+
+/* Note below cards */
+.demos-note {
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.demos-note a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--ease);
+}
+
+.demos-note a:hover {
+  color: var(--accent-dark);
+}
+
+@media (max-width: 900px) {
+  .demos-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+}
+
+@media (max-width: 680px) {
+  .demo-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+  }
+}

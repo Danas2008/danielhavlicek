@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Nail Studio Ellie – profesionální nehtové studio v Praze 4. Gelové nehty, manikúra, pedikúra, nail art. Objednejte se ještě dnes.">
+<title>Nail Studio Ellie – Nehtové studio Praha 4</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink: #f8b4c8; --pink-dark: #e8849a; --pink-light: #fdeef3;
+  --gold: #c9a84c; --gold-dim: #a8882e;
+  --dark: #1a1a1a; --text: #333; --muted: #777; --cream: #faf7f4;
+  --bh: 40px; --nh: 70px;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: var(--text); background: #fff; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+
+/* Banner */
+.banner {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--bh); background: var(--dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: #fff; gap: 5px; text-align: center; padding: 0 16px;
+}
+.banner a { color: var(--pink); font-weight: 600; transition: color .2s; }
+.banner a:hover { color: var(--gold); }
+.banner .mob { display: none; }
+
+/* Nav */
+.nav {
+  position: fixed; top: var(--bh); left: 0; right: 0; z-index: 999;
+  height: var(--nh); background: rgba(255,255,255,.96);
+  backdrop-filter: blur(12px); border-bottom: 1px solid rgba(248,180,200,.25);
+  transition: box-shadow .3s;
+}
+.nav.sc { box-shadow: 0 2px 20px rgba(0,0,0,.08); }
+.nav-in { max-width: 1100px; margin: 0 auto; height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+.logo { font-family: 'Playfair Display', serif; font-size: 21px; color: var(--dark); }
+.logo em { color: var(--gold); font-style: normal; }
+.links { display: flex; gap: 28px; align-items: center; }
+.links a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color .2s; position: relative; }
+.links a:hover { color: var(--dark); }
+.links a.on { color: var(--dark); }
+.links a.on::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 2px; background: var(--pink); border-radius: 2px; }
+.links .cta { background: var(--pink); color: var(--dark) !important; padding: 9px 22px; border-radius: 99px; font-weight: 600; transition: background .2s, transform .1s; }
+.links .cta:hover { background: var(--pink-dark); transform: translateY(-1px); }
+.links .cta::after { display: none !important; }
+.burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; }
+.burger span { width: 24px; height: 2px; background: var(--dark); display: block; border-radius: 2px; transition: all .3s; }
+.mmenu { display: none; position: fixed; top: calc(var(--bh) + var(--nh)); left: 0; right: 0; background: #fff; padding: 20px 24px 28px; flex-direction: column; gap: 4px; border-bottom: 1px solid rgba(248,180,200,.2); box-shadow: 0 8px 24px rgba(0,0,0,.08); z-index: 998; }
+.mmenu.open { display: flex; }
+.mmenu a { padding: 12px 0; font-size: 16px; color: var(--text); border-bottom: 1px solid #f0f0f0; }
+.mmenu a:last-child { border: none; color: var(--pink-dark); font-weight: 600; margin-top: 4px; }
+
+/* Sections */
+section { padding: 90px 24px; }
+.wrap { max-width: 1100px; margin: 0 auto; }
+.tag { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.h2 { font-family: 'Playfair Display', serif; font-size: clamp(30px, 5vw, 50px); font-weight: 700; color: var(--dark); line-height: 1.15; }
+.h2 i { color: var(--gold); font-style: italic; }
+.sub { font-size: 17px; color: var(--muted); line-height: 1.75; margin-top: 16px; }
+
+/* Animations */
+.fu { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+.fu.v { opacity: 1; transform: none; }
+.d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; } .d4 { transition-delay: .4s; }
+
+/* Hero */
+#hero {
+  padding-top: calc(var(--bh) + var(--nh) + 80px); padding-bottom: 100px;
+  background: linear-gradient(140deg, #fff5f8 0%, #fce8ef 45%, #fdf6e8 100%);
+  position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center;
+}
+.hero-deco { position: absolute; inset: 0; pointer-events: none; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; position: relative; z-index: 1; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.35); border-radius: 99px; padding: 6px 16px; font-size: 13px; font-weight: 600; color: #8a6e20; margin-bottom: 24px; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5.5vw, 62px); font-weight: 700; color: var(--dark); line-height: 1.1; margin-bottom: 20px; }
+h1 em { color: var(--gold); font-style: italic; display: block; }
+.hero-p { font-size: 18px; color: var(--muted); line-height: 1.75; margin-bottom: 36px; max-width: 460px; }
+.btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-d { background: var(--dark); color: #fff; padding: 15px 32px; border-radius: 99px; font-weight: 600; font-size: 15px; transition: background .2s, transform .15s; display: inline-block; }
+.btn-d:hover { background: #333; transform: translateY(-2px); }
+.btn-o { border: 1.5px solid var(--dark); color: var(--dark); padding: 14px 31px; border-radius: 99px; font-weight: 600; font-size: 15px; transition: all .2s; display: inline-block; }
+.btn-o:hover { background: var(--dark); color: #fff; }
+.hero-card { width: 320px; height: 400px; border-radius: 28px; background: linear-gradient(145deg, #f8b4c8 0%, #e8849a 45%, #c9a84c 100%); box-shadow: 0 32px 80px rgba(232,132,154,.35); position: relative; overflow: hidden; margin: 0 auto; }
+.hero-card::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 400'><circle cx='200' cy='80' r='140' fill='rgba(255,255,255,0.1)'/><circle cx='40' cy='320' r='90' fill='rgba(255,255,255,0.07)'/><circle cx='280' cy='360' r='70' fill='rgba(255,255,255,0.09)'/></svg>"); }
+.hero-card-tag { position: absolute; bottom: 22px; left: 18px; right: 18px; background: rgba(255,255,255,.96); border-radius: 14px; padding: 16px 18px; }
+.hero-card-tag strong { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--dark); display: block; }
+.hero-card-tag span { font-size: 13px; color: var(--muted); margin-top: 3px; display: block; }
+
+/* About */
+#about { background: #fff; }
+.about-g { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-text p { font-size: 16px; color: var(--muted); line-height: 1.8; margin-top: 20px; }
+.badges { display: flex; flex-direction: column; gap: 18px; margin-top: 32px; }
+.bdg { display: flex; align-items: center; gap: 16px; }
+.bdg-ico { width: 48px; height: 48px; background: var(--pink-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.bdg b { display: block; font-size: 15px; font-weight: 600; color: var(--dark); }
+.bdg span { font-size: 13px; color: var(--muted); }
+.about-vis { position: relative; }
+.about-main { width: 100%; aspect-ratio: 4/5; border-radius: 24px; background: linear-gradient(145deg, #fce8ef 0%, #f8b4c8 55%, #e8a0b5 100%); }
+.about-acc { position: absolute; bottom: -20px; right: -16px; width: 150px; height: 150px; border-radius: 20px; background: linear-gradient(145deg, #c9a84c, #f0dfa0); border: 4px solid #fff; box-shadow: 0 10px 30px rgba(0,0,0,.1); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.about-acc .num { font-family: 'Playfair Display', serif; font-size: 40px; color: #fff; font-weight: 700; line-height: 1; }
+.about-acc .lbl { font-size: 12px; color: rgba(255,255,255,.8); margin-top: 4px; }
+
+/* Services */
+#services { background: var(--cream); }
+.sh { text-align: center; margin-bottom: 56px; }
+.sh .sub { margin: 14px auto 0; max-width: 540px; }
+.sg { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; }
+.sc { background: #fff; border-radius: 20px; padding: 28px 24px; border: 1px solid rgba(248,180,200,.25); transition: box-shadow .3s, transform .3s; position: relative; overflow: hidden; }
+.sc::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--pink), var(--gold)); opacity: 0; transition: opacity .3s; }
+.sc:hover { box-shadow: 0 12px 40px rgba(248,180,200,.3); transform: translateY(-4px); }
+.sc:hover::before { opacity: 1; }
+.sc-ico { width: 46px; height: 46px; border-radius: 12px; background: var(--pink-light); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+.sc-name { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+.sc-desc { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+.sc-price { font-size: 22px; font-weight: 700; color: var(--dark); }
+.sc-price small { font-size: 14px; font-weight: 400; color: var(--muted); }
+
+/* Gallery */
+#gallery { background: #fff; }
+.gh { text-align: center; margin-bottom: 48px; }
+.gg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.gi { aspect-ratio: 1; border-radius: 20px; position: relative; overflow: hidden; cursor: pointer; transition: transform .4s; }
+.gi:hover { transform: scale(1.03); }
+.gi-ov { position: absolute; inset: 0; background: rgba(26,26,26,.42); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .3s; font-size: 34px; color: #fff; }
+.gi:hover .gi-ov { opacity: 1; }
+
+/* Reviews */
+#reviews { background: var(--cream); }
+.rh { text-align: center; margin-bottom: 48px; }
+.rg { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 22px; }
+.rc { background: #fff; border-radius: 20px; padding: 28px 24px; border: 1px solid rgba(248,180,200,.2); }
+.stars { display: flex; gap: 3px; margin-bottom: 16px; }
+.stars span { color: var(--gold); font-size: 18px; }
+.rt { font-size: 15px; color: var(--text); line-height: 1.72; font-style: italic; margin-bottom: 20px; }
+.ra { display: flex; align-items: center; gap: 12px; }
+.rav { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--pink), var(--gold)); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 16px; flex-shrink: 0; }
+.ran b { display: block; font-size: 15px; font-weight: 600; color: var(--dark); }
+.ran span { font-size: 13px; color: var(--muted); }
+
+/* Contact */
+#contact { background: var(--dark); color: #fff; }
+.cg { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.cinfo .h2 { color: #fff; }
+.cinfo .tag { color: var(--pink); }
+.citems { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.ci { display: flex; align-items: flex-start; gap: 15px; }
+.ci-ico { width: 44px; height: 44px; background: rgba(248,180,200,.12); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ci-t strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,.4); margin-bottom: 4px; }
+.ci-t a, .ci-t span { font-size: 16px; color: #fff; transition: color .2s; }
+.ci-t a:hover { color: var(--pink); }
+.hg { display: grid; grid-template-columns: auto auto; gap: 5px 20px; margin-top: 6px; }
+.hg span { font-size: 15px; color: rgba(255,255,255,.75); }
+.hg .cl { color: rgba(255,255,255,.3); }
+.wabtn { display: inline-flex; align-items: center; gap: 10px; background: #25D366; color: #fff; padding: 14px 26px; border-radius: 99px; font-weight: 600; font-size: 15px; margin-top: 28px; transition: background .2s, transform .15s; }
+.wabtn:hover { background: #1dba58; transform: translateY(-2px); }
+.map-ph { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 20px; height: 260px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
+.map-ph p { font-size: 16px; color: rgba(255,255,255,.55); text-align: center; line-height: 1.65; }
+.call-box { background: rgba(248,180,200,.08); border: 1px solid rgba(248,180,200,.18); border-radius: 16px; padding: 24px; text-align: center; }
+.call-box .lbl { font-size: 12px; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.call-box a.tel { display: block; background: var(--pink); color: var(--dark); padding: 15px; border-radius: 12px; font-weight: 700; font-size: 18px; margin-bottom: 8px; transition: background .2s; }
+.call-box a.tel:hover { background: var(--pink-dark); }
+.call-box .note { font-size: 13px; color: rgba(255,255,255,.35); }
+
+/* Footer */
+footer { background: #111; padding: 28px 24px; text-align: center; }
+footer .fi { max-width: 1100px; margin: 0 auto; }
+.fc { font-size: 14px; color: rgba(255,255,255,.4); }
+.fc em { color: var(--pink); font-style: normal; font-weight: 500; }
+.fm { font-size: 12px; color: rgba(255,255,255,.25); margin-top: 6px; }
+.fm a { color: rgba(255,255,255,.4); transition: color .2s; }
+.fm a:hover { color: var(--pink); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .banner .desk { display: none; }
+  .banner .mob { display: block; }
+  .links { display: none; }
+  .burger { display: flex; }
+  #hero { min-height: auto; padding-top: calc(var(--bh) + var(--nh) + 48px); padding-bottom: 60px; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-card { display: none; }
+  .about-g { grid-template-columns: 1fr; gap: 40px; }
+  .about-vis { display: none; }
+  .gg { grid-template-columns: repeat(2, 1fr); }
+  .cg { grid-template-columns: 1fr; gap: 48px; }
+  section { padding: 64px 20px; }
+  .btns { flex-direction: column; }
+  .btn-d, .btn-o { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- BANNER -->
+<div class="banner">
+  <span class="desk">💡 Takhle může vypadat váš web → <a href="https://danielhavlicek.cz" target="_blank" rel="noopener">danielhavlicek.cz</a></span>
+  <span class="mob">Chcete takový web? <a href="https://danielhavlicek.cz" target="_blank" rel="noopener">danielhavlicek.cz →</a></span>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-in">
+    <a href="#hero" class="logo">Nail Studio <em>Ellie</em></a>
+    <div class="links">
+      <a href="#about">O nás</a>
+      <a href="#services">Ceník</a>
+      <a href="#gallery">Galerie</a>
+      <a href="#reviews">Recenze</a>
+      <a href="#contact" class="cta">Objednat se</a>
+    </div>
+    <button class="burger" id="burg" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mmenu" id="mm">
+  <a href="#about" onclick="closeMM()">O nás</a>
+  <a href="#services" onclick="closeMM()">Ceník</a>
+  <a href="#gallery" onclick="closeMM()">Galerie</a>
+  <a href="#reviews" onclick="closeMM()">Recenze</a>
+  <a href="#contact" onclick="closeMM()">Objednat se</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <svg class="hero-deco" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <circle cx="920" cy="180" r="320" fill="rgba(248,180,200,0.22)"/>
+    <circle cx="180" cy="620" r="210" fill="rgba(201,168,76,0.1)"/>
+    <circle cx="1100" cy="680" r="170" fill="rgba(248,180,200,0.13)"/>
+    <circle cx="60" cy="90" r="100" fill="rgba(201,168,76,0.07)"/>
+  </svg>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow fu">✦ Profesionální nehtové studio · Praha 4</div>
+        <h1 class="fu d1">Krásné nehty, <em>které si zasloužíte</em></h1>
+        <p class="hero-p fu d2">Gelové nehty, manikúra, pedikúra i nail art — vše s péčí a láskou k detailu. Studio, kde se budete vždy cítit jako doma.</p>
+        <div class="btns fu d3">
+          <a href="#contact" class="btn-d">Objednat se</a>
+          <a href="#services" class="btn-o">Zobrazit ceník</a>
+        </div>
+      </div>
+      <div class="fu d2">
+        <div class="hero-card">
+          <div class="hero-card-tag">
+            <strong>Gelové nehty od 650 Kč</strong>
+            <span>Praha 4 · Budějovická · Otevřeno dnes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-g">
+      <div>
+        <div class="tag fu">O nás</div>
+        <h2 class="h2 fu d1">Studio s <i>vášní</i> pro detail</h2>
+        <p class="fu d2">Nail Studio Ellie vzniklo v roce 2019 s jedním cílem — dopřát každé zákaznici péči, na kterou si vzpomene. Pracujeme výhradně s certifikovanými materiály a průběžně se vzděláváme v nejnovějších trendech.</p>
+        <p class="fu d2" style="margin-top:12px;color:var(--muted);font-size:16px;line-height:1.8">Každý set nehtů je pro nás malé umělecké dílo. Proto si dáváme čas, abychom docílili dokonalého výsledku, který vydá za tisíc slov.</p>
+        <div class="badges">
+          <div class="bdg fu d2">
+            <div class="bdg-ico">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div><b>5 let zkušeností</b><span>Přes 2 000 spokojených zákaznic</span></div>
+          </div>
+          <div class="bdg fu d3">
+            <div class="bdg-ico">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <div><b>100% přírodní materiály</b><span>Bez škodlivých chemikálií, šetrné k nehtům</span></div>
+          </div>
+          <div class="bdg fu d4">
+            <div class="bdg-ico">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            </div>
+            <div><b>Certified nail artist</b><span>Mezinárodní certifikace & pravidelná školení</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="about-vis fu d2">
+        <div class="about-main"></div>
+        <div class="about-acc">
+          <div class="num">5★</div>
+          <div class="lbl">hodnocení</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sh">
+      <div class="tag fu">Ceník</div>
+      <h2 class="h2 fu d1">Naše <i>služby</i></h2>
+      <p class="sub fu d2">Vyberte si z naší nabídky profesionálních nehtových služeb. Všechny ceny jsou konečné, bez skrytých poplatků.</p>
+    </div>
+    <div class="sg">
+      <div class="sc fu">
+        <div class="sc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e8849a" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="sc-name">Gelové nehty</div>
+        <p class="sc-desc">Krásné a odolné gelové nehty v libovolné délce a tvaru. Výdrž 3–4 týdny, dokonalý výsledek pokaždé.</p>
+        <div class="sc-price">od 650 Kč <small>/ set</small></div>
+      </div>
+      <div class="sc fu d1">
+        <div class="sc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e8849a" stroke-width="2" stroke-linecap="round"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+        <div class="sc-name">Manikúra</div>
+        <p class="sc-desc">Klasická manikúra s péčí o kutikuly, pilování do požadovaného tvaru a lakování dle výběru.</p>
+        <div class="sc-price">od 350 Kč <small>/ návštěva</small></div>
+      </div>
+      <div class="sc fu d2">
+        <div class="sc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e8849a" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <div class="sc-name">Pedikúra</div>
+        <p class="sc-desc">Kompletní péče o nohy a nehty na nohou, včetně peelingu, hydratace a lakování.</p>
+        <div class="sc-price">od 450 Kč <small>/ návštěva</small></div>
+      </div>
+      <div class="sc fu d1">
+        <div class="sc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e8849a" stroke-width="2" stroke-linecap="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+        <div class="sc-name">Nail art</div>
+        <p class="sc-desc">Kreativní zdobení nehtů — florální motivy, geometrie, ombre, chrome a další trendy vzory.</p>
+        <div class="sc-price">od 150 Kč <small>/ nehet</small></div>
+      </div>
+      <div class="sc fu d2">
+        <div class="sc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e8849a" stroke-width="2" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg></div>
+        <div class="sc-name">Doplnění</div>
+        <p class="sc-desc">Profesionální doplnění odrostlých gelových nehtů. Doporučujeme každé 3 týdny.</p>
+        <div class="sc-price">od 500 Kč <small>/ set</small></div>
+      </div>
+      <div class="sc fu d3">
+        <div class="sc-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e8849a" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        <div class="sc-name">Prodloužení</div>
+        <p class="sc-desc">Prodloužení nehtů tipy nebo formičkami do požadované délky, tvaru a povrchové úpravy.</p>
+        <div class="sc-price">od 750 Kč <small>/ set</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="gh">
+      <div class="tag fu">Galerie</div>
+      <h2 class="h2 fu d1">Naše <i>práce</i></h2>
+    </div>
+    <div class="gg">
+      <div class="gi fu" style="background:linear-gradient(145deg,#f8b4c8,#e8849a)"><div class="gi-ov">♥</div></div>
+      <div class="gi fu d1" style="background:linear-gradient(145deg,#f5e6d3,#d4a574,#c9a84c)"><div class="gi-ov">♥</div></div>
+      <div class="gi fu d2" style="background:linear-gradient(145deg,#c9a84c 0%,#f0dfa0 60%,#c9a84c 100%)"><div class="gi-ov">♥</div></div>
+      <div class="gi fu d1" style="background:linear-gradient(145deg,#8b1a4a,#c84b7a,#e8849a)"><div class="gi-ov">♥</div></div>
+      <div class="gi fu d2" style="background:linear-gradient(135deg,#e8e8e8 0%,#c0c0c0 40%,#c9a84c 100%)"><div class="gi-ov">♥</div></div>
+      <div class="gi fu d3" style="background:linear-gradient(145deg,#4a1a6b,#8b4a9e,#c084d8)"><div class="gi-ov">♥</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="rh">
+      <div class="tag fu">Recenze</div>
+      <h2 class="h2 fu d1">Co říkají naše <i>zákaznice</i></h2>
+    </div>
+    <div class="rg">
+      <div class="rc fu">
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="rt">„Eliška je naprosto úžasná! Nehty vydrží tři týdny jako nové a vždy si přesně poradí s tím, co chci. Studio je čisté, útulné a já se tam vždy cítím jako doma. Nikam jinam nepůjdu!"</p>
+        <div class="ra"><div class="rav">K</div><div class="ran"><b>Karolína Nováková</b><span>Zákaznice od roku 2021</span></div></div>
+      </div>
+      <div class="rc fu d1">
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="rt">„Konečně jsem našla studio, kde nehty opravdu vydrží! Doplnění za 500 Kč je naprostá pecka a nail art, který mi Eliška navrhla, sklidil samé komplimenty. Vřele doporučuji všem!"</p>
+        <div class="ra"><div class="rav">M</div><div class="ran"><b>Markéta Horáčková</b><span>Zákaznice od roku 2022</span></div></div>
+      </div>
+      <div class="rc fu d2">
+        <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="rt">„Po letech hledání jsem konečně spokojená! Eliška vždy poradí, co bude nejlépe vypadat, a výsledek je vždy dokonalý. Přátelská atmosféra, férové ceny — studio jasně doporučuji!"</p>
+        <div class="ra"><div class="rav">T</div><div class="ran"><b>Tereza Procházková</b><span>Zákaznice od roku 2020</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="cg">
+      <div class="cinfo">
+        <div class="tag fu">Kontakt</div>
+        <h2 class="h2 fu d1">Objednejte se <i>ještě dnes</i></h2>
+        <div class="citems">
+          <div class="ci fu d1">
+            <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-.52a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div class="ci-t"><strong>Telefon</strong><a href="tel:+420777123456">+420 777 123 456</a></div>
+          </div>
+          <div class="ci fu d2">
+            <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div class="ci-t"><strong>Email</strong><a href="mailto:info@nailstudio-ellie.cz">info@nailstudio-ellie.cz</a></div>
+          </div>
+          <div class="ci fu d3">
+            <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="ci-t"><strong>Adresa</strong><span>Budějovická 15, Praha 4</span></div>
+          </div>
+          <div class="ci fu d4">
+            <div class="ci-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="ci-t">
+              <strong>Otevírací doba</strong>
+              <div class="hg">
+                <span>Pondělí – Pátek</span><span>9:00 – 19:00</span>
+                <span>Sobota</span><span>9:00 – 14:00</span>
+                <span>Neděle</span><span class="cl">Zavřeno</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="https://wa.me/420777123456?text=Dobr%C3%BD%20den%2C%20r%C3%A1da%20bych%20se%20objednala%20na%20nehty." target="_blank" rel="noopener" class="wabtn fu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Objednat přes WhatsApp
+        </a>
+      </div>
+      <div class="fu d2">
+        <div style="border-radius:20px; overflow:hidden; height:260px; margin-bottom:20px;">
+          <iframe
+            src="https://maps.google.com/maps?q=Bud%C4%9Bjovick%C3%A1+15%2C+Praha+4&output=embed&z=16"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="Mapa polohy">
+          </iframe>
+        </div>
+        <div class="call-box">
+          <div class="lbl">Nejjednodušší objednávka</div>
+          <a href="tel:+420777123456" class="tel">📞 +420 777 123 456</a>
+          <div class="note">Volejte Po–Pá 9:00–19:00, So 9:00–14:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <p class="fc">© 2026 <em>Nail Studio Ellie</em> · Budějovická 15, Praha 4</p>
+    <p class="fm">Web vytvořil <a href="https://danielhavlicek.cz" target="_blank" rel="noopener">Daniel Havlíček</a> — danielhavlicek.cz</p>
+  </div>
+</footer>
+
+<script>
+const burg = document.getElementById('burg');
+const mm = document.getElementById('mm');
+burg.addEventListener('click', () => mm.classList.toggle('open'));
+function closeMM() { mm.classList.remove('open'); }
+
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('sc', scrollY > 10), {passive:true});
+
+const secs = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.links a[href^="#"]');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (scrollY >= s.offsetTop - 130) cur = s.id; });
+  navAs.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + cur));
+}, {passive:true});
+
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); } }), {threshold: 0.1});
+document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
