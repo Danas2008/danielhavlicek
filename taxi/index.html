@@ -196,56 +196,40 @@
       inset: 0;
       background-image: url('images/taxi1.jpg');
       background-size: cover;
-      background-position: center;
+      background-position: center 40%;
       opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.8s ease;
       z-index: 1;
     }
-    .hero-bg-img.loaded { opacity: 0.35; }
+    .hero-bg-img.loaded { opacity: 1; }
+    /* Desktop: gradient fades left side dark, right stays visible */
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to right, rgba(10,10,10,0.92) 40%, rgba(10,10,10,0.4) 100%);
+      background: linear-gradient(105deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.65) 45%, rgba(0,0,0,0.15) 100%);
       z-index: 2;
     }
-    .hero-glow {
-      position: absolute;
-      right: -100px; top: 50%;
-      transform: translateY(-50%);
-      width: 700px; height: 700px;
-      background: radial-gradient(ellipse, rgba(255,122,0,0.12) 0%, transparent 70%);
-      z-index: 2;
-    }
-
-    /* SVG car illustration */
-    .hero-car-svg {
-      position: absolute;
-      right: 5%;
-      bottom: 8%;
-      width: min(480px, 45vw);
-      opacity: 0.13;
-      z-index: 2;
-      pointer-events: none;
-    }
+    .hero-glow { display: none; }
+    .hero-car-svg { display: none; }
 
     .hero-content {
       position: relative;
       z-index: 3;
-      padding-top: 100px;
-      padding-bottom: 60px;
+      padding-top: 120px;
+      padding-bottom: 80px;
     }
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       background: rgba(255,122,0,0.15);
-      border: 1px solid rgba(255,122,0,0.3);
+      border: 1px solid rgba(255,122,0,0.35);
       border-radius: 100px;
-      padding: 6px 14px;
+      padding: 6px 16px;
       font-size: 0.82rem;
       font-weight: 600;
       color: var(--orange);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
     .hero-badge .dot {
       width: 6px; height: 6px;
@@ -258,69 +242,62 @@
       50% { opacity: 0.5; transform: scale(1.3); }
     }
     .hero-title {
-      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      font-size: clamp(2.8rem, 5.5vw, 4.8rem);
       font-weight: 900;
-      line-height: 1.08;
-      margin-bottom: 24px;
-      max-width: 680px;
+      line-height: 1.06;
+      margin-bottom: 20px;
+      max-width: 780px;
     }
-    .hero-title em {
-      font-style: normal;
-      color: var(--orange);
-    }
+    .hero-title em { font-style: normal; color: var(--orange); }
     .hero-sub {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: var(--gray-light);
-      max-width: 500px;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 580px;
       margin-bottom: 40px;
+      line-height: 1.6;
     }
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 12px;
       align-items: center;
-      margin-bottom: 56px;
+      margin-bottom: 52px;
     }
     .hero-phone-btn {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 18px 28px;
-      background: rgba(255,255,255,0.06);
-      border: 2px solid rgba(255,255,255,0.15);
+      padding: 16px 28px;
+      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(255,255,255,0.2);
       border-radius: 10px;
       color: var(--white);
       text-decoration: none;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 800;
       transition: var(--transition);
     }
     .hero-phone-btn svg { flex-shrink: 0; }
-    .hero-phone-btn:hover {
-      border-color: var(--orange);
-      background: rgba(255,122,0,0.1);
-      color: var(--orange);
-    }
+    .hero-phone-btn:hover { border-color: var(--orange); background: rgba(255,122,0,0.12); color: var(--orange); }
     .hero-stats {
       display: flex;
       flex-wrap: wrap;
-      gap: 40px;
+      gap: 36px;
     }
-    .hero-stat { }
     .hero-stat-num {
-      font-size: 2rem;
+      font-size: 1.9rem;
       font-weight: 900;
       color: var(--orange);
       line-height: 1;
     }
     .hero-stat-label {
-      font-size: 0.85rem;
-      color: var(--gray);
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
       margin-top: 4px;
     }
     .hero-scroll {
       position: absolute;
-      bottom: 32px;
+      bottom: 28px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 3;
@@ -328,15 +305,15 @@
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      color: var(--gray);
-      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.72rem;
       animation: bounce 2.5s infinite;
     }
     @keyframes bounce {
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(6px); }
     }
-    .hero-scroll svg { width: 18px; height: 18px; stroke: var(--gray); fill: none; }
+    .hero-scroll svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
 
     /* ── TRUST STRIP ─────────────────────────────── */
     #trust {
@@ -1204,60 +1181,61 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
     }
+    /* ── TABLET HERO (769px–1024px) ─────────────── */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .hero-content { max-width: 600px; padding-top: 110px; }
+      .hero-title { font-size: clamp(2.4rem, 4.8vw, 3.6rem); }
+    }
+
     /* ── MOBILE HERO (≤768px) ────────────────────── */
     @media (max-width: 768px) {
-      /* Hero výška — vejde se na jeden screen */
       #hero {
         min-height: 100svh;
-        align-items: flex-start;
+        align-items: center;
+      }
+      /* Lighten overlay so photo is clearly visible on mobile */
+      .hero-overlay {
+        background: linear-gradient(to bottom,
+          rgba(0,0,0,0.72) 0%,
+          rgba(0,0,0,0.52) 50%,
+          rgba(0,0,0,0.38) 100%);
       }
       .hero-content {
-        padding-top: 76px;
-        padding-bottom: 32px;
+        padding-top: 88px;
+        padding-bottom: 56px;
         display: flex;
         flex-direction: column;
         gap: 0;
+        max-width: 100%;
       }
-
-      /* Badge — kompaktnější */
       .hero-badge {
         font-size: 0.75rem;
-        padding: 5px 12px;
-        margin-bottom: 14px;
+        padding: 5px 13px;
+        margin-bottom: 18px;
       }
-
-      /* Nadpis — 2 řádky max */
       .hero-title {
-        font-size: 2rem;
-        line-height: 1.12;
-        margin-bottom: 12px;
+        font-size: 2.1rem;
+        line-height: 1.1;
+        margin-bottom: 14px;
         max-width: 100%;
       }
-
-      /* Podnadpis — 1 věta */
       .hero-sub {
-        font-size: 0.95rem;
-        margin-bottom: 22px;
+        font-size: 0.97rem;
+        margin-bottom: 26px;
         max-width: 100%;
       }
-      /* Skryj druhou větu podnadpisu přes CSS (ořízneme přes JS níže) */
-
-      /* CTA tlačítka — telefon první, oba přes celou šířku */
       .hero-actions {
         flex-direction: column;
         gap: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
         width: 100%;
       }
-      /* Přehoď pořadí: telefon nahoru, formulář dolů */
       .hero-actions a:first-child { order: 2; }
       .hero-actions a:last-child  { order: 1; }
-
-      /* Telefonní tlačítko — dominantní, oranžové */
       .hero-phone-btn {
         width: 100%;
         justify-content: center;
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         padding: 16px 20px;
         background: var(--orange);
         border-color: var(--orange);
@@ -1270,16 +1248,14 @@
         border-color: var(--orange-dark);
         color: var(--white);
       }
-
-      /* Objednat online — outline, plná šířka */
       .hero-actions .btn-primary {
         width: 100%;
         justify-content: center;
         font-size: 1rem;
         padding: 14px 20px;
         min-height: 50px;
-        background: transparent;
-        border: 2px solid rgba(255,255,255,0.3);
+        background: rgba(0,0,0,0.25);
+        border: 2px solid rgba(255,255,255,0.28);
         color: var(--white);
       }
       .hero-actions .btn-primary:hover {
@@ -1288,39 +1264,33 @@
         box-shadow: none;
         transform: none;
       }
-      /* Přejmenuj text tlačítka přes attr (ne JS — ponecháme text v HTML) */
-
-      /* Trust řádek — kompaktní, místo 4 karet */
       .hero-stats {
         flex-direction: row;
         flex-wrap: nowrap;
         gap: 0;
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(0,0,0,0.35);
+        border: 1px solid rgba(255,255,255,0.12);
         border-radius: 10px;
-        padding: 12px 16px;
+        padding: 14px 16px;
         justify-content: space-between;
         align-items: center;
       }
       .hero-stat { flex: 1; text-align: center; }
       .hero-stat + .hero-stat {
-        border-left: 1px solid rgba(255,255,255,0.1);
+        border-left: 1px solid rgba(255,255,255,0.12);
         padding-left: 12px;
       }
-      /* Skryj 3. a 4. stat kartu */
       .hero-stat:nth-child(3),
       .hero-stat:nth-child(4) { display: none; }
-      .hero-stat-num { font-size: 1.1rem; }
+      .hero-stat-num { font-size: 1.2rem; }
       .hero-stat-label { font-size: 0.7rem; }
-
-      /* Skryj SVG auto ilustraci a scroll indikátor */
       .hero-car-svg { display: none; }
       .hero-scroll  { display: none; }
     }
 
-    /* Malé telefony (≤390px) */
+    /* Small phones (≤390px) */
     @media (max-width: 390px) {
-      .hero-title { font-size: 1.75rem; }
+      .hero-title { font-size: 1.8rem; }
       .hero-badge { font-size: 0.7rem; }
     }
 
