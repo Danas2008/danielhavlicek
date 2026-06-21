@@ -1204,6 +1204,126 @@
       .nav-links { display: none; }
       .hamburger { display: flex; }
     }
+    /* ── MOBILE HERO (≤768px) ────────────────────── */
+    @media (max-width: 768px) {
+      /* Hero výška — vejde se na jeden screen */
+      #hero {
+        min-height: 100svh;
+        align-items: flex-start;
+      }
+      .hero-content {
+        padding-top: 76px;
+        padding-bottom: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      /* Badge — kompaktnější */
+      .hero-badge {
+        font-size: 0.75rem;
+        padding: 5px 12px;
+        margin-bottom: 14px;
+      }
+
+      /* Nadpis — 2 řádky max */
+      .hero-title {
+        font-size: 2rem;
+        line-height: 1.12;
+        margin-bottom: 12px;
+        max-width: 100%;
+      }
+
+      /* Podnadpis — 1 věta */
+      .hero-sub {
+        font-size: 0.95rem;
+        margin-bottom: 22px;
+        max-width: 100%;
+      }
+      /* Skryj druhou větu podnadpisu přes CSS (ořízneme přes JS níže) */
+
+      /* CTA tlačítka — telefon první, oba přes celou šířku */
+      .hero-actions {
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+      /* Přehoď pořadí: telefon nahoru, formulář dolů */
+      .hero-actions a:first-child { order: 2; }
+      .hero-actions a:last-child  { order: 1; }
+
+      /* Telefonní tlačítko — dominantní, oranžové */
+      .hero-phone-btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 1.15rem;
+        padding: 16px 20px;
+        background: var(--orange);
+        border-color: var(--orange);
+        color: var(--white);
+        border-radius: 10px;
+        min-height: 54px;
+      }
+      .hero-phone-btn:hover {
+        background: var(--orange-dark);
+        border-color: var(--orange-dark);
+        color: var(--white);
+      }
+
+      /* Objednat online — outline, plná šířka */
+      .hero-actions .btn-primary {
+        width: 100%;
+        justify-content: center;
+        font-size: 1rem;
+        padding: 14px 20px;
+        min-height: 50px;
+        background: transparent;
+        border: 2px solid rgba(255,255,255,0.3);
+        color: var(--white);
+      }
+      .hero-actions .btn-primary:hover {
+        border-color: var(--orange);
+        color: var(--orange);
+        box-shadow: none;
+        transform: none;
+      }
+      /* Přejmenuj text tlačítka přes attr (ne JS — ponecháme text v HTML) */
+
+      /* Trust řádek — kompaktní, místo 4 karet */
+      .hero-stats {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 0;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 10px;
+        padding: 12px 16px;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .hero-stat { flex: 1; text-align: center; }
+      .hero-stat + .hero-stat {
+        border-left: 1px solid rgba(255,255,255,0.1);
+        padding-left: 12px;
+      }
+      /* Skryj 3. a 4. stat kartu */
+      .hero-stat:nth-child(3),
+      .hero-stat:nth-child(4) { display: none; }
+      .hero-stat-num { font-size: 1.1rem; }
+      .hero-stat-label { font-size: 0.7rem; }
+
+      /* Skryj SVG auto ilustraci a scroll indikátor */
+      .hero-car-svg { display: none; }
+      .hero-scroll  { display: none; }
+    }
+
+    /* Malé telefony (≤390px) */
+    @media (max-width: 390px) {
+      .hero-title { font-size: 1.75rem; }
+      .hero-badge { font-size: 0.7rem; }
+    }
+
     @media (max-width: 768px) {
       .section { padding: 72px 0; }
       .services-grid { grid-template-columns: 1fr; }
@@ -2115,6 +2235,24 @@
       document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
     });
   });
+
+  // ── Mobile hero text swap ───────────────────────────
+  (function() {
+    if (window.innerWidth > 768) return;
+    const heroBtn = document.querySelector('.hero-actions .btn-primary');
+    if (heroBtn) {
+      heroBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Objednat online';
+    }
+    // Zkraťme podnadpis na 1 větu
+    const sub = document.querySelector('.hero-sub');
+    if (sub) sub.textContent = 'Čeští řidiči, moderní vozidla, platba kartou nebo hotově.';
+    // Přidej hvězdičky jako druhý stat místo skrytých
+    const stat2 = document.querySelector('.hero-stat:nth-child(2)');
+    if (stat2) {
+      stat2.querySelector('.hero-stat-num').textContent = '⭐ 5,0';
+      stat2.querySelector('.hero-stat-label').textContent = '7 recenzí';
+    }
+  })();
 
   // ── Sticky CTA ──────────────────────────────────────
   const stickyCta = document.getElementById('sticky-cta');
