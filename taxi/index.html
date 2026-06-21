@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taxi-365 — Spolehlivá taxi služba Praha 24/7</title>
+  <meta name="description" content="Taxi Praha 24/7. Letištní transfer, business taxi, skupinová přeprava. Čeští řidiči, platba kartou i hotově. Objednejte online nebo telefonicky." />
+  <meta name="keywords" content="taxi Praha, letištní transfer Praha, business taxi, taxi 24/7, přeprava letiště Václava Havla" />
+  <meta property="og:title" content="Taxi-365 — Spolehlivá taxi služba Praha 24/7" />
+  <meta property="og:description" content="Profesionální taxi služba v Praze. Dostupní 24/7, čeští řidiči, platba kartou i hotově." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF7A00;
+      --orange-dark: #E06A00;
+      --orange-light: #FF9933;
+      --dark: #111111;
+      --dark-2: #1a1a1a;
+      --dark-3: #222222;
+      --dark-card: #1e1e1e;
+      --gray: #888888;
+      --gray-light: #cccccc;
+      --white: #ffffff;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.18);
+      --shadow-orange: 0 4px 24px rgba(255,122,0,0.25);
+      --transition: 0.25s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── UTILITY ─────────────────────────────────── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 96px 0; }
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1.1rem;
+      color: var(--gray-light);
+      max-width: 560px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: var(--orange-dark); box-shadow: var(--shadow-orange); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.35);
+    }
+    .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+    .btn-lg { padding: 18px 36px; font-size: 1.1rem; border-radius: 10px; }
+    .orange { color: var(--orange); }
+
+    /* ── NAV ─────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    #navbar.scrolled {
+      background: rgba(17,17,17,0.96);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 40px; height: 40px;
+      background: var(--orange);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { width: 22px; height: 22px; fill: var(--white); }
+    .nav-logo-text { font-size: 1.25rem; font-weight: 800; color: var(--white); }
+    .nav-logo-text span { color: var(--orange); }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--gray-light);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .nav-phone {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--orange);
+      text-decoration: none;
+      transition: opacity var(--transition);
+    }
+    .nav-phone:hover { opacity: 0.8; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: var(--dark-2);
+      padding: 24px;
+      z-index: 99;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu.open { display: flex; flex-direction: column; gap: 16px; }
+    .mobile-menu a {
+      color: var(--gray-light); text-decoration: none;
+      font-size: 1.05rem; font-weight: 500;
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── HERO ────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, #0a0a0a 0%, #1a0a00 50%, #0d0d0d 100%);
+      z-index: 0;
+    }
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      background-image: url('/images/taxi1.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      z-index: 1;
+    }
+    .hero-bg-img.loaded { opacity: 0.35; }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(10,10,10,0.92) 40%, rgba(10,10,10,0.4) 100%);
+      z-index: 2;
+    }
+    .hero-glow {
+      position: absolute;
+      right: -100px; top: 50%;
+      transform: translateY(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(255,122,0,0.12) 0%, transparent 70%);
+      z-index: 2;
+    }
+
+    /* SVG car illustration */
+    .hero-car-svg {
+      position: absolute;
+      right: 5%;
+      bottom: 8%;
+      width: min(480px, 45vw);
+      opacity: 0.13;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      padding-top: 100px;
+      padding-bottom: 60px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,122,0,0.15);
+      border: 1px solid rgba(255,122,0,0.3);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--orange);
+      margin-bottom: 24px;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+    .hero-title {
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      font-weight: 900;
+      line-height: 1.08;
+      margin-bottom: 24px;
+      max-width: 680px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--orange);
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--gray-light);
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 56px;
+    }
+    .hero-phone-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 28px;
+      background: rgba(255,255,255,0.06);
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: 800;
+      transition: var(--transition);
+    }
+    .hero-phone-btn svg { flex-shrink: 0; }
+    .hero-phone-btn:hover {
+      border-color: var(--orange);
+      background: rgba(255,122,0,0.1);
+      color: var(--orange);
+    }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    .hero-stat { }
+    .hero-stat-num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--gray);
+      font-size: 0.75rem;
+      animation: bounce 2.5s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+    .hero-scroll svg { width: 18px; height: 18px; stroke: var(--gray); fill: none; }
+
+    /* ── TRUST STRIP ─────────────────────────────── */
+    #trust {
+      background: var(--dark-2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 0;
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      divide-x: 1px solid rgba(255,255,255,0.06);
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 36px 32px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      transition: background var(--transition);
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-item:hover { background: rgba(255,122,0,0.04); }
+    .trust-icon {
+      flex-shrink: 0;
+      width: 52px; height: 52px;
+      background: rgba(255,122,0,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .trust-icon svg { width: 26px; height: 26px; stroke: var(--orange); fill: none; stroke-width: 1.8; }
+    .trust-text-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .trust-text-sub {
+      font-size: 0.83rem;
+      color: var(--gray);
+    }
+
+    /* ── SERVICES ────────────────────────────────── */
+    #services { background: var(--dark); }
+    .services-header { margin-bottom: 56px; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      right: 0; height: 3px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .service-card:hover {
+      border-color: rgba(255,122,0,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card-num {
+      position: absolute;
+      top: 28px; right: 28px;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: rgba(255,122,0,0.08);
+      line-height: 1;
+    }
+    .service-icon {
+      width: 56px; height: 56px;
+      background: rgba(255,122,0,0.1);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .service-icon svg { width: 28px; height: 28px; stroke: var(--orange); fill: none; stroke-width: 1.8; }
+    .service-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .service-card-desc {
+      font-size: 0.92rem;
+      color: var(--gray-light);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .service-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--orange);
+      background: rgba(255,122,0,0.1);
+      border-radius: 100px;
+      padding: 4px 12px;
+    }
+
+    /* ── PRICING ─────────────────────────────────── */
+    #pricing { background: var(--dark-2); }
+    .pricing-header { margin-bottom: 56px; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+    .pricing-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: border-color var(--transition), transform var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-card:hover {
+      border-color: rgba(255,122,0,0.3);
+      transform: translateY(-4px);
+    }
+    .pricing-card.popular {
+      border-color: var(--orange);
+      background: linear-gradient(160deg, #1e1400 0%, #1e1e1e 100%);
+    }
+    .popular-badge {
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 0 0 8px 8px;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .pricing-card-icon {
+      width: 44px; height: 44px;
+      background: rgba(255,122,0,0.1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .pricing-card-icon svg { width: 22px; height: 22px; stroke: var(--orange); fill: none; stroke-width: 1.8; }
+    .pricing-card-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray);
+      margin-bottom: 8px;
+    }
+    .pricing-card-price {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pricing-card-price span { font-size: 1rem; font-weight: 600; color: var(--gray); }
+    .pricing-card-note {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+    .pricing-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin-bottom: 20px;
+    }
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.87rem;
+      color: var(--gray-light);
+    }
+    .pricing-features li svg {
+      flex-shrink: 0;
+      width: 15px; height: 15px;
+      stroke: var(--orange); fill: none; stroke-width: 2.5;
+    }
+    .pricing-cta {
+      margin-top: 24px;
+    }
+    .pricing-cta .btn { width: 100%; justify-content: center; }
+    .pricing-custom {
+      margin-top: 40px;
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .pricing-custom-text h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+    .pricing-custom-text p { color: var(--gray-light); font-size: 0.9rem; }
+
+    /* ── HOW IT WORKS ────────────────────────────── */
+    #how { background: var(--dark); }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 56px;
+      position: relative;
+    }
+    .how-grid::before {
+      content: '';
+      position: absolute;
+      top: 36px; left: calc(100%/3/2); right: calc(100%/3/2);
+      height: 2px;
+      background: linear-gradient(to right, var(--orange) 0%, var(--orange) 100%);
+      background-image: repeating-linear-gradient(to right, var(--orange) 0, var(--orange) 8px, transparent 8px, transparent 16px);
+      opacity: 0.3;
+    }
+    .how-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 32px;
+      position: relative;
+    }
+    .how-step-num {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: rgba(255,122,0,0.12);
+      border: 2px solid rgba(255,122,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 900;
+      color: var(--orange);
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .how-step:hover .how-step-num {
+      background: rgba(255,122,0,0.2);
+      border-color: var(--orange);
+    }
+    .how-step-icon {
+      width: 52px; height: 52px;
+      margin-bottom: 16px;
+    }
+    .how-step-icon svg { width: 52px; height: 52px; stroke: var(--orange); fill: none; stroke-width: 1.4; }
+    .how-step-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+    .how-step-desc { font-size: 0.9rem; color: var(--gray-light); line-height: 1.65; }
+    .how-arrow {
+      position: absolute;
+      top: 36px;
+      right: -20px;
+      z-index: 2;
+      color: var(--orange);
+      opacity: 0.4;
+    }
+    .how-step:last-child .how-arrow { display: none; }
+
+    /* ── FAQ ─────────────────────────────────────── */
+    #faq { background: var(--dark-2); }
+    .faq-header { margin-bottom: 48px; }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 760px; }
+    .faq-item {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .faq-item.open { border-color: rgba(255,122,0,0.35); }
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 24px;
+      cursor: pointer;
+      user-select: none;
+      gap: 12px;
+    }
+    .faq-question-text {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: rgba(255,122,0,0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .faq-icon svg { width: 14px; height: 14px; stroke: var(--orange); fill: none; stroke-width: 2.5; transition: transform 0.3s ease; }
+    .faq-item.open .faq-icon { background: var(--orange); }
+    .faq-item.open .faq-icon svg { stroke: var(--white); transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; }
+    .faq-answer-inner {
+      padding: 0 24px 22px;
+      font-size: 0.92rem;
+      color: var(--gray-light);
+      line-height: 1.7;
+    }
+
+    /* ── CONTACT ─────────────────────────────────── */
+    #contact { background: var(--dark); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-info-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 16px; }
+    .contact-info-sub { color: var(--gray-light); margin-bottom: 36px; font-size: 0.95rem; }
+    .contact-phone-block {
+      margin-bottom: 36px;
+    }
+    .contact-phone-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--gray); margin-bottom: 8px; }
+    .contact-phone-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--orange);
+      text-decoration: none;
+      transition: opacity var(--transition);
+    }
+    .contact-phone-link:hover { opacity: 0.8; }
+    .contact-phone-link svg { width: 28px; height: 28px; stroke: var(--orange); fill: none; stroke-width: 2; }
+    .contact-avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,122,0,0.1);
+      border: 1px solid rgba(255,122,0,0.25);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--orange);
+      margin-bottom: 32px;
+    }
+    .contact-avail .dot {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    .contact-meta { display: flex; flex-direction: column; gap: 14px; }
+    .contact-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--gray-light);
+    }
+    .contact-meta-item svg { width: 18px; height: 18px; stroke: var(--orange); fill: none; stroke-width: 1.8; flex-shrink: 0; }
+
+    /* Form */
+    .contact-form {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+    }
+    .form-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--gray-light); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color var(--transition);
+      outline: none;
+      width: 100%;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--orange);
+      background: rgba(255,122,0,0.04);
+    }
+    .form-group select option { background: var(--dark-2); color: var(--white); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-submit { width: 100%; justify-content: center; margin-top: 8px; }
+    .form-note { font-size: 0.78rem; color: var(--gray); text-align: center; margin-top: 10px; }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    footer {
+      background: #0d0d0d;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+    .footer-brand { display: flex; flex-direction: column; gap: 8px; }
+    .footer-brand-name { font-size: 1.3rem; font-weight: 800; }
+    .footer-brand-name span { color: var(--orange); }
+    .footer-brand-sub { font-size: 0.85rem; color: var(--gray); }
+    .footer-phone-big {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--orange);
+      text-decoration: none;
+      transition: opacity var(--transition);
+    }
+    .footer-phone-big:hover { opacity: 0.8; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.82rem;
+      color: var(--gray);
+    }
+    .footer-bottom a { color: var(--gray); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--orange); }
+
+    /* ── SCROLL ANIMATIONS ───────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media (max-width: 1024px) {
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-item:nth-child(2) { border-right: none; }
+      .trust-item:nth-child(3),
+      .trust-item:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.07); }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 768px) {
+      .section { padding: 72px 0; }
+      .services-grid { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: 1fr; gap: 40px; }
+      .how-grid::before { display: none; }
+      .how-arrow { display: none; }
+      .how-step { align-items: flex-start; text-align: left; flex-direction: row; gap: 20px; padding: 0; }
+      .how-step-num { flex-shrink: 0; width: 56px; height: 56px; font-size: 1.2rem; }
+      .how-step-content { flex: 1; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .form-row { grid-template-columns: 1fr; }
+      .pricing-custom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .trust-grid { grid-template-columns: 1fr; }
+      .trust-item { border-right: none !important; border-top: 1px solid rgba(255,255,255,0.07) !important; }
+      .trust-item:first-child { border-top: none !important; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
+      .contact-phone-link { font-size: 1.5rem; }
+      .contact-form { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ─────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#hero" class="nav-logo">
+      <img src="/images/logo.png" alt="Taxi-365" style="height:40px;width:auto;display:block;" />
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#services">Služby</a></li>
+      <li><a href="#pricing">Ceník</a></li>
+      <li><a href="#how">Jak to funguje</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <a href="tel:+420725247365" class="nav-phone">+420 725 247 365</a>
+      <a href="#contact" class="btn btn-primary" style="padding:10px 20px;font-size:.9rem;">Objednat</a>
+    </div>
+
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMobileMenu()">Služby</a>
+  <a href="#pricing" onclick="closeMobileMenu()">Ceník</a>
+  <a href="#how" onclick="closeMobileMenu()">Jak to funguje</a>
+  <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+  <a href="#contact" onclick="closeMobileMenu()">Kontakt</a>
+  <a href="tel:+420725247365" style="color:var(--orange);font-weight:700;font-size:1.1rem;border:none;">+420 725 247 365</a>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-img" id="heroBgImg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-glow"></div>
+
+  <!-- SVG Car Illustration -->
+  <svg class="hero-car-svg" viewBox="0 0 600 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="60" y="130" width="480" height="100" rx="16" fill="white" fill-opacity="0.06"/>
+    <path d="M120 130 L180 60 L420 60 L480 130" stroke="white" stroke-width="4" stroke-opacity="0.1" fill="white" fill-opacity="0.04"/>
+    <rect x="140" y="70" width="100" height="60" rx="6" fill="none" stroke="white" stroke-opacity="0.08" stroke-width="2"/>
+    <rect x="260" y="70" width="100" height="60" rx="6" fill="none" stroke="white" stroke-opacity="0.08" stroke-width="2"/>
+    <circle cx="160" cy="230" r="36" fill="none" stroke="white" stroke-opacity="0.12" stroke-width="8"/>
+    <circle cx="160" cy="230" r="18" fill="none" stroke="white" stroke-opacity="0.08" stroke-width="4"/>
+    <circle cx="440" cy="230" r="36" fill="none" stroke="white" stroke-opacity="0.12" stroke-width="8"/>
+    <circle cx="440" cy="230" r="18" fill="none" stroke="white" stroke-opacity="0.08" stroke-width="4"/>
+    <rect x="20" y="155" width="60" height="20" rx="6" fill="#FF7A00" fill-opacity="0.25"/>
+    <rect x="520" y="155" width="60" height="20" rx="6" fill="#FF7A00" fill-opacity="0.15"/>
+    <!-- Road lines -->
+    <rect x="0" y="270" width="600" height="10" fill="white" fill-opacity="0.03"/>
+    <rect x="80" y="272" width="60" height="3" rx="2" fill="white" fill-opacity="0.12"/>
+    <rect x="270" y="272" width="60" height="3" rx="2" fill="white" fill-opacity="0.12"/>
+    <rect x="460" y="272" width="60" height="3" rx="2" fill="white" fill-opacity="0.12"/>
+  </svg>
+
+  <div class="container hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Dostupní právě teď — 24 hodin denně, 7 dní v týdnu
+    </div>
+    <h1 class="hero-title">
+      Taxi Praha,<br />
+      na které se <em>vždy spoléhnete</em>
+    </h1>
+    <p class="hero-sub">
+      Profesionální přeprava po Praze i mimo ni. Čeští řidiči,
+      moderní vozidla, platba kartou nebo hotově.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary btn-lg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Objednat taxi
+      </a>
+      <a href="tel:+420725247365" class="hero-phone-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.42 1.27h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +420 725 247 365
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">24/7</div>
+        <div class="hero-stat-label">Dostupnost</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Čeští řidiči</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">1–8</div>
+        <div class="hero-stat-label">Počet osob</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">CZK/EUR</div>
+        <div class="hero-stat-label">Platba kartou / hotově</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Přejít dolů</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ── TRUST STRIP ────────────────────────────────────── -->
+<section id="trust">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item reveal">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="trust-text-title">Dostupnost 24/7</div>
+          <div class="trust-text-sub">Objednáte kdykoliv, v noci i o svátcích</div>
+        </div>
+      </div>
+      <div class="trust-item reveal reveal-delay-1">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div>
+          <div class="trust-text-title">Čeští řidiči</div>
+          <div class="trust-text-sub">Profesionálové se znalostí Prahy</div>
+        </div>
+      </div>
+      <div class="trust-item reveal reveal-delay-2">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <div>
+          <div class="trust-text-title">Platba kartou i hotově</div>
+          <div class="trust-text-sub">Terminál ve voze, platíte v CZK nebo EUR</div>
+        </div>
+      </div>
+      <div class="trust-item reveal reveal-delay-3">
+        <div class="trust-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="trust-text-title">Pojištění a oprávnění</div>
+          <div class="trust-text-sub">Všechna zákonná oprávnění a pojištění</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ───────────────────────────────────────── -->
+<section id="services" class="section">
+  <div class="container">
+    <div class="services-header">
+      <div class="section-label">Naše služby</div>
+      <h2 class="section-title">Co pro vás zajistíme</h2>
+      <p class="section-sub">Od letištního transferu po celodenní pronájem — přizpůsobíme se vašim potřebám.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-card-num">01</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7l-8.2-1.8L3 7l7 4-2 2-4-1-1 1 3 2 2 3 1-1-1-4 2-2 4 7 2-1.8z"/></svg>
+        </div>
+        <h3 class="service-card-title">Letištní transfer</h3>
+        <p class="service-card-desc">Rychlý a pohodlný odvoz na letiště a zpět. Sledujeme váš let a přizpůsobíme se případnému zpoždění. Jistota včasného příjezdu pro 1–8 osob.</p>
+        <div class="service-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          1–8 osob · Letiště Václava Havla
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-card-num">02</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <h3 class="service-card-title">Business transfer</h3>
+        <p class="service-card-desc">Pohodlný a diskrétní převoz na pracovní schůzky i pravidelné cesty. Možnost fakturace pro firmy, Wi-Fi v autě, tichý a profesionální řidič.</p>
+        <div class="service-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Faktura pro firmy · Diskrétnost
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-card-num">03</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3 class="service-card-title">Individuální přeprava</h3>
+        <p class="service-card-desc">Maximální pohodlí a diskrétnost, pronájem vozu s řidičem po Praze i mimo ni. Na hodiny nebo celý den — přizpůsobíme se vašemu programu.</p>
+        <div class="service-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Praha i mimo · Pronájem dle potřeby
+        </div>
+      </div>
+
+      <div class="service-card reveal reveal-delay-3">
+        <div class="service-card-num">04</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3 class="service-card-title">Skupinová přeprava</h3>
+        <p class="service-card-desc">Až 8 osob v jednom voze — ideální pro transfer z letiště, firemní akce, svatby nebo skupinové výlety. Pohodlný minivan s dostatkem prostoru pro zavazadla.</p>
+        <div class="service-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Až 8 osob · Minivan
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ────────────────────────────────────────── -->
+<section id="pricing" class="section">
+  <div class="container">
+    <div class="pricing-header">
+      <div class="section-label">Ceník</div>
+      <h2 class="section-title">Přehledné ceny bez skrytých poplatků</h2>
+      <p class="section-sub">Jasné ceny předem. Platba kartou i hotově, v CZK nebo EUR.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <div class="pricing-card reveal">
+        <div class="pricing-card-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <div class="pricing-card-name">Business</div>
+        <div class="pricing-card-price">1 590 <span>Kč</span></div>
+        <div class="pricing-card-note">do 2 hodin · max. 50 km</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Přeprava po Praze i okolí</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Platba kartou nebo hotově</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Možnost fakturace pro firmy</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Profesionální řidič</li>
+        </ul>
+        <div class="pricing-cta">
+          <a href="#contact" class="btn btn-outline">Objednat</a>
+        </div>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-1">
+        <div class="pricing-card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="pricing-card-name">Půldenní pronájem</div>
+        <div class="pricing-card-price">3 190 <span>Kč</span></div>
+        <div class="pricing-card-note">4 hodiny · max. 100 km</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 4 hodiny k dispozici</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Více zastávek dle potřeby</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Platba kartou nebo hotově</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Faktura pro firmy</li>
+        </ul>
+        <div class="pricing-cta">
+          <a href="#contact" class="btn btn-outline">Objednat</a>
+        </div>
+      </div>
+
+      <div class="pricing-card popular reveal reveal-delay-2">
+        <div class="popular-badge">Nejoblíbenější</div>
+        <div class="pricing-card-icon" style="margin-top:12px;">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="pricing-card-name">Celodenní pronájem</div>
+        <div class="pricing-card-price">6 290 <span>Kč</span></div>
+        <div class="pricing-card-note">8 hodin · max. 200 km</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Celý den k dispozici</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Výlety mimo Prahu</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Faktura pro firmy</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Platba kartou nebo hotově</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Dětská sedačka na vyžádání</li>
+        </ul>
+        <div class="pricing-cta">
+          <a href="#contact" class="btn btn-primary">Objednat</a>
+        </div>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-3">
+        <div class="pricing-card-icon">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="pricing-card-name">Celodenní Plus (Flex)</div>
+        <div class="pricing-card-price">9 590 <span>Kč</span></div>
+        <div class="pricing-card-note">až 12 hodin · max. 300 km</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Flexibilní 12 hodin</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Dlouhé trasy i mimo ČR</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Prioritní obsluha</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Faktura pro firmy</li>
+          <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Vícedenní cesty na domluvě</li>
+        </ul>
+        <div class="pricing-cta">
+          <a href="#contact" class="btn btn-outline">Objednat</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pricing-custom reveal" style="margin-top:32px;">
+      <div class="pricing-custom-text">
+        <h3>Trasy mimo Prahu a individuální cesty</h3>
+        <p>Přepravu na letiště, dlouhé trasy i vícedenní cesty řešíme individuálně. Napište nebo zavolejte — nabídneme vám cenu na míru.</p>
+      </div>
+      <a href="#contact" class="btn btn-primary" style="white-space:nowrap;flex-shrink:0;">Nezávazná poptávka</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ───────────────────────────────────── -->
+<section id="how" class="section">
+  <div class="container">
+    <div class="section-label">Jak to funguje</div>
+    <h2 class="section-title">Tři jednoduché kroky</h2>
+    <p class="section-sub">Objednat taxi s Taxi-365 je snadné — zvládnete to za méně než minutu.</p>
+
+    <div class="how-grid">
+      <div class="how-step reveal">
+        <div class="how-step-num">1</div>
+        <div class="how-arrow">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="how-step-content">
+          <div class="how-step-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <h3 class="how-step-title">Objednejte</h3>
+          <p class="how-step-desc">Zavolejte nám nebo vyplňte online formulář. Sdělte nám odkud, kam, kdy a kolik vás cestuje. Fungujeme 24 hodin denně.</p>
+        </div>
+      </div>
+
+      <div class="how-step reveal reveal-delay-1">
+        <div class="how-step-num">2</div>
+        <div class="how-arrow">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="how-step-content">
+          <div class="how-step-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.42 1.27h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <h3 class="how-step-title">Potvrdíme</h3>
+          <p class="how-step-desc">Okamžitě vám potvrdíme objednávku, sdělíme informace o řidiči a vozidle. V případě potřeby vás budeme kontaktovat.</p>
+        </div>
+      </div>
+
+      <div class="how-step reveal reveal-delay-2">
+        <div class="how-step-num">3</div>
+        <div class="how-step-content">
+          <div class="how-step-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l1.5-4.5h15L21 9M3 9h18M3 9v6m18-6v6m0 0H3m18 0v3H3v-3m2-3h.01M19 12h.01"/></svg>
+          </div>
+          <h3 class="how-step-title">Odvezeme</h3>
+          <p class="how-step-desc">Řidič přijede přesně na čas. Pohodlná jízda, bez stresu. Platíte kartou nebo hotově — dle vaší preference.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:56px;" class="reveal">
+      <a href="tel:+420725247365" class="btn btn-primary btn-lg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.42 1.27h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Zavolat nyní — +420 725 247 365
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ────────────────────────────────────────────── -->
+<section id="faq" class="section">
+  <div class="container">
+    <div class="faq-header">
+      <div class="section-label">Časté otázky</div>
+      <h2 class="section-title">Máte otázky? Máme odpovědi.</h2>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">Jak taxi objednám?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Taxi objednáte telefonicky na čísle <strong>+420 725 247 365</strong> nebo přes online formulář na této stránce. Jsme dostupní 24 hodin denně, 7 dní v týdnu — včetně svátků a víkendů. Na letištní transfery doporučujeme rezervaci alespoň 24 hodin předem.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">Jaké jsou platební možnosti?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Platíte kartou nebo hotově — dle vaší preference. Platební terminál je k dispozici ve všech našich vozidlech. Přijímáme české koruny (CZK) i eura (EUR). Firemní zákazníci mohou platit na fakturu — stačí to uvést při objednávce.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">Zajišťujete přepravu na letiště?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Ano, zajišťujeme letištní transfery na Letiště Václava Havla v Praze a na všechna hlavní evropská letiště. Sledujeme váš let a přizpůsobíme se případnému zpoždění. Doporučujeme rezervaci alespoň 24 hodin předem pro zajištění místa a nejlepší ceny.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">Můžete zajistit dětskou sedačku?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Ano, dětskou sedačku zajistíme na vyžádání. Stačí ji uvést v poznámce při objednávce a sdělit věk a váhu dítěte — použijeme vhodný typ sedačky. Žádáme o rezervaci s předstihem alespoň 24 hodin.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span class="faq-question-text">Jak se počítá cena jízdy?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Cena se odvíjí od vzdálenosti a délky pronájmu. Paušální tarify (viz ceník výše) platí pro nejběžnější kombinace. Pro individuální trasy mimo Prahu nebo vícedenní cesty nabídneme cenu na míru po zaslání poptávky. Žádné skryté poplatky — cenu vždy sdělíme předem.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────── -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div>
+        <div class="section-label">Kontakt</div>
+        <h2 class="contact-info-title">Objednejte taxi jednoduše</h2>
+        <p class="contact-info-sub">
+          Zavolejte přímo nebo vyplňte formulář — ozveme se vám obratem a potvrdíme jízdu.
+        </p>
+
+        <div class="contact-phone-block">
+          <div class="contact-phone-label">Telefonická objednávka</div>
+          <a href="tel:+420725247365" class="contact-phone-link">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.42 1.27h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            +420 725 247 365
+          </a>
+        </div>
+
+        <div class="contact-avail">
+          <span class="dot"></span>
+          Dostupní 24/7 — i o svátcích
+        </div>
+
+        <div class="contact-meta">
+          <div class="contact-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Praha a okolí, výjezdy po celé ČR
+          </div>
+          <div class="contact-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:jiri.horacek@taxi-365.cz" style="color:inherit;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color=''">jiri.horacek@taxi-365.cz</a>
+          </div>
+          <div class="contact-meta-item">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+            <a href="https://www.taxi-365.cz" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color=''">www.taxi-365.cz</a>
+          </div>
+          <div class="contact-meta-item">
+            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Platba kartou, hotovostí, EUR, faktura
+          </div>
+          <div class="contact-meta-item">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            Čeští profesionální řidiči, pojištění
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <form class="contact-form" id="contactForm">
+          <h3 class="form-title">Online objednávka</h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Jméno a příjmení *</label>
+              <input type="text" id="name" name="name" placeholder="Jan Novák" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefon *</label>
+              <input type="tel" id="phone" name="phone" placeholder="+420 725 247 365" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="from">Odkud *</label>
+              <input type="text" id="from" name="from" placeholder="Adresa nebo letiště" required />
+            </div>
+            <div class="form-group">
+              <label for="to">Kam *</label>
+              <input type="text" id="to" name="to" placeholder="Cílová adresa" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="datetime">Datum a čas *</label>
+              <input type="datetime-local" id="datetime" name="datetime" required />
+            </div>
+            <div class="form-group">
+              <label for="persons">Počet osob *</label>
+              <select id="persons" name="persons" required>
+                <option value="" disabled selected>Vyberte</option>
+                <option>1 osoba</option>
+                <option>2 osoby</option>
+                <option>3 osoby</option>
+                <option>4 osoby</option>
+                <option>5 osob</option>
+                <option>6 osob</option>
+                <option>7 osob</option>
+                <option>8 osob</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="note">Poznámka (dětská sedačka, velká zavazadla, …)</label>
+            <textarea id="note" name="note" placeholder="Volitelná poznámka k jízdě…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg form-submit">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Odeslat objednávku
+          </button>
+          <div class="form-note">Ozveme se vám do 15 minut — nebo ihned zavolejte.</div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/images/logo.png" alt="Taxi-365" style="height:36px;width:auto;margin-bottom:4px;" />
+        <div class="footer-brand-sub">Spolehlivá taxi služba Praha 24/7</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <a href="tel:+420725247365" class="footer-phone-big">+420 725 247 365</a>
+        <a href="mailto:jiri.horacek@taxi-365.cz" style="font-size:.85rem;color:var(--gray);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color=''">jiri.horacek@taxi-365.cz</a>
+        <a href="https://www.taxi-365.cz" target="_blank" rel="noopener" style="font-size:.85rem;color:var(--gray);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color=''">www.taxi-365.cz</a>
+      </div>
+
+      <div class="footer-links">
+        <a href="#services">Služby</a>
+        <a href="#pricing">Ceník</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Kontakt</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 Taxi-365. Všechna práva vyhrazena.</span>
+      <span>Web vytvořil <a href="https://danielhavlicek.cz" target="_blank" rel="noopener">Daniel Havlíček</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── NAV scroll ──────────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ── Hamburger ───────────────────────────────────────
+  const hamburger = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+  }
+
+  // ── Hero BG image lazy load ─────────────────────────
+  const heroBg = document.getElementById('heroBgImg');
+  const img = new Image();
+  img.onload = () => heroBg.classList.add('loaded');
+  img.src = '/images/taxi1.jpg';
+
+  // ── FAQ accordion ───────────────────────────────────
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // ── Scroll reveal ───────────────────────────────────
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ── Form submit ─────────────────────────────────────
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('[type=submit]');
+    btn.textContent = '✓ Odesláno — brzy se vám ozveme!';
+    btn.style.background = '#22c55e';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Odeslat objednávku';
+      btn.style.background = '';
+      btn.disabled = false;
+      this.reset();
+    }, 4000);
+  });
+
+  // ── Smooth nav close on link click ─────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', () => closeMobileMenu());
+  });
+</script>
+</body>
+</html>
