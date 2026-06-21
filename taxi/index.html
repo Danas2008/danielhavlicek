@@ -142,24 +142,18 @@
     }
     .nav-links a:hover { color: var(--white); }
     .nav-cta { display: flex; align-items: center; gap: 12px; }
-    .nav-phone {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--orange);
-      text-decoration: none;
-      transition: opacity var(--transition);
-    }
-    .nav-phone:hover { opacity: 0.8; }
     .hamburger {
       display: none;
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
       padding: 4px;
+      background: none;
+      border: none;
     }
     .hamburger span {
       display: block; width: 24px; height: 2px;
-      background: var(--white);
+      background: var(--orange);
       border-radius: 2px;
       transition: var(--transition);
     }
@@ -167,7 +161,8 @@
       display: none;
       position: fixed;
       top: 72px; left: 0; right: 0;
-      background: var(--dark-2);
+      background: rgba(17,17,17,0.97);
+      backdrop-filter: blur(12px);
       padding: 24px;
       z-index: 99;
       border-top: 1px solid rgba(255,255,255,0.08);
@@ -179,6 +174,7 @@
       padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--orange); }
 
     /* ── HERO ────────────────────────────────────── */
     #hero {
@@ -198,7 +194,7 @@
     .hero-bg-img {
       position: absolute;
       inset: 0;
-      background-image: url('/images/taxi1.jpg');
+      background-image: url('images/taxi1.jpg');
       background-size: cover;
       background-position: center;
       opacity: 0;
@@ -797,12 +793,12 @@
     .footer-phone-big:hover { opacity: 0.8; }
     .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
     .footer-links a {
-      color: var(--gray);
+      color: var(--orange);
       text-decoration: none;
       font-size: 0.88rem;
       transition: color var(--transition);
     }
-    .footer-links a:hover { color: var(--white); }
+    .footer-links a:hover { color: var(--orange-light); }
     .footer-bottom {
       border-top: 1px solid rgba(255,255,255,0.06);
       padding-top: 24px;
@@ -815,6 +811,73 @@
     }
     .footer-bottom a { color: var(--gray); text-decoration: none; }
     .footer-bottom a:hover { color: var(--orange); }
+
+    /* ── STICKY CTA ──────────────────────────────── */
+    #sticky-cta {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(20,20,20,0.96);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 8px 8px 8px 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+      backdrop-filter: blur(16px);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), opacity 0.3s ease;
+      white-space: nowrap;
+    }
+    #sticky-cta.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    .sticky-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-light);
+      margin-right: 4px;
+    }
+    .sticky-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 10px 18px;
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .sticky-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .sticky-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .sticky-btn-wa {
+      background: #25D366;
+      color: #fff;
+    }
+    .sticky-btn-call {
+      background: var(--orange);
+      color: #fff;
+    }
+    .sticky-btn-form {
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .sticky-btn-form:hover { background: rgba(255,255,255,0.15); }
+    @media (max-width: 600px) {
+      #sticky-cta { padding: 6px; gap: 6px; bottom: 16px; }
+      .sticky-label { display: none; }
+      .sticky-btn { padding: 11px 14px; font-size: 0; gap: 0; }
+      .sticky-btn svg { width: 20px; height: 20px; }
+    }
 
     /* ── SCROLL ANIMATIONS ───────────────────────── */
     .reveal {
@@ -867,11 +930,28 @@
 </head>
 <body>
 
+<!-- ── STICKY CTA ────────────────────────────────────── -->
+<div id="sticky-cta" role="complementary" aria-label="Rychlý kontakt">
+  <span class="sticky-label">Objednat:</span>
+  <a href="https://wa.me/420725247365" target="_blank" rel="noopener" class="sticky-btn sticky-btn-wa" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.858L0 24l6.335-1.508A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.925 0-3.736-.516-5.295-1.416l-.38-.225-3.932.936.999-3.819-.247-.393A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+  <a href="tel:+420725247365" class="sticky-btn sticky-btn-call" aria-label="Zavolat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.42 1.27h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Zavolat
+  </a>
+  <a href="#contact" class="sticky-btn sticky-btn-form" aria-label="Formulář">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    Formulář
+  </a>
+</div>
+
 <!-- ── NAVIGATION ─────────────────────────────────────── -->
 <nav id="navbar">
   <div class="container nav-inner">
     <a href="#hero" class="nav-logo">
-      <img src="/images/logo.png" alt="Taxi-365" style="height:40px;width:auto;display:block;" />
+      <img src="images/logo.png" alt="Taxi-365" style="height:40px;width:auto;display:block;" />
     </a>
 
     <ul class="nav-links">
@@ -883,7 +963,6 @@
     </ul>
 
     <div class="nav-cta">
-      <a href="tel:+420725247365" class="nav-phone">+420 725 247 365</a>
       <a href="#contact" class="btn btn-primary" style="padding:10px 20px;font-size:.9rem;">Objednat</a>
     </div>
 
@@ -1438,7 +1517,7 @@
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand">
-        <img src="/images/logo.png" alt="Taxi-365" style="height:36px;width:auto;margin-bottom:4px;" />
+        <img src="images/logo.png" alt="Taxi-365" style="height:36px;width:auto;max-width:160px;object-fit:contain;margin-bottom:4px;" />
         <div class="footer-brand-sub">Spolehlivá taxi služba Praha 24/7</div>
       </div>
 
@@ -1464,6 +1543,12 @@
 </footer>
 
 <script>
+  // ── Sticky CTA ──────────────────────────────────────
+  const stickyCta = document.getElementById('sticky-cta');
+  window.addEventListener('scroll', () => {
+    stickyCta.classList.toggle('visible', window.scrollY > 300);
+  }, { passive: true });
+
   // ── NAV scroll ──────────────────────────────────────
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
@@ -1484,7 +1569,7 @@
   const heroBg = document.getElementById('heroBgImg');
   const img = new Image();
   img.onload = () => heroBg.classList.add('loaded');
-  img.src = '/images/taxi1.jpg';
+  img.src = 'images/taxi1.jpg';
 
   // ── FAQ accordion ───────────────────────────────────
   document.querySelectorAll('.faq-question').forEach(q => {
