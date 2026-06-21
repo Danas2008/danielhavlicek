@@ -563,6 +563,125 @@
     .pricing-custom-text h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
     .pricing-custom-text p { color: var(--gray-light); font-size: 0.9rem; }
 
+    /* ── REVIEWS CAROUSEL ────────────────────────── */
+    .reviews-carousel-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .reviews-viewport {
+      overflow: hidden;
+      flex: 1;
+    }
+    .reviews-carousel {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.4s ease;
+      will-change: transform;
+    }
+    .review-card {
+      flex: 0 0 calc((100% - 20px) / 2);
+    }
+    .rcr-btn {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: var(--dark-card);
+      color: var(--white);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .rcr-btn:hover { background: var(--orange); border-color: var(--orange); }
+    .rcr-btn:disabled { opacity: 0.25; cursor: default; }
+    .rcr-btn svg { width: 18px; height: 18px; }
+    .rcr-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .rcr-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .rcr-dot.active { background: var(--orange); transform: scale(1.25); }
+    @media (max-width: 560px) {
+      .review-card { flex: 0 0 100%; }
+      .rcr-btn { width: 36px; height: 36px; }
+    }
+
+    .review-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .review-card:hover {
+      border-color: rgba(255,122,0,0.3);
+      transform: translateY(-3px);
+    }
+    .review-stars {
+      display: flex;
+      gap: 3px;
+    }
+    .review-stars svg {
+      width: 16px; height: 16px;
+      fill: #FF7A00;
+      stroke: none;
+    }
+    .review-text {
+      font-size: 0.92rem;
+      color: var(--gray-light);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .review-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(255,122,0,0.15);
+      border: 1px solid rgba(255,122,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+    .review-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .review-meta {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-top: 2px;
+    }
+    @media (max-width: 1024px) {
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── PRICING TABS ───────────────────────────── */
     .pricing-tabs-nav {
       display: flex;
@@ -1631,12 +1750,12 @@
 <!-- ── FAQ ────────────────────────────────────────────── -->
 <section id="faq" class="section">
   <div class="container">
-    <div class="faq-header">
+    <div class="faq-header" style="text-align:center;">
       <div class="section-label">Časté otázky</div>
       <h2 class="section-title">Máte otázky? Máme odpovědi.</h2>
     </div>
 
-    <div class="faq-list">
+    <div class="faq-list" style="margin:0 auto;">
 
       <div class="faq-item">
         <div class="faq-question">
@@ -1702,14 +1821,94 @@
   </div>
 </section>
 
+<!-- ── REVIEWS ────────────────────────────────────────── -->
+<section id="reviews" class="section" style="background:var(--dark-2);">
+  <div class="container">
+    <div class="section-label">Recenze zákazníků</div>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:48px;">
+      <div>
+        <h2 class="section-title" style="margin-bottom:8px;">Co říkají naši zákazníci</h2>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div style="display:flex;gap:3px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF7A00" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF7A00" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF7A00" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF7A00" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#FF7A00" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <span style="font-size:0.95rem;font-weight:700;">5,0</span>
+          <span style="font-size:0.88rem;color:var(--gray);">· 7 recenzí na Google</span>
+        </div>
+      </div>
+      <a href="https://www.google.com/maps/place/Taxi-365.cz/@49.8037638,15.4749126,751390m/data=!3m2!1e3!4b1!4m6!3m5!1s0x6c6a457ced75c93d:0xe9497001686513c4" target="_blank" rel="noopener" class="btn btn-outline" style="gap:8px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Všechny recenze na Google
+      </a>
+    </div>
+
+    <!-- Carousel -->
+    <div class="reviews-carousel-wrap">
+      <button class="rcr-btn rcr-prev" id="rcrPrev" aria-label="Předchozí">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="reviews-viewport">
+        <div class="reviews-carousel" id="reviewsCarousel">
+          <!-- Seřazeno od nejdelší recenze -->
+          <div class="review-card">
+            <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <p class="review-text">Při včerejší návštěvě Restaurant Papilio ve Vysokém Újezdě jsme využili služby TAXI-365.cz. Profesionální služby řidiče, včetně připraveného občerstvení, přesného příjezdu i odjezdu. Doporučuji právě pro takové příležitosti a nejen pro ně.</p>
+            <div class="review-author"><div class="review-avatar">AP</div><div><div class="review-name">Andrea Petráková</div><div class="review-meta">před 3 měsíci · Google</div></div></div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <p class="review-text">Taxi 365 je sázka na jistotu — vždy včas, čisté auto a příjemná atmosféra při každé jízdě. Bezproblémová domluva i na poslední chvíli. Ráda využiji znovu.</p>
+            <div class="review-author"><div class="review-avatar">MR</div><div><div class="review-name">Martina Roubíčková</div><div class="review-meta">před 2 měsíci · Google</div></div></div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <p class="review-text">Pohodový, profesionální a usměvavý taxikář 👌 který vás kamkoliv odveze dle vašeho přání. 😉</p>
+            <div class="review-author"><div class="review-avatar">JV</div><div><div class="review-name">Jan Vlach</div><div class="review-meta">před 2 měsíci · Místní průvodce · Google</div></div></div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <p class="review-text">Díky za rychlý a bezpečný odvoz. Oceňuji příjemné vystupování i čistotu ve voze.</p>
+            <div class="review-author"><div class="review-avatar">PL</div><div><div class="review-name">Pavel Lavo</div><div class="review-meta">před 3 měsíci · Google</div></div></div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <p class="review-text">Naprostá spokojenost… doporučuji 😁😉</p>
+            <div class="review-author"><div class="review-avatar">ZK</div><div><div class="review-name">Zdenicka Koštova</div><div class="review-meta">před 2 měsíci · Místní průvodce · Google</div></div></div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <p class="review-text">Spolehlivost, ochota 👍</p>
+            <div class="review-author"><div class="review-avatar">LH</div><div><div class="review-name">Lukáš Hausner</div><div class="review-meta">před 2 měsíci · Google</div></div></div>
+          </div>
+          <div class="review-card">
+            <div class="review-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <p class="review-text">Prvotřídní služba. Mohu pouze doporučit!</p>
+            <div class="review-author"><div class="review-avatar">PI</div><div><div class="review-name">pidzej23</div><div class="review-meta">před 2 měsíci · Google</div></div></div>
+          </div>
+        </div>
+      </div>
+      <button class="rcr-btn rcr-next" id="rcrNext" aria-label="Další">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <!-- Dots -->
+    <div class="rcr-dots" id="rcrDots"></div>
+  </div>
+</section>
+
 <!-- ── EXPERIENCE ─────────────────────────────────────── -->
-<section id="experience" style="position:relative;min-height:520px;display:flex;align-items:center;overflow:hidden;">
+<section id="experience" style="position:relative;min-height:520px;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;">
   <div style="position:absolute;inset:0;background-image:url('images/taxi5.jpg');background-size:cover;background-position:center;z-index:0;"></div>
-  <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.82) 40%,rgba(0,0,0,0.35) 100%);z-index:1;"></div>
-  <div class="container" style="position:relative;z-index:2;padding-top:80px;padding-bottom:80px;">
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,0.58);z-index:1;"></div>
+  <div class="container" style="position:relative;z-index:2;padding-top:80px;padding-bottom:80px;display:flex;flex-direction:column;align-items:center;">
     <div class="section-label">Speciální zážitek s Taxi-365</div>
-    <h2 class="section-title" style="max-width:520px;margin-bottom:16px;">Vyhlídkové jízdy</h2>
-    <p style="font-size:1.1rem;color:var(--gray-light);max-width:440px;margin-bottom:36px;">Zažijte jízdu s výhledem jako nikdy předtím.</p>
+    <h2 class="section-title" style="margin-bottom:16px;">Vyhlídkové jízdy</h2>
+    <p style="font-size:1.1rem;color:var(--gray-light);max-width:480px;margin-bottom:36px;">Zažijte jízdu s výhledem jako nikdy předtím.</p>
     <a href="#" class="btn btn-primary btn-lg">Náhled</a>
   </div>
 </section>
@@ -1858,6 +2057,54 @@
 </footer>
 
 <script>
+  // ── Reviews carousel ────────────────────────────────
+  (function() {
+    const track = document.getElementById('reviewsCarousel');
+    const cards = Array.from(track.querySelectorAll('.review-card'));
+    const dotsWrap = document.getElementById('rcrDots');
+    const btnPrev = document.getElementById('rcrPrev');
+    const btnNext = document.getElementById('rcrNext');
+    let current = 0;
+
+    function perView() { return window.innerWidth <= 560 ? 1 : 2; }
+    function maxIndex() { return Math.max(0, cards.length - perView()); }
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i <= maxIndex(); i++) {
+        const d = document.createElement('button');
+        d.className = 'rcr-dot' + (i === current ? ' active' : '');
+        d.setAttribute('aria-label', 'Stránka ' + (i + 1));
+        d.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(d);
+      }
+    }
+
+    function goTo(idx) {
+      current = Math.max(0, Math.min(idx, maxIndex()));
+      const gap = 20;
+      const cardW = cards[0].offsetWidth + gap;
+      track.style.transform = 'translateX(-' + (current * cardW) + 'px)';
+      btnPrev.disabled = current === 0;
+      btnNext.disabled = current >= maxIndex();
+      dotsWrap.querySelectorAll('.rcr-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    btnPrev.addEventListener('click', () => goTo(current - 1));
+    btnNext.addEventListener('click', () => goTo(current + 1));
+
+    let startX = 0;
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+    });
+
+    buildDots();
+    goTo(0);
+    window.addEventListener('resize', () => { buildDots(); goTo(Math.min(current, maxIndex())); });
+  })();
+
   // ── Pricing tabs ────────────────────────────────────
   document.querySelectorAll('.ptab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
