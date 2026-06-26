@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "PowerShell(Set-Location \"C:\\\\Users\\\\Home\\\\Desktop\\\\Personal web\\\\danielhavlicek\"; powershell -ExecutionPolicy Bypass -File \".\\\\generate-icons.ps1\")",
-      "WebFetch(domain:fonts.googleapis.com)"
+      "WebFetch(domain:fonts.googleapis.com)",
+      "Bash(mkdir \"c:/Users/Home/Desktop/Personal web/danielhavlicek/taxi\")",
+      "Bash(mkdir \"c:/Users/Home/Desktop/Personal web/danielhavlicek/taxi/images\")"
     ]
   }
 }
