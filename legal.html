@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ochrana soukromí, cookies a impressum — Daniel Havlíček, tvorba webů Praha.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://danielhavlicek.cz/legal.html">
+  <meta name="theme-color" content="#1e4080">
+  <title>Právní informace — Daniel Havlíček</title>
+  <link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/plus-jakarta-sans-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <style>
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;src:url('/fonts/plus-jakarta-sans-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+    @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;src:url('/fonts/plus-jakarta-sans-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    :root{--bg:#ffffff;--surface:#f4f6fb;--surface-2:#edf0f8;--text:#191c24;--text-muted:#5c6478;--accent:#1e4080;--accent-dark:#162f60;--accent-lite:#e6ecf8;--border:#dde2ee;--radius:14px;--radius-sm:9px;--font:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;--max-w:720px;--hdr-h:66px;--ease:0.22s ease}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr-h) + 24px)}
+    body{font-family:var(--font);font-size:1rem;line-height:1.72;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    h1,h2,h3{line-height:1.2;font-weight:700;letter-spacing:-0.025em;color:var(--text)}
+    a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+    a:hover{color:var(--accent-dark)}
+    ul{list-style:none}
+    .container{width:min(var(--max-w),100% - 2.5rem);margin-inline:auto}
+    :focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+    /* Header */
+    .header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border);height:var(--hdr-h)}
+    .header-inner{display:flex;align-items:center;height:100%}
+    .logo{display:flex;align-items:center;gap:0.55rem;text-decoration:none}
+    .logo-icon{width:32px;height:32px;flex-shrink:0;border-radius:7px}
+    .logo-name{font-size:1rem;font-weight:700;color:var(--text);letter-spacing:-0.01em}
+
+    /* Page content */
+    .legal-page{padding-block:72px 96px}
+    .legal-eyebrow{font-size:0.72rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;color:var(--accent);margin-bottom:0.7rem;display:flex;align-items:center;gap:6px}
+    .legal-eyebrow::before{content:'';display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%}
+    .legal-page h1{font-size:clamp(1.8rem,4vw,2.4rem);margin-bottom:0.5rem}
+    .legal-updated{font-size:0.82rem;color:var(--text-muted);margin-bottom:3rem}
+
+    /* TOC */
+    .legal-toc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem 1.75rem;margin-bottom:3rem}
+    .legal-toc p{font-size:0.8rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.75rem}
+    .legal-toc ol{list-style:decimal;padding-left:1.25rem;display:flex;flex-direction:column;gap:0.35rem}
+    .legal-toc li{font-size:0.92rem}
+    .legal-toc a{color:var(--accent);font-weight:500}
+
+    /* Sections */
+    .legal-section{margin-bottom:3.25rem;padding-bottom:3.25rem;border-bottom:1px solid var(--border)}
+    .legal-section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+    .legal-section h2{font-size:1.35rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:0.65rem}
+    .legal-section h2 .sec-num{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;color:var(--accent);background:var(--accent-lite);padding:0.18rem 0.55rem;border-radius:4px;flex-shrink:0}
+    .legal-section h3{font-size:1rem;font-weight:700;margin:1.5rem 0 0.5rem;color:var(--text)}
+    .legal-section p{color:var(--text-muted);font-size:0.95rem;margin-bottom:0.9rem}
+    .legal-section p:last-child{margin-bottom:0}
+    .legal-section ul{display:flex;flex-direction:column;gap:0.45rem;margin-bottom:0.9rem}
+    .legal-section ul li{font-size:0.95rem;color:var(--text-muted);padding-left:1.4rem;position:relative;line-height:1.6}
+    .legal-section ul li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:0.85rem;font-weight:600}
+    .legal-section a{color:var(--accent);word-break:break-all}
+
+    /* Highlight box */
+    .info-box{background:var(--accent-lite);border-left:3px solid var(--accent);border-radius:var(--radius-sm);padding:1rem 1.25rem;font-size:0.9rem;color:var(--text-muted);margin-bottom:1rem}
+
+    /* Footer */
+    .footer{padding-block:1.75rem;border-top:1px solid var(--border)}
+    .footer-inner{display:flex;align-items:center;gap:1rem 1.5rem;flex-wrap:wrap}
+    .footer-name{font-weight:700;font-size:0.88rem}
+    .footer-copy{font-size:0.78rem;color:var(--text-muted);margin-right:auto}
+    .footer-link{font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color var(--ease)}
+    .footer-link:hover{color:var(--text)}
+    .footer-github{color:var(--text-muted);display:flex;transition:color var(--ease)}
+    .footer-github:hover,.footer-github:focus-visible{color:var(--text)}
+
+    @media(max-width:400px){.container{width:calc(100% - 2rem)}}
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner container">
+      <a href="/" class="logo" aria-label="Daniel Havlíček – zpět na hlavní stránku">
+        <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+          <rect width="40" height="40" rx="9" fill="#1e4080"/>
+          <text x="50%" y="52%"
+            font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif"
+            font-size="16.5" font-weight="700"
+            fill="#ffffff" text-anchor="middle"
+            dominant-baseline="central" letter-spacing="-0.4">DH</text>
+        </svg>
+        <span class="logo-name">Daniel Havlíček</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="legal-page">
+      <div class="container">
+
+        <p class="legal-eyebrow">Právní informace</p>
+        <h1>Ochrana soukromí, cookies&nbsp;&amp; impressum</h1>
+        <p class="legal-updated">Poslední aktualizace: červen 2026</p>
+
+        <nav class="legal-toc" aria-label="Obsah">
+          <p>Obsah</p>
+          <ol>
+            <li><a href="#soukromi">Ochrana soukromí (Privacy Policy)</a></li>
+            <li><a href="#cookies">Cookies</a></li>
+            <li><a href="#impressum">Impressum</a></li>
+          </ol>
+        </nav>
+
+        <!-- 1. PRIVACY POLICY -->
+        <section class="legal-section" id="soukromi" aria-labelledby="soukromi-h">
+          <h2 id="soukromi-h"><span class="sec-num">01</span> Ochrana soukromí</h2>
+
+          <p>Tento dokument popisuje, jaké údaje web <strong>danielhavlicek.cz</strong> zpracovává a proč. Provozovatel webu je fyzická osoba Daniel Havlíček a přistupuji k soukromí návštěvníků zodpovědně — sbírám jen to, co skutečně potřebuji.</p>
+
+          <h3>Správce údajů</h3>
+          <p>
+            Daniel Havlíček<br>
+            Praha, Česká republika<br>
+            <a href="mailto:daniel.havlicek1@seznam.cz">daniel.havlicek1@seznam.cz</a>
+          </p>
+
+          <h3>Jaké údaje web sbírá</h3>
+          <p>Web <strong>neobsahuje registrace, přihlašování ani uživatelské účty</strong>. Osobní údaje přes formuláře sbírám pouze v kontaktním formuláři:</p>
+          <ul>
+            <li>Jméno a e-mail nebo telefon — pro odpověď na vaši zprávu</li>
+            <li>Obsah zprávy — jen to, co sami napíšete</li>
+          </ul>
+          <p>Formulář odesílá data přes službu <strong>Formspree</strong> (Formspree Inc., USA). Formspree má svou vlastní politiku ochrany soukromí dostupnou na jejich webu.</p>
+
+          <h3>Technické záznamy (server logy)</h3>
+          <p>Cloudflare Pages jako hostingová platforma může automaticky zaznamenávat základní technické informace: IP adresu, typ prohlížeče, navštívenou URL a čas přístupu. Tyto záznamy slouží výhradně k zajištění bezpečnosti a funkčnosti webu a nejsou propojeny s vaší identitou.</p>
+
+          <h3>Přenos dat mimo EU</h3>
+          <div class="info-box">
+            Web je hostován na platformě <strong>Cloudflare Pages</strong> (Cloudflare Inc., USA). Data mohou být zpracovávána na serverech mimo Evropský hospodářský prostor. Cloudflare zajišťuje odpovídající úroveň ochrany v souladu s GDPR.
+          </div>
+
+          <h3>Vaše práva</h3>
+          <p>Podle GDPR máte právo na přístup, opravu nebo výmaz svých osobních údajů. Stačí mě kontaktovat na <a href="mailto:daniel.havlicek1@seznam.cz">daniel.havlicek1@seznam.cz</a>. Máte také právo podat stížnost u Úřadu pro ochranu osobních údajů (<a href="https://www.uoou.cz" target="_blank" rel="noopener noreferrer">uoou.cz</a>).</p>
+        </section>
+
+        <!-- 2. COOKIES -->
+        <section class="legal-section" id="cookies" aria-labelledby="cookies-h">
+          <h2 id="cookies-h"><span class="sec-num">02</span> Cookies</h2>
+
+          <p>Tento web cookies <strong>aktivně nepoužívá</strong> k analytice ani marketingu. Jedinou výjimkou mohou být technické cookies nezbytné pro fungování webu nebo třetích stran (viz níže).</p>
+
+          <h3>Technické cookies</h3>
+          <ul>
+            <li><strong>Formspree</strong> — při odeslání kontaktního formuláře může Formspree nastavit session cookie nezbytnou pro zpracování odeslaného formuláře.</li>
+            <li><strong>Cloudflare</strong> — hostingová platforma může nastavit bezpečnostní cookie (<code>__cf_bm</code>) k ochraně před automatizovanými útoky.</li>
+          </ul>
+
+          <p>Tyto cookies nejsou marketingové, nevyžadují váš souhlas a jsou smazány po skončení relace nebo v krátkém čase.</p>
+
+          <h3>Jak cookies vypnout</h3>
+          <p>Cookies můžete spravovat nebo smazat přímo v nastavení svého prohlížeče. Upozorňujeme, že blokování technických cookies může narušit odeslání kontaktního formuláře.</p>
+        </section>
+
+        <!-- 3. IMPRESSUM -->
+        <section class="legal-section" id="impressum" aria-labelledby="impressum-h">
+          <h2 id="impressum-h"><span class="sec-num">03</span> Impressum</h2>
+
+          <p>Provozovatel webu danielhavlicek.cz:</p>
+
+          <ul>
+            <li><strong>Jméno:</strong> Daniel Havlíček</li>
+            <li><strong>Sídlo:</strong> Praha, Česká republika</li>
+            <li><strong>Typ subjektu:</strong> Fyzická osoba, nepodnikatel (bez IČO)</li>
+            <li><strong>Kontakt:</strong> <a href="mailto:daniel.havlicek1@seznam.cz">daniel.havlicek1@seznam.cz</a></li>
+          </ul>
+
+          <p style="margin-top: 1.25rem;">Web slouží jako osobní prezentace a portfolio. Není provozován za účelem podnikání.</p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-name">Daniel Havlíček</span>
+      <span class="footer-copy">© 2026 Všechna práva vyhrazena</span>
+      <a href="/" class="footer-link">Zpět na hlavní stránku</a>
+      <a href="https://github.com/Danas2008" target="_blank" rel="noopener noreferrer" class="footer-github" aria-label="GitHub profil">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+      </a>
+      <a href="https://www.instagram.com/daniel.havlicek1/" target="_blank" rel="noopener noreferrer" class="footer-github" aria-label="Instagram profil">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
