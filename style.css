@@ -901,6 +901,19 @@ img {
   margin-right: auto;
 }
 
+.footer-legal {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--ease);
+}
+
+.footer-legal:hover,
+.footer-legal:focus-visible {
+  color: var(--text);
+}
+
 .footer-github {
   color: var(--text-muted);
   display: flex;

@@ -62,7 +62,7 @@ const i18n = {
     'contact.form.submit':  'Odeslat zprávu',
     'contact.form.success': 'Zpráva odeslána! Ozvu se co nejdříve.',
 
-    'footer.copy': '© 2025 Všechna práva vyhrazena',
+    'footer.copy': '© 2026 Všechna práva vyhrazena',
   },
 
   en: {
@@ -125,7 +125,7 @@ const i18n = {
     'contact.form.submit':  'Send message',
     'contact.form.success': 'Message sent! I\'ll get back to you as soon as possible.',
 
-    'footer.copy': '© 2025 All rights reserved',
+    'footer.copy': '© 2026 All rights reserved',
   }
 };
 
