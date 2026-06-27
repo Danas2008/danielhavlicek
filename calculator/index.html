@@ -7,7 +7,7 @@
   <meta name="author" content="Daniel Havlíček">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://danielhavlicek.cz/calculator/">
-  <meta name="theme-color" content="#1e4080">
+  <meta name="theme-color" content="#0a0a0f">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://danielhavlicek.cz/calculator/">
   <meta property="og:title" content="Kalkulačka ceny webu — Daniel Havlíček">
@@ -791,6 +791,55 @@
     .inquiry-success .form-success-icon {
       margin: 0 auto 0.75rem;
     }
+
+    /* ==============================================
+       DARK THEME ADJUSTMENTS (2026 redesign)
+       Overrides win by source order over the rules above.
+       ============================================== */
+    .calc-card, .price-card, .inquiry-modal { background: var(--surface-2); }
+
+    /* Brand blue is too dark to read as text on a dark bg → use bright accent */
+    .calc-card-title, .calc-card-count, .service-card-price, .base-price-val,
+    .price-card-title, .pl-val.new, .price-total-val, .price-cap-note,
+    .mobile-total, .inquiry-price-highlight,
+    .service-card.selected .service-card-name,
+    .feature-chip.selected .chip-name, .feature-chip.selected .chip-price,
+    .feature-chip.selected .chip-monthly,
+    .domain-opt.active, .domain-opt.active .domain-opt-sub,
+    .price-phone:hover { color: var(--accent-bright); }
+
+    .calc-card-title::before { background: var(--accent-bright); box-shadow: 0 0 8px var(--accent-bright); }
+    .price-card { border-color: var(--accent-bright); }
+    .mobile-bar { border-top-color: var(--accent-bright); box-shadow: 0 -6px 26px rgba(0, 0, 0, 0.5); }
+
+    /* CTAs — gradient + glow, replacing removed --accent-dark hover */
+    .price-cta { background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 6px 20px rgba(30, 64, 128, 0.35); }
+    .price-cta:hover, .price-cta:focus-visible { background: linear-gradient(135deg, var(--accent-2), var(--accent-bright)); box-shadow: 0 10px 28px rgba(46, 91, 184, 0.5); }
+    .coupon-btn:hover { background: var(--accent-2); }
+    .inquiry-close:hover { background: var(--surface-3); color: var(--text); }
+
+    /* Inset controls a touch darker than their surface-2 card */
+    .domain-opt, .coupon-input, .chip-check { background: var(--bg); }
+
+    /* Green "included / success" states → dark-friendly translucent */
+    .base-tag { color: #9fe6b0; background: rgba(46, 160, 67, 0.12); border-color: rgba(46, 160, 67, 0.4); }
+    .feature-chip.included { border-color: rgba(46, 160, 67, 0.45); background: rgba(46, 160, 67, 0.10); }
+    .feature-chip.included .chip-name, .feature-chip.included .chip-price,
+    .chip-monthly.free, .feature-chip.selected .chip-monthly.free,
+    .pl-val.incl, .coupon-msg.success { color: #7ee098; }
+    .coupon-msg.error { color: #f0856f; }
+    .coupon-input.valid { border-color: #4caf6a; }
+    .coupon-input.invalid { border-color: #f06d5a; }
+    .coupon-remove-btn:hover { background: rgba(192, 57, 43, 0.15); color: #f0856f; border-color: #f06d5a; }
+
+    /* Hero heading gradient to match the landing page */
+    .calc-hero h1 {
+      background: var(--grad-text);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
   </style>
 </head>
 <body>
@@ -1318,7 +1367,7 @@
       if (discountAmt > 0) {
         html += `<div class="price-line">
           <span class="pl-label">Sleva (${state.discountPct} %)</span>
-          <span class="pl-val" style="color:#2a7f2a;">−${discountAmt.toLocaleString('cs-CZ')} Kč</span>
+          <span class="pl-val" style="color:#7ee098;">−${discountAmt.toLocaleString('cs-CZ')} Kč</span>
         </div>`;
       }
 
