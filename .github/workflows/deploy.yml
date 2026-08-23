@@ -1,0 +1,39 @@
+name: Deploy Personal Web
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: 91.107.225.36
+          username: root
+          key: ${{ secrets.HETZNER_SSH_KEY }}
+          script: |
+            cd /var/www/danielhavlicek
+            
+            # Pull latest changes
+            git pull origin main
+            
+            # If Python/Django needed (future proofing)
+            if [ -f "requirements.txt" ]; then
+              source venv/bin/activate
+              pip install -r requirements.txt
+              python manage.py migrate
+              python manage.py collectstatic --noinput
+              systemctl restart danielhavlicek
+            fi
+            
+            # Reload Nginx
+            nginx -t
+            systemctl reload nginx
+            
+            # Log deployment
+            echo "✅ Deployed $(date)" >> /var/log/deployments.log
