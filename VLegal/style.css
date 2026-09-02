@@ -188,17 +188,11 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
-.image-note {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  margin: 0;
-  padding: 8px 12px;
-  background: rgba(26, 35, 50, 0.88);
-  color: #fff;
-  font-size: 0.68rem;
+.hero .image-slot img {
+  object-position: 32% center;
 }
 
 .section,
@@ -324,25 +318,84 @@ blockquote footer {
 }
 
 .footer {
-  padding: 36px 0;
+  padding: 60px 0 0;
   background: #111925;
-  color: #d4d7d3;
+  color: #b7bcc4;
+  font-size: 0.85rem;
 }
 
-.footer strong {
+.footer h3 {
+  margin: 0 0 16px;
   color: #fff;
-  font: 500 1.25rem var(--serif);
+  font: 500 1.05rem var(--serif);
 }
 
-.footer p,
-.footer a {
-  margin: 5px 0 0;
-  font-size: 0.74rem;
+.footer-grid {
+  display: grid;
+  gap: 40px;
+  padding-bottom: 44px;
 }
 
-.footer a {
-  display: inline-block;
-  margin-top: 18px;
+.footer-col p {
+  margin: 0 0 6px;
+  line-height: 1.6;
+}
+
+.footer-list {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-list li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.footer-list span {
+  color: #7c828b;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.footer-list a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-list a:hover {
+  color: var(--wine);
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px 0;
+  border-top: 1px solid #263041;
+  font-size: 0.72rem;
+}
+
+.footer-bottom strong {
+  display: block;
+  color: #fff;
+  font: 500 1.1rem var(--serif);
+}
+
+.footer-bottom p {
+  margin: 4px 0 0;
+  color: #7c828b;
+}
+
+.footer-bottom a {
+  color: #b7bcc4;
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  color: #fff;
 }
 
 .reading {
@@ -399,6 +452,36 @@ blockquote footer {
   padding: 18px 20px;
   background: #f1ece8;
   border-left: 3px solid var(--wine);
+  color: var(--ink-soft);
+}
+
+.steps {
+  display: grid;
+  gap: 0;
+  margin-top: 42px;
+  border-top: 1px solid var(--ink);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr);
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.step span {
+  color: var(--wine);
+  font: 500 1.4rem var(--serif);
+}
+
+.step h3 {
+  margin: 0 0 8px;
+  font: 500 1.2rem var(--serif);
+}
+
+.step p {
+  margin: 0;
   color: var(--ink-soft);
 }
 
@@ -482,7 +565,6 @@ blockquote footer {
     margin: 2px 0 0;
   }
 
-  .footer .wrap,
   .cta .wrap {
     display: flex;
     align-items: end;
@@ -490,9 +572,18 @@ blockquote footer {
     gap: 30px;
   }
 
-  .cta .button,
-  .footer a {
+  .cta .button {
     margin-top: 0;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 
