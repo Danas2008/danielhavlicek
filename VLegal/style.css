@@ -433,6 +433,11 @@ blockquote footer span {
   color: #7c828b;
 }
 
+.footer-nav {
+  display: flex;
+  gap: 20px;
+}
+
 .footer-bottom a {
   color: #b7bcc4;
   text-decoration: none;
