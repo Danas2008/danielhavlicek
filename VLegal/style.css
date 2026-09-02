@@ -58,15 +58,14 @@ img {
 }
 
 .header .wrap {
+  position: relative;
   display: flex;
-  min-height: 108px;
+  min-height: 76px;
   align-items: center;
-  flex-wrap: wrap;
-  padding: 12px 0;
+  gap: 14px;
 }
 
 .brand {
-  width: 100%;
   color: var(--ink);
   line-height: 1.08;
   text-decoration: none;
@@ -74,7 +73,7 @@ img {
 
 .brand strong {
   display: block;
-  font: 500 1.25rem var(--serif);
+  font: 500 1.15rem var(--serif);
   letter-spacing: -0.04em;
 }
 
@@ -85,25 +84,35 @@ img {
 }
 
 .nav {
-  display: flex;
-  width: 100%;
-  gap: 17px;
-  overflow-x: auto;
-  padding-bottom: 2px;
-  scrollbar-width: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  padding: 6px 15px 18px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 16px 28px -18px rgba(26, 35, 50, 0.35);
 }
 
-.nav::-webkit-scrollbar {
-  display: none;
+.nav.is-open {
+  display: flex;
 }
 
 .nav a {
-  flex: 0 0 auto;
+  padding: 13px 2px;
+  border-bottom: 1px solid var(--line);
   color: var(--ink);
-  font-size: 0.73rem;
+  font-size: 0.88rem;
   font-weight: 700;
   text-decoration: none;
-  white-space: nowrap;
+}
+
+.nav a:last-child {
+  border-bottom: none;
 }
 
 .nav a:hover,
@@ -113,9 +122,9 @@ img {
 
 .header-cta {
   display: flex;
-  flex: 0 0 auto;
+  flex: none;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-left: auto;
 }
 
@@ -141,9 +150,46 @@ img {
 }
 
 .header-cta .button {
-  padding: 11px 18px;
-  font-size: 0.72rem;
+  padding: 11px 16px;
+  font-size: 0.7rem;
   white-space: nowrap;
+}
+
+.nav-toggle {
+  display: flex;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+  background: none;
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--ink);
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .page-title {
@@ -696,22 +742,37 @@ blockquote footer span {
 
 @media (min-width: 980px) {
   .header .wrap {
-    flex-wrap: nowrap;
     gap: 30px;
   }
 
   .nav {
+    position: static;
     display: flex;
     width: auto;
     align-items: center;
     gap: 17px;
+    padding: 0;
+    background: none;
+    border-bottom: none;
+    box-shadow: none;
+  }
+
+  .nav-toggle {
+    display: none;
   }
 
   .phone-pill {
     display: flex;
   }
 
+  .header-cta .button {
+    padding: 13px 19px;
+    font-size: 0.78rem;
+  }
+
   .nav a {
+    padding: 0;
+    border-bottom: none;
     font-size: 0.74rem;
     font-weight: 700;
     text-decoration: none;
