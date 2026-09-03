@@ -748,6 +748,7 @@ blockquote footer span {
   .nav {
     position: static;
     display: flex;
+    flex-direction: row;
     width: auto;
     align-items: center;
     gap: 17px;
