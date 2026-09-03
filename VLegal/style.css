@@ -532,6 +532,21 @@ blockquote footer span {
   padding-left: 20px;
 }
 
+.pub-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.pub-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
 .bio .image-slot {
   margin-bottom: 39px;
 }
