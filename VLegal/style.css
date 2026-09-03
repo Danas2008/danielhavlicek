@@ -597,8 +597,103 @@ blockquote footer span {
   color: var(--ink-soft);
 }
 
-.contact .image-slot {
-  margin-top: 40px;
+.contact-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.contact-card {
+  padding: 38px 32px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.contact-card > p {
+  margin: 14px 0 0;
+  color: var(--ink-soft);
+}
+
+.info-list {
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.info-list li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.info-icon {
+  display: flex;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  background: #f1ece8;
+}
+
+.info-icon svg {
+  width: 17px;
+  height: 17px;
+  stroke: var(--wine);
+}
+
+.info-list strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.info-list span,
+.info-list a {
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.info-list a:hover {
+  color: var(--wine);
+}
+
+.map-embed {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  background: #dfe1de;
+  border: 1px solid var(--line);
+}
+
+.map-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(0.2) contrast(1.05);
+}
+
+.form-card {
+  max-width: 780px;
+  margin-inline: auto;
+  padding: 44px 32px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+.form-card > p {
+  margin: 14px 0 0;
+  color: var(--ink-soft);
 }
 
 .contact-form {
@@ -684,8 +779,7 @@ blockquote footer span {
     padding: 78px 0;
   }
 
-  .about-preview,
-  .contact {
+  .about-preview {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8%;
@@ -696,8 +790,8 @@ blockquote footer span {
     margin-top: 0;
   }
 
-  .contact .image-slot {
-    margin-top: 0;
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .form-row {
@@ -842,7 +936,7 @@ blockquote footer span {
     margin-bottom: 0;
   }
 
-  .contact .image-slot {
-    min-height: 450px;
+  .map-embed {
+    min-height: 100%;
   }
 }
